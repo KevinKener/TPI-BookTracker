@@ -1,7 +1,7 @@
 import React from 'react'
 import { Form, Row, Col, FormLabel, FormControl, FormGroup, Button } from 'react-bootstrap'
 import { useState } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const Login = ({ setIsLogged }) => {
 

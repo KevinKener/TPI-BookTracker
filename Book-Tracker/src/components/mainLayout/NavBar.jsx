@@ -1,10 +1,13 @@
- import React from 'react';
+import React from 'react';
 import { Navbar, Container, Nav, Form, FormControl } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import UserMenu from '../userMenu/UserMenu';
 import SearchBar from '../searchBar/SearchBar';
 
 const NavBar = ({isLogged, setIsLogged, userName, books}) => {
+
+  const navigate = useNavigate();
+
   return (
     
     <Navbar bg="light" variant="light" expand="lg" className="mb-3"> 
@@ -26,9 +29,9 @@ const NavBar = ({isLogged, setIsLogged, userName, books}) => {
 
           
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#my-books">My Books</Nav.Link>
-            <Nav.Link href="#browse">Browse</Nav.Link>
+            <Nav.Link onClick={() => navigate('/')}>Home</Nav.Link>
+            <Nav.Link onClick={() => navigate('/my-books')}>My Books</Nav.Link>
+            <Nav.Link onClick={() => navigate('/browse')}>Browse</Nav.Link>
           </Nav>
 
           
