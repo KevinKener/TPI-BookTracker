@@ -2,6 +2,7 @@ import React from 'react'
 import { Card, CardHeader, ListGroup, ListGroupItem, Row, Col } from 'react-bootstrap'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import BookItem from '../bookItem/BookItem'
+import { StarFill } from 'react-bootstrap-icons'
 
 const BookList = ({books}) => {
 
@@ -35,25 +36,25 @@ const BookList = ({books}) => {
             <CardHeader>
               <Row>
                 <Col xs={1} className='list-item-header' >
-                  Cover
-                </Col>
-                <Col xs={4} className='list-item-header' >
-                  Title
+                  {/* espacio del cover */}
                 </Col>
                 <Col xs={3} className='list-item-header' >
-                  Author
+                  Titulo
+                </Col>
+                <Col xs={2} className='list-item-header' >
+                  Autor
+                </Col>
+                <Col xs={2} className='list-item-header' >
+                  Estado
                 </Col>
                 <Col xs={1} className='list-item-header' >
-                  Status
+                  <StarFill size={20} color='gold'/>
+                </Col>
+                <Col xs={2} className='list-item-header' >
+                  Págs
                 </Col>
                 <Col xs={1} className='list-item-header' >
-                  Rating
-                </Col>
-                <Col xs={1} className='list-item-header' >
-                  Páginas
-                </Col>
-                <Col xs={1} className='list-item-header' >
-                  #
+                  
                 </Col>
               </Row>
               </CardHeader>

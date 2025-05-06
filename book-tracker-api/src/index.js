@@ -16,7 +16,7 @@ try{
     app.use(bookRoutes);
     app.use(authorRoutes);
 
-    await sequelize.sync();
+    await sequelize.sync({alter: true});
     console.log(`Server is listening to port: ${PORT}`);
 } catch (error){
     console.log("There was an error on initilization");

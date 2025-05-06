@@ -13,13 +13,20 @@ export const Author = sequelize.define("author", {
     },
     birthplace: {
         type: DataTypes.STRING,
+        allowNull: true,
     },
     genres: {
         type: DataTypes.ENUM('fantasy', 'fiction', 'romance', 'horror', 'romance', 'mystery'),
+        allowNull: true,
     },
     imageUrl: {
         type: DataTypes.STRING,
+        allowNull: true,
     },
+    summary: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    }
 },
     {
         timestamps: false,

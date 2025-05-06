@@ -26,7 +26,7 @@ export const createBook = async (req, res) => {
         return res.status(400).send({message: "Los libros requieren titulo y autor"});
     }
 
-    const book = await Book.create({
+    const newBook = await Book.create({
         title, 
         authorId, 
         pages, 
@@ -35,7 +35,7 @@ export const createBook = async (req, res) => {
         imageUrl
     })
 
-    res.json(book);
+    res.json(newBook);
 }
 
 export const updateBook = async (req, res) => {

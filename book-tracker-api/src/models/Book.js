@@ -24,7 +24,9 @@ export const Book = sequelize.define("book", {
     summary: {
         type: DataTypes.STRING,
     },
-    imageUrl: DataTypes.STRING,
+    imageUrl: {
+        type: DataTypes.STRING
+    },
 }, {
     timestamps: false,
 })
