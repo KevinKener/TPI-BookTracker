@@ -16,7 +16,8 @@ export const Author = sequelize.define("author", {
         allowNull: true,
     },
     genres: {
-        type: DataTypes.ENUM('fantasy', 'fiction', 'romance', 'horror', 'romance', 'mystery'),
+        // GENERAR TABLA GENEROS
+        type: DataTypes.ENUM('fantasy', 'fiction', 'romance', 'horror', 'mystery'),
         allowNull: true,
     },
     imageUrl: {

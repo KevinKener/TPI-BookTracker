@@ -1,4 +1,4 @@
-import { Author } from '../models/Author.js'
+import { Author } from '../models/index.js'
 
 export const findAuthors = async (req,res) => {
     const authors = await Author.findAll();
@@ -21,7 +21,7 @@ export const createAuthor = async (req,res) => {
     const { authorName, birthplace, genres, imageUrl, summary } = req.body;
 
     if(!authorName){
-        return res.status(400).send({message: "El autor requiere de nombre"});
+        return res.status(400).send({ message: "El autor requiere de nombre" });
     }
 
     const newAuthor = await Author.create({
