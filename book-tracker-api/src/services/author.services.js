@@ -18,7 +18,7 @@ export const findAuthor = async (req,res) => {
 }
 
 export const createAuthor = async (req,res) => {
-    const { authorName, birthplace, genres, imageUrl, summary } = req.body;
+    const { authorName, birthplace, imageUrl, summary } = req.body;
 
     if(!authorName){
         return res.status(400).send({ message: "El autor requiere de nombre" });
@@ -27,7 +27,6 @@ export const createAuthor = async (req,res) => {
     const newAuthor = await Author.create({
         authorName, 
         birthplace, 
-        genres, 
         imageUrl,
         summary
     });
@@ -37,7 +36,7 @@ export const createAuthor = async (req,res) => {
 
 export const updateAuthor = async (req,res) => {
     const { id } = req.params;
-    const { authorName, birthplace, genres, imageUrl, summary } = req.body;
+    const { authorName, birthplace, imageUrl, summary } = req.body;
 
     const author = await Author.findByPk(id);
 
@@ -48,7 +47,6 @@ export const updateAuthor = async (req,res) => {
     await author.update({
         authorName, 
         birthplace, 
-        genres, 
         imageUrl, 
         summary
     }, {

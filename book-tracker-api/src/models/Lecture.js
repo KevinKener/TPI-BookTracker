@@ -12,21 +12,12 @@ export const Lecture = sequelize.define("lecture", {
     userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        // references: {
-        //     model: User,
-        //     key: "id"
-        // }
+        references: {
+            model: User,
+            key: "id"
+        }
     },
-    // COMENTAR bookId PARA PROBAR RELACION USER LECTURE
     // COMENTAR userId PARA PROBAR RELACION BOOK LECTURE
-    bookId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        // references: {
-        //     model: Book,
-        //     key: "id"
-        // }
-    },
     rating: {
         type: DataTypes.INTEGER,
     },

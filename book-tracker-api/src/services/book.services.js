@@ -40,9 +40,13 @@ export const createBook = async (req, res) => {
     
     // BUSCAR GENEROS POR ID
     for (const id of genres){
-        const [genre] = await Genre.findAll({ where: { id } });
+        const [genre] = await Genre.findAll({ 
+            where: { 
+                id 
+            } 
+        });
         // LOS AGREGA A LA LISTA INICIALIZADA
-        genreInstances.push((genre));
+        genreInstances.push(genre);
     }
 
     // ASOCIA LOS GENEROS AL LIBRO

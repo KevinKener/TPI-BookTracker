@@ -15,13 +15,17 @@ User.hasOne(Lecture, {foreignKey: "userId"});
 Lecture.belongsTo(User, {foreignKey: "userId"});
 
 // LIBROS PUEDEN ESTAR EN VARIAS LISTAS
-Lecture.belongsToMany(Book, { through: "LectureBook" });
-Book.belongsToMany(Lecture, { through: "LectureBook" });
+Lecture.belongsToMany(Book, { through: "LectureBook", timestamps: false });
+Book.belongsToMany(Lecture, { through: "LectureBook", timestamps: false });
 
 // N:N
 // LIBROS Y GENEROS
 Book.belongsToMany(Genre, { through: "BookGenres", timestamps: false });
 Genre.belongsToMany(Book, { through: "BookGenres", timestamps: false });
+
+// AUTORES Y GENEROS
+Author.belongsToMany(Genre, { through: "AuthorGenres", timestamps: false });
+Genre.belongsToMany(Author, { through: "AuthorGenres", timestamps: false });
 
 
 export { Author, Book, User, Lecture, Genre }

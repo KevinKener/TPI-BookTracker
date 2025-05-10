@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken";
-import { User } from "../models/User.js";
+import { User } from "../models/index.js";
 import { validateEmail, validatePassword, validateString } from "../helpers/validations.js";
 
 const validateUserRegister = (req) => {
@@ -13,7 +13,7 @@ const validateUserRegister = (req) => {
     const { username, email, password } = req.body;
 
     // nombre de usuario, minimo, maximo
-    if(!username || !validateString(username, 3, null)){
+    if(!username || !validateString(username, 3, 12)){
         result.error = true,
         result.message = "El nombre ingresado no es válido."
     }
@@ -29,6 +29,8 @@ const validateUserRegister = (req) => {
         result.error = true,
         result.message = "La contraseña ingresada no es válido."
     }
+
+    return result;
 }
 
 
@@ -52,6 +54,8 @@ const validateUserLogin = (req) => {
         result.error = true,
         result.message = "La contraseña ingresada no es válido."
     }
+
+    return result;
 }
 
 
@@ -61,7 +65,7 @@ export const registerUser = async (req, res) => {
     const result = validateUserRegister(req);
     
     if(result.error){
-        res.status(400).send({ message: result.message });
+        return res.status(400).send({ message: result.message });
     }
 
     const { username, email, password } = req.body;
