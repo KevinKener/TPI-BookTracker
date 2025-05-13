@@ -84,8 +84,10 @@ export const updateBook = async (req, res) => {
         } 
     })
 
+    // AÑADE GENEROS DENTRO DE LISTA VACIA
     await book.setGenres([]);
 
+    // PUSHEA LOS GENEROS DENTRO DEL LIBRO
     await book.addGenres(genreInstances);
 
     const updatedGenres = await book.getGenres();

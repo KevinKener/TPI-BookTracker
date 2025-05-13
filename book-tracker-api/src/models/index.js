@@ -5,18 +5,20 @@ import { Lecture } from "./Lecture.js";
 import { Genre } from "./Genre.js";
 
 
+// LECTURAS ==> LIBROS QUE EL USUARIO AGREGA A SU LISTA CON DETALLES PERSONALES (STATUS, RATING, ETC)
+
 // Relaciones 1:N
 // AUTORES TIENEN LIBROS
-Author.hasMany(Book, {foreignKey: "authorId"});
-Book.belongsTo(Author, {foreignKey: "authorId"});
+Author.hasMany(Book, { foreignKey: "authorId" });
+Book.belongsTo(Author, { foreignKey: "authorId" });
 
-// USUARIOS TIENEN LISTAS
-User.hasOne(Lecture, {foreignKey: "userId"});
-Lecture.belongsTo(User, {foreignKey: "userId"});
+// USUARIOS TIENEN LECTURAS
+User.hasMany(Lecture, { foreignKey: "userId" });
+Lecture.belongsTo(User, { foreignKey: "userId" });
 
-// LIBROS PUEDEN ESTAR EN VARIAS LISTAS
-Lecture.belongsToMany(Book, { through: "LectureBook", timestamps: false });
-Book.belongsToMany(Lecture, { through: "LectureBook", timestamps: false });
+// EN CADA LECTURA, APARECE UN LIBRO
+Book.hasMany(Lecture, { foreignKey: "bookId" });
+Lecture.belongsTo(Book, { foreignKey: "bookId" });
 
 // N:N
 // LIBROS Y GENEROS

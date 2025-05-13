@@ -2,6 +2,8 @@ import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken";
 import { User } from "../models/index.js";
 import { validateEmail, validatePassword, validateString } from "../helpers/validations.js";
+// IMPORTAR SERVICIOS DE LECTURE
+
 
 const validateUserRegister = (req) => {
 
@@ -98,6 +100,12 @@ export const registerUser = async (req, res) => {
         email: email,
         password: hashedPassword
     });
+
+
+    // LUEGO DE LA CREACION, PASAR ID.USER PARA LECTURE.CREATE
+    // LLAMAR LA CREACION DE LA LISTA
+
+
 
     res.json(newUser.id);
 }

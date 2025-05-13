@@ -17,7 +17,14 @@ export const Lecture = sequelize.define("lecture", {
             key: "id"
         }
     },
-    // COMENTAR userId PARA PROBAR RELACION BOOK LECTURE
+    bookId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: Book,
+            key: "id"
+        }
+    },
     rating: {
         type: DataTypes.INTEGER,
     },
