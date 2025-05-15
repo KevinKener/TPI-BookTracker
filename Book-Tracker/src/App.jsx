@@ -10,6 +10,8 @@ import Protected from './components/protected/Protected'
 import Login from './components/login/Login'
 import Home from './components/home/Home'
 import NewBook from './components/newBook/NewBook'
+import Profile from './components/profile/Profile'
+import Users from './components/data/Users'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -17,6 +19,7 @@ function App() {
   const [bookList, setBookList] = useState(books);
   const [isLogged, setIsLogged] = useState(false);
   const [userName, setUserName] = useState('Anaklusmos');
+  const [users, setUsers] = useState(Users);
   return (
     <BrowserRouter>
       <div className='app-container'>
@@ -53,6 +56,10 @@ function App() {
 
             {/* AÑADIR NUEVO LIBRO */}
             <Route path='new-book' element={<NewBook />} />
+
+            {/* PERFIL DEL USUARIO */}
+            <Route path='profile/:id' element={<Profile users={users} setUsers={setUsers}/>} />
+          
           </Route>
         </Routes>
       </div>
