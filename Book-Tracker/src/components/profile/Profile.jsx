@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import StaticsCard from '../../staticsCard/StaticsCard';
+import StaticsCard from '../staticsCard/StaticsCard';
 import styles from './Profile.module.css';
-import EditProfile from '../../editProfile/EditProfile';
+import EditProfile from '../editProfile/EditProfile';
 
 const Profile = ({ users, setUsers }) => {
   const { id } = useParams();
