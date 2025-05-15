@@ -1,16 +1,13 @@
 /* EditProfile.module.css */
 
 .modal-main {
-  position: fixed; /* Para que el modal se superponga al contenido */
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1; /* Asegura que esté por encima de otros elementos */
+
 }
 
 .grid {
@@ -82,7 +79,7 @@
 }
 
 .modal-text textarea {
-  resize: none; /* Permite redimensionar verticalmente (opcional) */
+  resize: none;
   padding: 10px;
   border: none;
   font-size: 1rem;
@@ -133,4 +130,8 @@
 
 .grid > button:last-of-type:hover {
   background-color: #65519c;
+}
+
+.error-message{
+  color: red;
 }

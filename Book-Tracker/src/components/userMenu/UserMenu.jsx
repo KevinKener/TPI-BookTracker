@@ -6,11 +6,11 @@ import { useState } from 'react';
 
 const UserMenu = ({ isLogged, setIsLogged, username }) => {
 
-    const navigate = useNavigate();
-    const [showModal, setShowModal] = useState(false);
-    const openModal = () => setShowModal(true);
-    const closeModal = () => setShowModal(false);
-
+  const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const openModal = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
+  const id = 1; //Id hardcodeado para probar el partado user
   return (
     <div className="user-menu">
           <Dropdown className="user" align="end" >
@@ -23,7 +23,7 @@ const UserMenu = ({ isLogged, setIsLogged, username }) => {
             <DropdownMenu>
               { isLogged ?
                <>
-                <DropdownItem onClick={() => navigate('profile')} >
+                <DropdownItem onClick={() => navigate(`profile/${id}`)} > {/* El id depende de la sesion activa */}
                   Perfil
                 </DropdownItem>
                 <DropdownItem onClick={() => navigate('profile-settings')} >

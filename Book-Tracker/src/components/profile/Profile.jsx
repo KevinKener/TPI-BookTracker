@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import StaticsCard from '../../staticsCard/StaticsCard';
 import styles from './Profile.module.css';
@@ -11,7 +11,6 @@ const Profile = ({ users, setUsers }) => {
   const navigate = useNavigate();
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [editingUser, setEditingUser] = useState(user); // Estado para el usuario que se está editando
 
   const openEditModal = () => {
     setIsEditModalOpen(true);
@@ -19,12 +18,11 @@ const Profile = ({ users, setUsers }) => {
 
   const closeEditModal = () => {
     setIsEditModalOpen(false);
-    setEditingUser(null);
     navigate(`/profile/${userId}`); // Mantener la navegación al perfil actual
   };
 
   const handleUserUpdated = (updatedUser) => {
-    // Actualizamos el array users
+    // Actualizo el array users
     const updatedUsers = users.map(u => (u.id === updatedUser.id ? updatedUser : u));
     setUsers(updatedUsers);
     closeEditModal();
@@ -44,7 +42,7 @@ const Profile = ({ users, setUsers }) => {
                 <img src={user.userPickUrl} alt="Foto de perfil" />
               ) : (
                 <img
-                  src="https://media.istockphoto.com/id/846183008/es/vector/%C3%ADcono-de-perfil-de-avatar-por-defecto-marcador-de-posici%C3%B3n-de-foto-gris.jpg?s=612x612&w=0&k=20&c=CLZoOwpSgoDpY_4ELU9OaY23p0B0mwjXCfbiyc7g9u4="
+                  src="https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg"
                   alt="Foto de perfil"
                 />
               )}
@@ -68,9 +66,9 @@ const Profile = ({ users, setUsers }) => {
         </div>
       </div>
 
-      {isEditModalOpen && editingUser && (
+      {isEditModalOpen && (
         <EditProfile
-          user={editingUser}
+          user={user}
           onClose={closeEditModal}
           onUserUpdated={handleUserUpdated} // Pasamos la función al EditProfile
         />
