@@ -17,7 +17,7 @@ app.use(authorRoutes);
 app.use(bookRoutes);
 
 try{
-    await sequelize.sync({alter: true});
+    await sequelize.sync();
     
     app.listen(PORT);
 

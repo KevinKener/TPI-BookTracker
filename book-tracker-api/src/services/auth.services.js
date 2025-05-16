@@ -2,8 +2,6 @@ import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken";
 import { User } from "../models/index.js";
 import { validateEmail, validatePassword, validateString } from "../helpers/validations.js";
-// IMPORTAR SERVICIOS DE LECTURE
-
 
 const validateUserRegister = (req) => {
 
@@ -101,12 +99,6 @@ export const registerUser = async (req, res) => {
         password: hashedPassword
     });
 
-
-    // LUEGO DE LA CREACION, PASAR ID.USER PARA LECTURE.CREATE
-    // LLAMAR LA CREACION DE LA LISTA
-
-
-
     res.json(newUser.id);
 }
 
@@ -146,7 +138,7 @@ export const loginUser = async (req, res) => {
     const secretKey = "programacion3-2025";
 
     // Devuelve un token JWT que expira en 1 hora 
-    const token = jwt.sign({ username: user.username, email }, secretKey, { expiresIn: "1h" });
+    const token = jwt.sign({ id: user.id, username: user.username, email }, secretKey, { expiresIn: "1h" });
 
     // Devuelve el token al cliente
     res.json(token);

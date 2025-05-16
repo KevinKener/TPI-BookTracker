@@ -12,13 +12,13 @@ import { Genre } from "./Genre.js";
 Author.hasMany(Book, { foreignKey: "authorId" });
 Book.belongsTo(Author, { foreignKey: "authorId" });
 
-// USUARIOS TIENEN LECTURAS
-User.hasMany(Lecture, { foreignKey: "userId" });
-Lecture.belongsTo(User, { foreignKey: "userId" });
-
 // EN CADA LECTURA, APARECE UN LIBRO
 Book.hasMany(Lecture, { foreignKey: "bookId" });
 Lecture.belongsTo(Book, { foreignKey: "bookId" });
+
+// USUARIOS TIENEN LECTURAS
+User.hasMany(Lecture, { through: "UserLectures" });
+Lecture.belongsTo(User, { foreingKey: "" });
 
 // N:N
 // LIBROS Y GENEROS
