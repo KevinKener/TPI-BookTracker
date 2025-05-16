@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../db.js";
+import { Author } from "./Author.js";
 
 export const Book = sequelize.define("book", {
     id: {
@@ -14,17 +15,20 @@ export const Book = sequelize.define("book", {
     authorId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: {
+            model: Author,
+            key: "id"
+        }
     },
     pages: {
         type: DataTypes.INTEGER,
     },
-    genre: {
-        type: DataTypes.STRING,
-    },
     summary: {
         type: DataTypes.STRING,
     },
-    imageUrl: DataTypes.STRING,
+    imageUrl: {
+        type: DataTypes.STRING
+    },
 }, {
     timestamps: false,
 })

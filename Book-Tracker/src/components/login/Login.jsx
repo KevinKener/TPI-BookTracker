@@ -1,7 +1,8 @@
 import React from 'react'
 import { Form, Row, Col, FormLabel, FormControl, FormGroup, Button } from 'react-bootstrap'
 import { useState } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { validateString, validateEmail, validatePassword } from '../auth/auth.services'
 
 const Login = ({ setIsLogged }) => {
 
@@ -11,6 +12,18 @@ const Login = ({ setIsLogged }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
+
+        if(!validatePassword(password, 1)){
+            setErrors({...errors, password:true})
+            errorToast('La contraseña es requerida')
+            // passwordRef.current.focus()
+            return;
+        } else {
+            setErrors({...errors, password:false})
+            return;
+        }
+    
 
         if(email && password){
             setIsLogged(true);
@@ -64,3 +77,32 @@ const Login = ({ setIsLogged }) => {
 }
 
 export default Login
+
+
+        // ESTO EN REGISTER
+        // if(!validateString(username, 1, 50)){
+        //     setErrors({...errors, name:true})
+        //     errorToast('El nombre es requerido blbalbla')
+        //     return;
+        // } else {
+        //     setErrors({...errors, name:false})
+        //     return;
+        // }
+
+        // if(!validateEmail(email)){
+            // setErrors({...errors, email:true})
+            //     errorToast('El mail es invalido')
+            //     return;
+            // } else {
+            //     setErrors({...errors, email:false})
+            //     return;
+            // }
+
+        // if(!validatePassword(password, 8, 20, true, true)){
+            // setErrors({...errors, password:true})
+            //     errorToast('La contraseña debe tener entre 8 y 20 caracteres, al menos una mayuscula y un numero')
+            //     return;
+            // } else {
+            //     setErrors({...errors, password:false})
+            //     return;
+            // }

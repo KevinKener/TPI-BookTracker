@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "../db";
+import { sequelize } from "../db.js";
 
 export const Author = sequelize.define("author", {
     id: {
@@ -14,12 +14,12 @@ export const Author = sequelize.define("author", {
     birthplace: {
         type: DataTypes.STRING,
     },
-    genres: {
-        type: DataTypes.ENUM,
-    },
     imageUrl: {
         type: DataTypes.STRING,
     },
+    description: {
+        type: DataTypes.STRING,
+    }
 },
     {
         timestamps: false,

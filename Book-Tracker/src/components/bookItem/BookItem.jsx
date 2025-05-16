@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { Card, ListGroupItem, Row, Col, CardImg } from 'react-bootstrap'
+import { Card, ListGroupItem, Row, Col, CardImg, Button, FormGroup, FormControl, FormSelect } from 'react-bootstrap'
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Modal, Button, ModalHeader, ModalBody, ModalFooter } from 'react-bootstrap'
+import { Trash3, CheckLg, XLg, PencilSquare, StarFill } from 'react-bootstrap-icons';
 
 const BookItem = ({ id, cover, title, author, rating, summary, pages }) => {
 
@@ -32,54 +32,101 @@ const BookItem = ({ id, cover, title, author, rating, summary, pages }) => {
     setIsEditing(false)
   }
 
+  const status = "status";
+
   return (
     <>
         <ListGroupItem  >
             <Row>
-                <Col xs={2} className='list-item-cover' >
+                <Col xs={1} className='list-item-body' >
                 <CardImg src={cover}>
                 </CardImg>
                 </Col>
-                <Col xs={3} className='list-item-title' >
-                {title}
+                <Col xs={3} className='list-item-body' >
+                  <span className='clickable' onClick={handleClick}>{title}</span>
                 </Col>
-                <Col xs={3} className='list-item-author' >
-                {author}
+                <Col xs={2} className='list-item-body' >
+                  <span className='clickable'>{author}</span>
                 </Col>
-                <Col xs={1} className='list-item-rating' >
-                status
+                <Col xs={2} className='list-item-body' >
+                {isEditing ? 
+                  <>
+                    <FormSelect className="d-flex align-items-center" >
+                    <option value=""></option>
+                    <option value="">Leyendo</option>
+                    <option value="">Para leer</option>
+                    <option value="">Leido</option>
+                    </FormSelect>
+                  </>
+                    :
+                    <>
+                    {status}
+                    </>
+                }
                 </Col>
-                <Col xs={1} className='list-item-rating' >
-                {rating}
+                <Col xs={1} className='list-item-rating'>
+                  {isEditing ? 
+                  <>
+                    <FormSelect className="d-flex align-items-center" >
+                    <option value=""></option>
+                    <option value="">1</option>
+                    <option value="">2</option>
+                    <option value="">3</option>
+                    <option value="">4</option>
+                    <option value="">5</option>
+                    </FormSelect>
+                  </>
+                    :
+                    <>
+                    {rating}
+                    </>
+                }
                 </Col>
-                <Col xs={1} className='list-item-pages' >
-                {pages}
+                <Col xs={2} className='list-item-body' >
+                  <FormGroup className="d-flex align-items-center">
+                    {
+                      isEditing ?
+                      <>
+                        <FormControl
+                          type="number"
+                          size="sm"
+                          min="0"
+                          className="me-1"
+                          style={{ width: '50px' }}
+                          step="1"
+                        />
+                        <span>/ {pages}</span>
+                      </>
+                      :
+                      <>
+                        {pages}
+                      </>
+                    }
+                  </FormGroup>
                 </Col>
-                <Col xs={1} className='list-item-rating' onClick={handleEdit} >
-                Edit
-                </Col>
-              </Row>
-              {isEditing &&
-                <Row>
-                <Col xs={6} className='list-item-cover' >
-                editar seguimiento del libro
-                </Col>
-                <Col xs={4} className='list-item-title' >
+                <Col xs={1} className='list-item-edit'>
+                    {isEditing ?
+                      <>
+                        <Button variant='secondary' className='edit-boton' onClick={handleCloseEdit} >
+                          <XLg size={20} />
+                        </Button>
+                        <Button variant='success' className='edit-boton' onClick={handleCloseEdit} >
+                          < CheckLg size={20} />
+                        </Button>
+                        <Button variant='danger' className='edit-boton' onClick={handleCloseEdit} >
+                          <Trash3 size={20} />
+                        </Button>
+                      </>
+                    :
+                      <Button variant='secondary' className='edit-boton' onClick={handleEdit} >
+                        <PencilSquare size={20} />
+                      </Button>
+                        
 
-                {/* status == 'Leyendo' ? 
-                  ___/pages :
-                  pages
-                  */}
-                </Col>
-                
-                <Col xs={1} className='list-item-pages' >
-                guardar
-                </Col>
-                <Col xs={1} className='list-item-rating' onClick={handleCloseEdit} >
-                Cancelar
+                    }
                 </Col>
               </Row>
-               } 
+              
         </ListGroupItem>
     </>
   )
