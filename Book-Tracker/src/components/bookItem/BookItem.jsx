@@ -3,7 +3,7 @@ import { Card, ListGroupItem, Row, Col, CardImg } from 'react-bootstrap'
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Modal, Button, ModalHeader, ModalBody, ModalFooter } from 'react-bootstrap'
 
-const BookItem = ({ id, cover, title, author, rating, summary, pages }) => {
+const BookItem = ({ id, cover, title, author, authorId, rating, summary, pages }) => {
 
   const navigate = useNavigate();
 
@@ -32,6 +32,10 @@ const BookItem = ({ id, cover, title, author, rating, summary, pages }) => {
     setIsEditing(false)
   }
 
+  const handleAuthorClick = () => {
+    navigate(`/authors/${authorId}`);
+  };
+
   return (
     <>
         <ListGroupItem  >
@@ -44,7 +48,8 @@ const BookItem = ({ id, cover, title, author, rating, summary, pages }) => {
                 {title}
                 </Col>
                 <Col xs={3} className='list-item-author' >
-                {author}
+                {author} 
+                <Button onClick={handleAuthorClick} > Ver autor</Button>
                 </Col>
                 <Col xs={1} className='list-item-rating' >
                 status
