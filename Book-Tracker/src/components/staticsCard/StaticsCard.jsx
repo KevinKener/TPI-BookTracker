@@ -1,13 +1,15 @@
-import styles from './StaticsCard.module.css'
+import './staticsCard.css';
 
 const StaticsCard = ({ text, content, extraClass }) => {
+  const cardClassName = `box ${extraClass || ''}`;
+
   return (
-    <div className={`${styles.card} ${extraClass ? styles[extraClass] : ''}`}>
-      <div className={styles.text}>
+    <div className={cardClassName}>
+      <div className="text">
         {text}
       </div>
-      <div className={styles.separator}></div>
-      <div className={styles.stat}>
+      <div className="separator"></div>
+      <div className="stat">
         {content}
       </div>
     </div>

@@ -1,0 +1,14 @@
+.main-input {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.main-input input{
+    width: 25vw;
+    height: 7vh;
+    border: 1px solid #898B87;
+    border-radius: 18px;
+    padding: 5%;
+    font-size: 1em;
+}

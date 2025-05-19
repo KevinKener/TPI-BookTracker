@@ -12,6 +12,7 @@ import Home from './components/home/Home'
 import NewBook from './components/newBook/NewBook'
 import Profile from './components/profile/Profile'
 import Users from './components/data/Users'
+import Register from './components/register/Register'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -39,6 +40,9 @@ function App() {
 
             {/* INICIO */}
             <Route path='/' element={<Home />} />
+
+            {/* REGISTER */}
+            <Route path='/register' element={<Register/>} />
 
             {/* LOGIN */}
             <Route path='/login' element={<Login setIsLogged={setIsLogged} />} />
