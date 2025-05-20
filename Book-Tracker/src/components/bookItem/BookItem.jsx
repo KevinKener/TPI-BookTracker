@@ -3,7 +3,7 @@ import { Card, ListGroupItem, Row, Col, CardImg, Button, FormGroup, FormControl,
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Trash3, CheckLg, XLg, PencilSquare, StarFill } from 'react-bootstrap-icons';
 
-const BookItem = ({ id, cover, title, author, rating, summary, pages }) => {
+const BookItem = ({ id, cover, title, author, authorId, rating, summary, pages }) => {
 
   const navigate = useNavigate();
 
@@ -32,7 +32,9 @@ const BookItem = ({ id, cover, title, author, rating, summary, pages }) => {
     setIsEditing(false)
   }
 
-  const status = "status";
+  const handleAuthorClick = () => {
+    navigate(`/authors/${authorId}`);
+  };
 
   return (
     <>
@@ -45,8 +47,9 @@ const BookItem = ({ id, cover, title, author, rating, summary, pages }) => {
                 <Col xs={3} className='list-item-body' >
                   <span className='clickable' onClick={handleClick}>{title}</span>
                 </Col>
-                <Col xs={2} className='list-item-body' >
-                  <span className='clickable'>{author}</span>
+                <Col xs={3} className='list-item-author' >
+                {author} 
+                <Button onClick={handleAuthorClick} > Ver autor</Button>
                 </Col>
                 <Col xs={2} className='list-item-body' >
                 {isEditing ? 

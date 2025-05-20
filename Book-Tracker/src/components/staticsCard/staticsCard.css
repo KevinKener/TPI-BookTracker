@@ -1,6 +1,6 @@
-.card {
-    width: 300px;
-    height: 400px;
+.box {
+    width: 15vw;
+    height: 40vh;
     text-align: center;
     background-color: #F5F5DC;
     display: flex; /* Hacemos del card un contenedor Flexbox */
@@ -18,11 +18,11 @@
 .text {
     height: 10%;
     font-weight: 600;
-    font-size: 20px;
+    font-size: 1vw;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 25px;
+    padding: 10%;
 }
 
 .separator {
@@ -38,7 +38,6 @@
     justify-content: center;
     align-items: center;
     flex-grow: 1;
-    font-size: 2em;
     color: black;
-    font-size: 55px;
+    font-size: 3.45em;
 }

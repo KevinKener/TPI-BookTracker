@@ -23,7 +23,7 @@
 }
 
 /* HEADER */
-.header-container, .footer-container{
+.header-container{
   display: flex;
   flex-flow: nowrap row;
   position: sticky;
