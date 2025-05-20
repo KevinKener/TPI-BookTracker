@@ -2,7 +2,9 @@
     display: flex;
     justify-content: center;
     background-color: #FEFFF9;
-    width: 100%;
+    width: 100vw;
+    height: 90vh;
+    overflow: auto;
 }
 
 .profile-main{
@@ -11,44 +13,27 @@
     align-items: center;
     justify-content: center;
     width: 55vw;
-    gap: 60px;
-}
-
-.profile-container {
-    display: flex;
-    flex-direction: column;
     gap: 35px;
 }
 
 .profile {
-    height: 200px;
+    height: 15vh;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 14px;
 }
 
-.img-profile {
+.profile img{
   width: 140px;
   height: 140px;
   border-radius: 50%; /* Para hacerlo circular */
   overflow: hidden;
-}
-
-.img-profile img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* La imagen cubrirá el contenedor manteniendo su proporción, recortando si es necesario */
-}
-
-.profile-info {
-    gap: 0px;
-    font-size: 16px;
-    margin: 5px;
+  object-fit: cover;
 }
 
 .profile-info h1{
-    font-size: 64px;
+    font-size: 4em;
     font-weight: 600;
     margin-bottom: 0px;
 }
@@ -58,7 +43,7 @@
 }
 
 .profile-description {
-    font-size: 24px;
+    font-size: 1.5em;
     text-align: center;
 }
 
@@ -66,7 +51,6 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    gap: 60px;
     width: 100%;
     margin-bottom: 10px;
 }

@@ -20,7 +20,7 @@
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr; /* Dos columnas: imagen y texto */
   grid-gap: 40px;
-  margin: 5% auto;
+  margin: 7% auto;
   padding-left: 10%;
   padding-right: 10%;
   padding-top: 3%;

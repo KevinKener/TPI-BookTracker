@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styles from './EditProfile.module.css';
+import './EditProfile.css';
 
 const EditProfile = ({ user, onClose, onUserUpdated }) => {
   const [username, setUsername] = useState(user.username);
@@ -38,9 +38,9 @@ const EditProfile = ({ user, onClose, onUserUpdated }) => {
   };
 
   return (
-    <div className={styles['modal-main']}>
-      <form onSubmit={handleSubmit} className={styles.grid}>
-        <div className={styles['modal-pick']}>
+    <div className="modal-main">
+      <form onSubmit={handleSubmit} className="grid">
+        <div className="modal-pick">
           {profileImage ? (
             <img src={profileImage} alt="Foto de perfil" />
           ) : (
@@ -58,17 +58,17 @@ const EditProfile = ({ user, onClose, onUserUpdated }) => {
           />
           <button type="button" onClick={() => document.getElementById('profileImageInput').click()}>Cambiar foto</button>
         </div>
-        <div className={styles['modal-text']}>
+        <div className="modal-text">
           <input
             type="text"
             placeholder="Nombre de usuario"
-            className={styles['modal-text-name']}
+            className="modal-text-name"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-          {usernameError && <p className={styles['error-message']}>{usernameError}</p>} {/* Muestra el mensaje de error */}
+          {usernameError && <p className="error-message">{usernameError}</p>} {/* Muestra el mensaje de error */}
           <textarea
-            className={styles['modal-text-description']}
+            className="modal-text-description"
             id="description"
             placeholder="Descripción"
             value={description}

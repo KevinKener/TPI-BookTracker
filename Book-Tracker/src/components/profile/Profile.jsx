@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import StaticsCard from '../staticsCard/StaticsCard';
-import styles from './Profile.module.css';
+import './Profile.css';
 import EditProfile from '../editProfile/EditProfile';
 
 const Profile = ({ users, setUsers }) => {
@@ -33,36 +33,33 @@ const Profile = ({ users, setUsers }) => {
   }
 
   return (
-    <div className={styles.body}>
-      <div className={styles['profile-main']}>
-        <div className={styles['profile-container']}>
-          <div className={styles['profile']}>
-            <div className={styles['img-profile']}>
-              {user.userPickUrl ? (
-                <img src={user.userPickUrl} alt="Foto de perfil" />
-              ) : (
-                <img
-                  src="https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg"
-                  alt="Foto de perfil"
-                />
-              )}
-            </div>
-            <div className={styles['profile-info']}>
-              <h1>{user.username}</h1>
-              <p>Miembro desde: {user.memberSince}</p>
-              <a href="#edit" onClick={openEditModal}>Editar perfil</a>
-            </div>
-          </div>
+    <div className="body">
+      <div className="profile-main">
 
-          <div className={styles['profile-description']}>
-            <p>{user.description}</p>
+        <div className="profile">
+          {user.userPickUrl ? (
+            <img src={user.userPickUrl} alt="Foto de perfil" />
+          ) : (
+            <img
+              src="https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg"
+              alt="Foto de perfil"
+            />
+          )}
+          <div className="profile-info">
+            <h1>{user.username}</h1>
+            <p>Miembro desde: {user.memberSince}</p>
+            <a href="#edit" onClick={openEditModal}>Editar perfil</a>
           </div>
         </div>
 
-        <div className={styles['stats']}>
-          <StaticsCard text={'Libros leidos'} content={user.bookRead} />
+        <div className="profile-description">
+          <p>{user.description}</p>
+        </div>
+
+        <div className="stats">
+          <StaticsCard text={'Libros leidos'} content={user.bookRead}/>
           <StaticsCard text={'Paginas leidas'} content={user.pagesRead} extraClass="destacada" />
-          <StaticsCard text={'Calificaciones promedio'} content={user.avgRating} />
+          <StaticsCard text={'Calificaciones promedio'} content={user.avgRating}/>
         </div>
       </div>
 
