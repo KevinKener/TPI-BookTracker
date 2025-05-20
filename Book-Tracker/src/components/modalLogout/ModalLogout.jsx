@@ -1,13 +1,16 @@
 import React from 'react'
 import { Modal, Button, ModalHeader, ModalBody, ModalFooter } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
+import { useContext } from 'react'
+import { AuthenticationContext } from '../services/auth.context'
 
 const ModalLogout = ({ setIsLogged, handleClose, show }) => {
 
     const navigate = useNavigate()
+    const { handleUserLogout } = useContext(AuthenticationContext);
 
     const handleLogout = () => {
-        setIsLogged(false)
+        handleUserLogout()
         navigate('/login')
         handleClose()
     }

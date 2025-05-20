@@ -1,15 +1,17 @@
-import React from 'react';
-import { Navbar, Container, Nav, Form, FormControl } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { Navbar, Container, Nav } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import UserMenu from '../userMenu/UserMenu';
 import SearchBar from '../searchBar/SearchBar';
 import logo from "../logo/logo.png"
 import logoText from "../logo/logoText.png"
-import { Navigate } from 'react-router';
+import { AuthenticationContext } from '../services/auth.context';
+import { useTranslate } from '../hooks/translation/UseTranslate';
 
-const NavBar = ({isLogged, setIsLogged, userName, books}) => {
+const NavBar = ({ books }) => {
 
-  const navigate = useNavigate();
+  const username = useContext(AuthenticationContext);
+  const translate = useTranslate();
 
   return (
     
@@ -32,17 +34,15 @@ const NavBar = ({isLogged, setIsLogged, userName, books}) => {
 
           
           <Nav className='menu-bar' >
-            <Nav.Link as={Link} to='/'>Home</Nav.Link>
-            <Nav.Link as={Link} to='my-books'>My Books</Nav.Link>
-            <Nav.Link as={Link} to='browse'>Browse</Nav.Link>
+            <Nav.Link as={Link} to='/'>{translate("home")}</Nav.Link>
+            <Nav.Link as={Link} to='my-books'>{translate("my_books")}</Nav.Link>
+            <Nav.Link as={Link} to='browse'>{translate("browse")}</Nav.Link>
           </Nav>
 
           <SearchBar books={books} />
 
           <UserMenu className="user-menu"
-            isLogged={isLogged}
-            setIsLogged={setIsLogged}
-            username={userName}
+            username={username}
           />
         </Navbar.Collapse>
       </Container>

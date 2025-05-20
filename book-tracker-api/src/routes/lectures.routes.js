@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createLecture, deleteLecture, findLectures, updateLecture } from "../services/lecture.services";
+import { createLecture, deleteLecture, findLectures, updateLecture } from "../services/lecture.services.js";
 
 const router = Router();
 

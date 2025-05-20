@@ -1,9 +1,10 @@
 import React from 'react'
+import ComboLanguage from "../hooks/translation/ComboLanguage";
 
 const Footer = () => {
   return (
     <div className="footer-container">
-        footer
+        <ComboLanguage />
     </div>
   )
 }

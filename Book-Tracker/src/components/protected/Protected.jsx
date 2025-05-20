@@ -1,17 +1,16 @@
-import React from 'react'
+import { useContext } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
+import { AuthenticationContext } from '../services/auth.context'
+import { isTokenValid } from "../services/auth/auth.helpers.js"
 
-const Protected = ({ isLogged }) => {
+const Protected = () => {
+  const { token } = useContext(AuthenticationContext);
 
-    if(!isLogged){
-        return <Navigate to="/login" replace />
+  if(!isTokenValid(token)){
+      return <Navigate to="/login" replace />
+  } else {
+        return <Outlet />
     }
-
-  return (
-    <>
-        <Outlet />
-    </>
-  )
 }
 
 export default Protected

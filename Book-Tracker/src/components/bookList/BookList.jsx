@@ -1,12 +1,25 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Card, CardHeader, ListGroup, ListGroupItem, Row, Col } from 'react-bootstrap'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import BookItem from '../bookItem/BookItem'
 import { StarFill } from 'react-bootstrap-icons'
+import fetchLectures from './booklist.services.js'
 
-const BookList = ({books}) => {
+// const BookList = ({books}) => {
+const BookList = () => {
 
   // ACA DEBERIA LLAMAR LOS METODOS PUT, DELETE PARA EDITAR Y BORRAR LIBROS DE LISTAS
+  const [lectures, setLectures] = useState([]);
+
+  
+  useEffect(() => {
+    const token = localStorage.getItem('book-tracker-token')
+    fetchLectures(token)
+      .then(data => setLectures([...data]))
+      // .catch(error => )
+      
+  }, [])
+
   return (
     <div className="list-page">
       <Card className='my-list'>
@@ -59,7 +72,7 @@ const BookList = ({books}) => {
               </Row>
               </CardHeader>
 
-              <ListGroup>
+              {/* <ListGroup>
                 {
                   books.map(book => (
                     <BookItem 
@@ -71,6 +84,24 @@ const BookList = ({books}) => {
                       summary={book.summary}
                       pages={book.pages}
                       cover={book.imageUrl}
+                    />
+                  ))
+                }
+              </ListGroup> */}
+
+
+              <ListGroup>
+                {
+                  lectures.map(lecture => (
+                    <BookItem 
+                      key={lecture.id}
+                      id={lecture.id}
+                      author={lecture.author}
+                      title={lecture.title}
+                      rating={lecture.rating}
+                      summary={lecture.summary}
+                      pages={lecture.pages}
+                      cover={lecture.imageUrl}
                     />
                   ))
                 }

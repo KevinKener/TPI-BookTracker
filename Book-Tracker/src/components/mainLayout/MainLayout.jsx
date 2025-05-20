@@ -2,14 +2,11 @@ import { Outlet } from 'react-router-dom'
 import Footer from './Footer'
 import NavBar from './NavBar'
 
-const MainLayout = ({isLogged, setIsLogged, userName, books}) => {
+const MainLayout = ({ books }) => {
   return (
     <>
         <NavBar
-        userName={userName}
-        isLogged={isLogged}
         books={books}
-        setIsLogged={setIsLogged}
         />
         <div className="main-layout">
             <Outlet />
