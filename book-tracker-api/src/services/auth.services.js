@@ -141,6 +141,9 @@ export const loginUser = async (req, res) => {
     const token = jwt.sign({ id: user.id, username: user.username, email }, secretKey, { expiresIn: "1h" });
 
     // Devuelve el token al cliente
-    res.json(token);
+    return res.json({
+        token,
+        username: user.username
+    });
 
 }

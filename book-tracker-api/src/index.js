@@ -3,24 +3,33 @@ import express from 'express';
 import { sequelize } from './db.js'
 import { PORT } from './config.js';
 
-import loginRoutes from './routes/auth.routes.js'
+import authRoutes from './routes/auth.routes.js'
 import genreRoutes from './routes/genre.routes.js'
 import authorRoutes from './routes/author.routes.js'
 import bookRoutes from './routes/book.routes.js'
+import lectureRoutes from './routes/lectures.routes.js'
 
 const app = express();
 
-app.use(express.json());
-app.use(loginRoutes);
-app.use(genreRoutes);
-app.use(authorRoutes);
-app.use(bookRoutes);
-
 try{
+    app.use(express.json());
     await sequelize.sync();
     
+    app.use((req, res, next) => {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "*");
+        res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+        next();
+    })
+    
     app.listen(PORT);
-
+    
+    app.use(authRoutes);
+    app.use(genreRoutes);
+    app.use(authorRoutes);
+    app.use(bookRoutes);
+    app.use(lectureRoutes);
+    
     console.log(`Server is listening to port: ${PORT}`);
 } catch (error){
     console.log("There was an error on initilization");

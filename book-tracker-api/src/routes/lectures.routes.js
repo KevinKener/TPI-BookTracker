@@ -3,13 +3,13 @@ import { createLecture, deleteLecture, findLectures, updateLecture } from "../se
 
 const router = Router();
 
-router.get("/lectures", findLectures);
+router.get("/my-books", findLectures);
 
 // ??? No sé si va acá, lo puse en books
-// router.post("/lectures", createLecture);
+// router.post("/my-books", createLecture);
 
-router.put("/lectures/:id", updateLecture);
+router.put("/my-books/:id", updateLecture);
 
-router.delete("/lectures/:id", deleteLecture);
+router.delete("/my-books/:id", deleteLecture);
 
 export default router;

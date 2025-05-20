@@ -17,8 +17,8 @@ Book.hasMany(Lecture, { foreignKey: "bookId" });
 Lecture.belongsTo(Book, { foreignKey: "bookId" });
 
 // USUARIOS TIENEN LECTURAS
-User.hasMany(Lecture, { through: "UserLectures" });
-Lecture.belongsTo(User, { foreingKey: "" });
+User.hasMany(Lecture, { foreignKey: "userId" });
+Lecture.belongsTo(User, { foreingKey: "userId" });
 
 // N:N
 // LIBROS Y GENEROS
