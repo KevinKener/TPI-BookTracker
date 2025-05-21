@@ -10,4 +10,22 @@ const fetchBook = async (id) => {
   return await res.json();
 };
 
-export default fetchBook;
+const addLecture = async (token, bookId) => {
+  const res = await fetch(`${API_URL}/my-books`, {
+  method: 'POST',
+  headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+  },
+  body: JSON.stringify({bookId}),
+  });
+
+  if (!res.ok) {
+    const errorData = await res.json();
+    throw new Error(errorData.message || "Error al agregar la lectura");
+  }
+
+  return await res.json();
+}
+
+export { fetchBook, addLecture }

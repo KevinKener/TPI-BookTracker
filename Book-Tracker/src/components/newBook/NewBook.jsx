@@ -7,7 +7,7 @@ const NewBook = () => {
     const [title, setTitle] = useState("");
     const [authorId, setAuthorId] = useState("");
     const [pages, setPages] = useState("");
-    const [genres, setGenres] = useState("");
+    const [genres, setGenres] = useState([]);
     const [summary, setSummary] = useState("");
     const [imageUrl, setImageUrl] = useState("");
 
@@ -36,7 +36,7 @@ const NewBook = () => {
     }
 
     // FETFCH DENTRO DEL SUBMIT PARA LOS SERVICES
-    handleAddBook = (event) => {
+    const handleAddBook = (event) => {
         event.preventDefault();
 
         const bookData = {

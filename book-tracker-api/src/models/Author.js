@@ -17,7 +17,7 @@ export const Author = sequelize.define("author", {
     imageUrl: {
         type: DataTypes.STRING,
     },
-    description: {
+    summary: {
         type: DataTypes.STRING,
     }
 },

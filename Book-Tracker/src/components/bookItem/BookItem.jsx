@@ -12,8 +12,8 @@ const BookItem = ({ lecture, onUpdate, onDelete }) => {
   const { id, rating, status, pageCount, bookId, book } = lecture;
   const { title, pages, summary, imageUrl, author } = book;
   const authorName = author?.authorName;
-  const authorId = author?.id;
-  
+  const authorId = book.authorId
+
   const [editStatus, setStatus] = useState(status);
   const [editRating, setRating] = useState(rating);
   const [editPageCount, setPageCount] = useState(pageCount);
@@ -115,7 +115,7 @@ const BookItem = ({ lecture, onUpdate, onDelete }) => {
                       value={editRating}
                       onChange={handleEditRating}
                     >
-                      <option value="0"></option>
+                      <option value=""></option>
                       <option value="1">1</option>
                       <option value="2">2</option>
                       <option value="3">3</option>

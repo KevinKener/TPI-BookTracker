@@ -6,16 +6,19 @@ export const findAuthors = async (req,res) => {
     res.json(authors);
 }
 
-export const findAuthor = async (req,res) => {
+export const findAuthor = async (req, res) => {
+  try {
     const { id } = req.params;
     const author = await Author.findByPk(id);
-
-    if(!author){
-        return res.status(400).send({message:"El autor no se encuentra registrado"});
+    if (!author) {
+      return res.status(404).json({ message: "Autor no encontrado" });
     }
-
     res.json(author);
-}
+  } catch (error) {
+    console.error("Error en findAuthor:", error);
+    res.status(500).json({ message: "Error interno del servidor" });
+  }
+};
 
 export const createAuthor = async (req,res) => {
     const { authorName, birthplace, imageUrl, summary } = req.body;

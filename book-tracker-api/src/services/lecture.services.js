@@ -24,52 +24,57 @@ export const findLectures = async (req,res) => {
 }
 
 export const createLecture = async (req,res) => {
-    // USER ID
-    const userId = req.user.id;
-    
-    // ID LIBRO
-    const { bookId } = req.body;
-    
-    // LECTURA AGREGADA "PARA LEER" DEFAULT
-    const status = 1;
+    try {
+        // USER ID
+        const userId = req.user.id;
+        
+        // ID LIBRO
+        const { bookId } = req.body;
+        
+        // LECTURA AGREGADA "PARA LEER" DEFAULT
+        const status = "Para leer";
 
 
-    // BUSCAR LECTURA EXISTENTE
-    const existingLecture = await Lecture.findOne({
-        where: {
-            userId,
-            bookId
-        }
-    });
-    
-    // ERROR SI EXISTE
-    if(existingLecture){
-        return res.status(400).send({ message: "Ya existe una lectura con ese libro" })
-    }
-
-    // CREACIÓN
-    const newLecture = await Lecture.create({
-        userId,
-        bookId,
-        status
-    });
-
-    // GUARDAMOS LA LECTURA CON NOMBRE DE AUTOR AGREGADO
-    const lecture = await Lecture.findByPk(newLecture.id, {
-        include: [
-            {
-                model: Book,
-                include: [
-                    {
-                        model: Author,
-                        attributes: ['authorName']
-                    }
-                ]
+        // BUSCAR LECTURA EXISTENTE
+        const existingLecture = await Lecture.findOne({
+            where: {
+                userId,
+                bookId
             }
-        ]
-    });
+        });
+        
+        // ERROR SI EXISTE
+        if(existingLecture){
+            return res.status(400).send({ message: "Ya existe una lectura con ese libro" })
+        }
 
-    res.json(lecture);
+        // CREACIÓN
+        const newLecture = await Lecture.create({
+            userId,
+            bookId,
+            status
+        });
+
+        // GUARDAMOS LA LECTURA CON NOMBRE DE AUTOR AGREGADO
+        const lecture = await Lecture.findByPk(newLecture.id, {
+            include: [
+                {
+                    model: Book,
+                    include: [
+                        {
+                            model: Author,
+                            attributes: ['authorName']
+                        }
+                    ]
+                }
+            ]
+        });
+
+        res.json(lecture);
+    } catch (err) {
+        console.error("Error en createLecture:", err);
+        res.status(500).json({ message: "Error interno al crear la lectura" });
+  }
 }
 
 export const updateLecture = async (req,res) => {

@@ -15,9 +15,10 @@ import Profile from './components/profile/Profile'
 import Users from './components/data/Users'
 import Register from './components/register/Register'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import AuthorDetails from './components/authorDetails/AuthorDetails'
 
 function App() {
-  const [bookList, setBookList] = useState(books);
+  // const [bookList, setBookList] = useState(books);
   const [users, setUsers] = useState(Users);
 
   return (
@@ -48,6 +49,9 @@ function App() {
               <Route element={<Protected /> } >
                 <Route path='/my-books' element={<BookList />} />
               </Route>
+
+              {/* AUTOR */}
+              <Route path='/authors/:id' element={<AuthorDetails />} />
 
               {/* ITEM LIBRO */}
               <Route path='books/:id' element={<BookDetails />} />
