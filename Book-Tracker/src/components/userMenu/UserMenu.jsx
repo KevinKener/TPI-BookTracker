@@ -15,15 +15,6 @@ const UserMenu = () => {
   
   const { token, username } = useContext(AuthenticationContext);
 
-  // const id = 1; 
-  // //Id hardcodeado para probar el partado user
-
-  // if(isTokenValid(token)){
-  //     setIsLogged(true);
-  // }
-  
-  // USERMENU NO FUNCIONA
-
   return (
     <div className="user-menu">
           <Dropdown className="user" align="end" >
@@ -36,7 +27,7 @@ const UserMenu = () => {
             <DropdownMenu>
               { token ?
                <>
-                <DropdownItem onClick={() => navigate(`profile/${id}`)} > {/* El id depende de la sesion activa */}
+                <DropdownItem onClick={() => navigate(`profile`)} > {/* El id depende de la sesion activa */}
                   Perfil
                 </DropdownItem>
                 <DropdownItem onClick={() => navigate('profile-settings')} >

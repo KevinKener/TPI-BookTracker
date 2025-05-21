@@ -1,67 +1,46 @@
-import React from 'react'
-import { Button } from "react-bootstrap";
-import { useLocation, useNavigate } from "react-router-dom";
-import { Star, StarFill } from "react-bootstrap-icons";
+import { useEffect, useState } from 'react';
+import { useParams } from "react-router-dom";
+import fetchBook from './bookdetails.services';
 
 const BookDetails = () => {
-
-  const location = useLocation();
-  const navigate = useNavigate();
-
-
-  const {title, author, cover, rating, summary, pages} = location.state.book;
-
-  // const clickHandler = () => {
-  //   navigate("/my-books");
-  // }
-
-  const ratingStars = Array.from({ length: 5 }, (_, index) =>
-    index < rating ? <StarFill key={index} /> : <Star key={index} />
-  );
-
+  const { id } = useParams();
+  const [book, setBook] = useState(null);
+  
+  useEffect(() => {
+  fetchBook(id)
+    .then(data => {
+      setBook(data);
+    })
+    .catch(err => {
+      console.error(err);
+    });
+}, [id]);
+  
+  if (!book) return <p style={{ padding: '2rem' }}>Cargando libro...</p>;
+  
+  const { title, pages, summary, imageUrl, author, genres } = book;
+  
   return (
     <div className='details-page'>
       <div className='book-cover-container'>
         <img
-            className='book-cover'
-            variant="top"
-            src={cover !== "" ? cover : "https://bit.ly/47NylZk"}
+          className='book-cover'
+          src={imageUrl}
         />
-        
-
       </div>
       <div className='book-body-container'>
         <div className='book-body'>
-            <span className='book-title'>{title}</span>
-            <span className='book-author'>{author}</span>
-            <span className='rating-stars'>{ratingStars}</span>
-            <span className='book-summary'>{summary}</span>
-            <span className='book-pages'>{pages} páginas</span>
+          <span className='book-title'>{title}</span>
+          <span className='book-author'>{author?.authorName}</span>
+          <span className='book-summary'>{summary}</span>
+          <span className='book-pages'>{pages} páginas</span>
+          <span className='book-genres'>
+            {genres?.map(g => g.name).join(', ')}
+          </span>
         </div>
       </div>
     </div>
+  );
+};
 
-  )
-}
-
-export default BookDetails
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // NO ESTOY SEGURO DE QUE HACE ESTO
-  // if (!location.state || !location.state.book) {
-  //   return <p style={{ padding: '2rem' }}>No se encontró el libro.</p>;
-  // }
+export default BookDetails;

@@ -46,11 +46,11 @@ function App() {
 
               {/* LISTA */}
               <Route element={<Protected /> } >
-                <Route path='/my-books' element={<BookList books={bookList} />} />
+                <Route path='/my-books' element={<BookList />} />
               </Route>
 
               {/* ITEM LIBRO */}
-              <Route path='my-books/:id' element={<BookDetails />} />
+              <Route path='books/:id' element={<BookDetails />} />
 
               {/* PAGINA NO EXISTENTE */}
               <Route path="*" element={ <NotFound /> } />

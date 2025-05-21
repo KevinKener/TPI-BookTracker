@@ -59,6 +59,37 @@ const validateUserLogin = (req) => {
 }
 
 
+// Middleware para verificar el token JWT en las solicitudes
+export const verifyToken = (req, res, next) => {
+    // Obtiene el valor del header "Authorization" de la solicitud (si no existe, usa cadena vacía)
+    const header = req.header("Authorization") || "";
+
+    // Extrae el token desde el header
+    const token = header.split(" ")[1];
+
+    // Si no hay token, devuelve error 401 (no autorizado)
+    if (!token) {
+        return res.status(401).json({ message: "No posee autorización requerida" });
+    }
+
+    try {
+        // Verifica que el token sea válido usando la clave secreta
+        const payload = jwt.verify(token, 'programacion3-2025');
+
+        req.user = payload;
+        // Si el token es válido, se puede acceder a su contenido (payload)
+        console.log(payload);
+
+        // Llama al siguiente middleware o controlador en la cadena
+        next();
+    } catch (error) {
+        // Si el token no es válido o ha expirado, devuelve error 403 (prohibido)
+        return res.status(403).json({ message: "No posee permisos correctos" });
+    }
+}
+
+
+
 export const registerUser = async (req, res) => {
 
     // Validaciones

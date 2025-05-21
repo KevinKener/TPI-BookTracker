@@ -2,7 +2,6 @@ import { useContext } from 'react'
 import { Form, Row, Col, FormLabel, FormControl, FormGroup, Button } from 'react-bootstrap'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { validateString, validateEmail, validatePassword } from '../auth/auth.services.js'
 import { AuthenticationContext } from '../services/auth.context'
 import { useTranslate } from '../hooks/translation/UseTranslate'
 

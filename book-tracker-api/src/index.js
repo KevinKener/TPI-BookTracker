@@ -13,7 +13,6 @@ const app = express();
 
 try{
     app.use(express.json());
-    await sequelize.sync();
     
     app.use((req, res, next) => {
         res.header("Access-Control-Allow-Origin", "*");
@@ -22,14 +21,15 @@ try{
         next();
     })
     
-    app.listen(PORT);
-    
     app.use(authRoutes);
     app.use(genreRoutes);
     app.use(authorRoutes);
     app.use(bookRoutes);
     app.use(lectureRoutes);
+
+    await sequelize.sync();
     
+    app.listen(PORT);
     console.log(`Server is listening to port: ${PORT}`);
 } catch (error){
     console.log("There was an error on initilization");

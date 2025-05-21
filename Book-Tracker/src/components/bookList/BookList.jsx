@@ -3,21 +3,31 @@ import { Card, CardHeader, ListGroup, ListGroupItem, Row, Col } from 'react-boot
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import BookItem from '../bookItem/BookItem'
 import { StarFill } from 'react-bootstrap-icons'
-import fetchLectures from './booklist.services.js'
+import { fetchLectures } from './booklist.services.js'
 
-// const BookList = ({books}) => {
 const BookList = () => {
 
   // ACA DEBERIA LLAMAR LOS METODOS PUT, DELETE PARA EDITAR Y BORRAR LIBROS DE LISTAS
   const [lectures, setLectures] = useState([]);
 
+  const handleUpdateLecture = (updatedLecture) => {
+    setLectures((prevLectures) => 
+      prevLectures.map((lecture) => 
+        lecture.id === updatedLecture.id ? updatedLecture : lecture
+      )
+    );
+  };
+
+  const handleDeleteLecture = (deletedId) => {
+    setLectures((prevLectures) => 
+      prevLectures.filter((lecture) => lecture.id !== deletedId)
+    )
+  }
   
   useEffect(() => {
     const token = localStorage.getItem('book-tracker-token')
     fetchLectures(token)
-      .then(data => setLectures([...data]))
-      // .catch(error => )
-      
+      .then(data => setLectures([...data]))      
   }, [])
 
   return (
@@ -72,36 +82,15 @@ const BookList = () => {
               </Row>
               </CardHeader>
 
-              {/* <ListGroup>
-                {
-                  books.map(book => (
-                    <BookItem 
-                      key={book.id}
-                      id={book.id}
-                      author={book.author}
-                      title={book.title}
-                      rating={book.rating}
-                      summary={book.summary}
-                      pages={book.pages}
-                      cover={book.imageUrl}
-                    />
-                  ))
-                }
-              </ListGroup> */}
-
 
               <ListGroup>
                 {
                   lectures.map(lecture => (
                     <BookItem 
-                      key={lecture.id}
-                      id={lecture.id}
-                      author={lecture.author}
-                      title={lecture.title}
-                      rating={lecture.rating}
-                      summary={lecture.summary}
-                      pages={lecture.pages}
-                      cover={lecture.imageUrl}
+                      key={lecture.id} 
+                      lecture={lecture} 
+                      onUpdate={handleUpdateLecture}
+                      onDelete={handleDeleteLecture}
                     />
                   ))
                 }

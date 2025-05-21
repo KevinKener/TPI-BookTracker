@@ -93,8 +93,7 @@ export const createBook = async (req, res) => {
 }
 
 export const updateBook = async (req, res) => {
-    const { id } = req.params;
-    const { title, authorId, pages, genres, summary, imageUrl } = req.body;
+    const { id, title, authorId, pages, genres, summary, imageUrl } = req.body;
 
     const book = await Book.findByPk(id);
 
@@ -146,7 +145,7 @@ export const updateBook = async (req, res) => {
 }
 
 export const deleteBook = async (req, res) => {
-    const { id } = req.params;
+    const { id } = req.body;
     const book = await Book.findByPk(id);
     
     await book.destroy();
