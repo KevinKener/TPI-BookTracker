@@ -1,19 +1,24 @@
-import { useState } from 'react';
-import './EditProfile.css';
+import React, { useState } from 'react';
+import { Modal, Button, Form, Image } from 'react-bootstrap';
+import './editProfile.css';
 
 const EditProfile = ({ user, onClose, onUserUpdated }) => {
   const [username, setUsername] = useState(user.username);
   const [description, setDescription] = useState(user.description);
-  const [newImageFile, setNewImageFile] = useState(null);
   const [profileImage, setProfileImage] = useState(user.userPickUrl);
-  const [usernameError, setUsernameError] = useState(''); // Estado para el error del nombre de usuario
+  const [imageUrlInput, setImageUrlInput] = useState('');
+  const [usernameError, setUsernameError] = useState('');
+  const [showUrlInput, setShowUrlInput] = useState(false);
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setNewImageFile(file);
-      const imageUrl = URL.createObjectURL(file);
-      setProfileImage(imageUrl);
+  const handleImageUrlChange = (e) => {
+    setImageUrlInput(e.target.value);
+  };
+
+  const handleApplyImageUrl = () => {
+    if (imageUrlInput.trim() !== '') {
+      setProfileImage(imageUrlInput);
+      setImageUrlInput('');
+      setShowUrlInput(false);
     }
   };
 
@@ -22,63 +27,113 @@ const EditProfile = ({ user, onClose, onUserUpdated }) => {
 
     if (username.trim() === '') {
       setUsernameError('El nombre de usuario no puede estar vacío.');
-      return; // Detiene la ejecución si el nombre de usuario está vacío
+      return;
     } else {
-      setUsernameError(''); // Limpia el error si el nombre de usuario es válido
+      setUsernameError('');
     }
 
     const updatedUser = {
       ...user,
       username: username,
       description: description,
-      // falta enviar newImageFile (imagen)
+      userPickUrl: profileImage,
     };
 
     onUserUpdated(updatedUser);
+    onClose(); // Cierra el modal después de la entrega
   };
 
   return (
-    <div className="modal-main">
-      <form onSubmit={handleSubmit} className="grid">
-        <div className="modal-pick">
-          {profileImage ? (
-            <img src={profileImage} alt="Foto de perfil" />
-          ) : (
-            <img
-              src="https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg"
-              alt="Foto de perfil"
+    <Modal show={true} onHide={onClose} centered>
+      <Modal.Header closeButton>
+        <Modal.Title>Editar Perfil</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form onSubmit={handleSubmit}>
+          <div className="text-center mb-3">
+            <div className="profile-image-container mb-3">
+              <Image
+                src={profileImage || "https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg"}
+                alt="Foto de perfil"
+                roundedCircle
+                className="img-thumbnail"
+                style={{ width: '150px', height: '150px', objectFit: 'cover' }}
+              />
+            </div>
+
+            {!showUrlInput ? (
+              <Button
+                variant="info"
+                className="btn-custom-image-url"
+                onClick={() => setShowUrlInput(true)}
+              >
+                Cambiar foto (URL)
+              </Button>
+            ) : (
+              <Form.Group controlId="imageUrlInput" className="mb-3">
+                <Form.Control
+                  type="text"
+                  placeholder="Pega la URL de la imagen aquí"
+                  value={imageUrlInput}
+                  onChange={handleImageUrlChange}
+                />
+                <div className="d-flex justify-content-center mt-2">
+                  <Button
+                    variant="secondary me-2"
+                    className='btn-custom-secondary'
+                    size="sm"
+                    onClick={() => setShowUrlInput(false)}
+                  >
+                    Cancelar
+                  </Button>
+                  <Button
+                    variant="primary"
+                    className="btn-custom-primary"
+                    size="sm"
+                    onClick={handleApplyImageUrl}
+                  >
+                    Aplicar
+                  </Button>
+                </div>
+              </Form.Group>
+            )}
+          </div>
+
+          <Form.Group controlId="username" className="mb-3">
+            <Form.Label>Nombre de Usuario</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Nombre de usuario"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              isInvalid={!!usernameError}
             />
-          )}
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-            style={{ display: 'none' }}
-            id="profileImageInput"
-          />
-          <button type="button" onClick={() => document.getElementById('profileImageInput').click()}>Cambiar foto</button>
-        </div>
-        <div className="modal-text">
-          <input
-            type="text"
-            placeholder="Nombre de usuario"
-            className="modal-text-name"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          {usernameError && <p className="error-message">{usernameError}</p>} {/* Muestra el mensaje de error */}
-          <textarea
-            className="modal-text-description"
-            id="description"
-            placeholder="Descripción"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          ></textarea>
-        </div>
-        <button type="button" onClick={onClose}>Cancelar</button>
-        <button type="submit">Guardar cambios</button>
-      </form>
-    </div>
+            <Form.Control.Feedback type="invalid">
+              {usernameError}
+            </Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group controlId="description" className="mb-3">
+            <Form.Label>Descripción</Form.Label>
+            <Form.Control
+              as="textarea"
+              rows={3}
+              placeholder="Descripción"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </Form.Group>
+        </Form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" className='btn-custom-secondary' onClick={onClose}>
+          Cancelar
+        </Button>
+        <Button variant="primary" className='btn-custom-primary' onClick={handleSubmit}>
+          Guardar cambios
+        </Button>
+      </Modal.Footer>
+    </Modal>
   );
 };
 

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import StaticsCard from '../staticsCard/StaticsCard';
 import './Profile.css';
 import EditProfile from '../editProfile/EditProfile';
@@ -8,7 +8,6 @@ const Profile = ({ users, setUsers }) => {
   const { id } = useParams();
   const userId = parseInt(id);
   const user = users.find(user => user.id === userId);
-  const navigate = useNavigate();
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
@@ -18,7 +17,6 @@ const Profile = ({ users, setUsers }) => {
 
   const closeEditModal = () => {
     setIsEditModalOpen(false);
-    navigate(`/profile/${userId}`); // Mantener la navegación al perfil actual
   };
 
   const handleUserUpdated = (updatedUser) => {
@@ -48,7 +46,7 @@ const Profile = ({ users, setUsers }) => {
           <div className="profile-info">
             <h1>{user.username}</h1>
             <p>Miembro desde: {user.memberSince}</p>
-            <a href="#edit" onClick={openEditModal}>Editar perfil</a>
+            <a href="#" onClick={openEditModal}>Editar perfil</a>
           </div>
         </div>
 
@@ -67,7 +65,7 @@ const Profile = ({ users, setUsers }) => {
         <EditProfile
           user={user}
           onClose={closeEditModal}
-          onUserUpdated={handleUserUpdated} // Pasamos la función al EditProfile
+          onUserUpdated={handleUserUpdated}
         />
       )}
     </div>
