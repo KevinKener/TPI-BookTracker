@@ -16,6 +16,12 @@
     font-weight: 600;
     font-size: 24px;
     margin-bottom: 5%;
+
+    text-shadow: 
+    -1px -1px 0 #fff,  
+     1px -1px 0 #fff,
+    -1px  1px 0 #fff,
+     1px  1px 0 #fff;
 }
 
 .login-image-text h3 {

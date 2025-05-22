@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import { fetchBook, addLecture } from './bookdetails.services.js';
 import { Button } from 'react-bootstrap'
+import { successToast } from '../notifications/notifications.js'
 import './bookDetails.css'
 
 const BookDetails = () => {
@@ -35,6 +36,7 @@ const BookDetails = () => {
     try {
       const res = await addLecture(token, bookId);
       console.log("Lectura agregada: ", res);
+      successToast("Se ha añadido correctamente a la lista")
     } catch (error) {
       alert(error.message);
       console.error("Error al agregar la lectura:", error);

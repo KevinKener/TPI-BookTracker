@@ -4,12 +4,14 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import BookItem from '../bookItem/BookItem'
 import { StarFill } from 'react-bootstrap-icons'
 import fetchLectures from './booklist.services.js'
+import { useTranslate } from '../hooks/translation/UseTranslate'
 
 const BookList = () => {
-
+  
   // ACA DEBERIA LLAMAR LOS METODOS PUT, DELETE PARA EDITAR Y BORRAR LIBROS DE LISTAS
   const [lectures, setLectures] = useState([]);
-
+  const translate = useTranslate();
+  
   const handleUpdateLecture = (updatedLecture) => {
     setLectures((prevLectures) => 
       prevLectures.map((lecture) => 
@@ -34,7 +36,7 @@ const BookList = () => {
     <div className="list-page">
       <Card className='my-list'>
         <CardHeader className='list-title'>
-          My Books
+          {translate("my_books")}
         </CardHeader>
 
         <div className="list-body">
@@ -44,13 +46,13 @@ const BookList = () => {
                 All
               </ListGroupItem>
               <ListGroupItem>
-              Read
+                {translate("status_read")}
               </ListGroupItem>
               <ListGroupItem>
-              Reading
+                {translate("status_reading")}
               </ListGroupItem>
               <ListGroupItem>
-              Want to Read
+                {translate("status_planned")}
               </ListGroupItem>
             </ListGroup>
           </Card>

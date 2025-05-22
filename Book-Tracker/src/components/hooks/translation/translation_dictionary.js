@@ -8,6 +8,15 @@ export const translation_dictionary = {
         { key: "browse", value: "Explorar" },
         { key: "email", value: "Correo Electrónico" },
         { key: "password", value: "Contraseña" },
+        { key: "login_text", value: "Ingresa tu cuenta" },
+        { key: "guest", value: "Invitado" },
+        { key: "status_read", value: "Leído" },
+        { key: "status_reading", value: "Leyendo" },
+        { key: "status_planned", value: "Para leer" },
+        { key: "privacy", value: "Política de Privacidad" },
+        { key: "team", value: "Equipo" },
+        { key: "help", value: "Ayuda" },
+        { key: "terms_conditions", value: "Términos y Condiciones" },
     ],
     en: [
         { key: "login", value: "Login" },
@@ -18,7 +27,16 @@ export const translation_dictionary = {
         { key: "browse", value: "Browse" },
         { key: "email", value: "Email" },
         { key: "password", value: "Password" },
+        { key: "login_text", value: "Enter your account" },
+        { key: "guest", value: "Guest" },
+        { key: "status_read", value: "Read" },
+        { key: "status_reading", value: "Reading" },
+        { key: "status_planned", value: "Planned" },
+        { key: "privacy", value: "Privacy" },
+        { key: "team", value: "Team" },
+        { key: "help", value: "Help" },
+        { key: "terms_conditions", value: "Terms & Conditions" },
     ]
 }
 
-// { key: "", value: "" },
+        // { key: "", value: "" },

@@ -3,8 +3,10 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AuthenticationContext } from '../services/auth.context'
 import { useTranslate } from '../hooks/translation/UseTranslate'
+import { successToast, errorToast } from '../notifications/notifications.js'
 import Input from '../input/Input'
 import './Login.css'
+import '../register/Register.css'
 
 const Login = () => {
     const navigate = useNavigate();
@@ -40,14 +42,14 @@ const Login = () => {
         })
             .then(res => res.json())
             .then(data => {
-                handleUserLogin(data.token, data.username)
-                navigate("/my-books")
+                handleUserLogin(data.token, data.username);
+                successToast("Inicio de sesión existoso");
+                navigate("/my-books");
             })
             .catch(errors => {
-                console.log("Error al iniciar sesión", errors)
-                return
+                console.log("Error al iniciar sesión", errors);
+                errorToast(errors)
             })
-
     }
 
     return (
@@ -64,7 +66,7 @@ const Login = () => {
                 <div>
                     <div className="register-text">
                         <h2>{translate("login")}</h2>
-                        <p>ingresa tu cuenta</p>
+                        <p>{translate("login_text")}</p>
                     </div>
                     <form className="register-form" onSubmit={handleSubmit}>
                         <Input

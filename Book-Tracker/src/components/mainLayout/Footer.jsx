@@ -1,18 +1,22 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faXTwitter, faInstagram, faRedditAlien } from '@fortawesome/free-brands-svg-icons';
+import ComboLanguage from '../hooks/translation/ComboLanguage';
+import { useTranslate } from '../hooks/translation/UseTranslate'
 import './Footer.css';
 
 function Footer() {
+  const translate = useTranslate();
+  
   return (
     <footer>
       <div className="footer-container">
         <div className="footer-links">
           <nav aria-label="Enlaces del pie de página">
             <ul>
-              <li><a href="#">Privacidad</a></li>
-              <li><a href="#">Equipo</a></li>
-              <li><a href="#">Ayuda</a></li>
-              <li><a href="#">Términos y Condiciones</a></li>
+              <li><a href="#">{translate("privacy")}</a></li>
+              <li><a href="#">{translate("team")}</a></li>
+              <li><a href="#">{translate("help")}</a></li>
+              <li><a href="#">{translate("terms_conditions")}</a></li>
             </ul>
           </nav>
         </div>
@@ -27,6 +31,10 @@ function Footer() {
         </div>
 
         <div className="footer-copyright">
+          <ul>
+            <li><a href="#" aria-label="Enlace a Reddit"><ComboLanguage /></a></li>
+          </ul>
+          <br />
           <p>© 2025 BookTracker</p>
         </div>
       </div>

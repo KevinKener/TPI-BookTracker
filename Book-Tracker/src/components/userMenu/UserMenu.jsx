@@ -3,12 +3,13 @@ import ModalLogout from '../modalLogout/ModalLogout'
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useState, useContext } from 'react';
-import { isTokenValid } from "../services/auth/auth.helpers.js"
 import { AuthenticationContext } from '../services/auth.context';
+import { useTranslate } from '../hooks/translation/UseTranslate'
 
 const UserMenu = () => {
   
   const navigate = useNavigate();
+  const translate = useTranslate();
   const [showModal, setShowModal] = useState(false);
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
@@ -20,7 +21,7 @@ const UserMenu = () => {
           <Dropdown className="user" align="end" >
             <DropdownToggle as="span" className='user-toggle no-caret' >
               { username ?
-                  username : "Invitado"
+                  username : translate("guest")
               }
             </DropdownToggle>
 

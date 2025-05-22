@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import { ListGroupItem, Row, Col, CardImg, Button, FormGroup, FormControl, FormSelect } from 'react-bootstrap'
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Trash3, CheckLg, XLg, PencilSquare, StarFill } from 'react-bootstrap-icons'
 import { updateLecture, deleteLecture } from './bookitem.services.js'
+import { useTranslate } from '../hooks/translation/UseTranslate'
 
 const BookItem = ({ lecture, onUpdate, onDelete }) => {
-
+  
   const navigate = useNavigate();
+  const translate = useTranslate();
   const token = localStorage.getItem("book-tracker-token");
   
   const { id, rating, status, pageCount, bookId, book } = lecture;
@@ -99,9 +101,9 @@ const BookItem = ({ lecture, onUpdate, onDelete }) => {
                       onChange={handleEditStatus} 
                     >
                     <option value=""></option>
-                    <option value="Para leer">Para leer</option>
-                    <option value="Leyendo">Leyendo</option>
-                    <option value="Leído">Leído</option>
+                    <option value="Para leer">{translate("status_planned")}</option>
+                    <option value="Leyendo">{translate("status_reading")}</option>
+                    <option value="Leído">{translate("status_read")}</option>
                     </FormSelect>
                   </>
                     :
@@ -140,6 +142,7 @@ const BookItem = ({ lecture, onUpdate, onDelete }) => {
                           type="number"
                           size="sm"
                           min="0"
+                          max={pages}
                           className="me-1"
                           style={{ width: '50px' }}
                           step="1"
