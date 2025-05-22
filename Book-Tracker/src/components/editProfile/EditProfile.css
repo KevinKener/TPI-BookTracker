@@ -1,137 +1,38 @@
-/* EditProfile.module.css */
-
-.modal-main {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
-
+.btn-custom-image-url {
+  background-color: #F5F5DC !important;
+  border-color: #AFB1AC !important;
+  color: #252524 !important;
 }
 
-.grid {
-  background-color: #D6D9D3;
-  border-radius: 18px;
-  padding: 20px;
-  width: 70%;
-  height: 80%;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr; /* Dos columnas: imagen y texto */
-  grid-gap: 40px;
-  margin: 7% auto;
-  padding-left: 10%;
-  padding-right: 10%;
-  padding-top: 3%;
-  padding-bottom: 3%;
+.btn-custom-image-url:hover {
+  transition: 250ms;
+  background-color: #413467 !important;
+  border-color: #413467 !important;
+  color: #F5F5DC !important;
 }
 
-.modal-pick {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #A8B778;
-  border-radius: 18px;
-  grid-row: 1/3;
-  grid-column: 1/1;
+.btn-custom-primary {
+  background-color: #8778B7 !important;
+  border-color: #8778B7 !important;
+  color: #252524 !important;
 }
 
-.modal-pick img {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  object-fit: cover; /* Para que la imagen se ajuste al círculo sin deformarse */
-  margin-bottom: 10px;
+.btn-custom-primary:hover {
+  transition: 250ms;
+  background-color: #413467 !important;
+  border-color: #413467 !important;
+  color: #F5F5DC !important;
 }
 
-.modal-pick button {
-  padding: 8px 15px;
-  border: none;
-  border-radius: 18px;
-  background-color: #F5F5DC;
-  color: #000000;
-  cursor: pointer;
-  font-size: 0.9rem;
-  height: 15%;
-  width: 70%;
+.btn-custom-secondary {
+  background-color: #AAA1CE !important;
+  border-color: #AAA1CE !important;
+  color: #252524 !important;
 }
 
-.modal-pick button:hover {
-  background-color: #65519c;
-}
-
-.modal-text {
-  grid-column: 2/4;
-  display: flex;
-  flex-direction: column;
-  grid-row: 1/3;
-  grid-column: 2/4;
-}
-
-.modal-text input {
-  padding: 10px;
-  border: none;
-  font-size: 1rem;
-  background-color: #A8B778;
-  color: #000000;
-}
-
-.modal-text textarea {
-  resize: none;
-  padding: 10px;
-  border: none;
-  font-size: 1rem;
-  background-color: #A8B778;
-  color: #000000;
-}
-
-.modal-text-name {
-  border-radius: 24.63px;
-  height: 20%;
-  margin-bottom: 15px;
-}
-
-.modal-text-description {
-  border-radius: 18px;
-  height: 90%;
-}
-
-.grid > button {
-  padding: 10px 15px;
-  border: none;
-  border-radius: 18px;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.grid > button:first-of-type {
-  background-color: #AAA1CE; /* Botón Cancelar */
-  color: #000000;
-  grid-column: 2/3;
-  height: 40%;
-  margin-top: auto;
-  margin-bottom: auto;
-}
-
-.grid > button:first-of-type:hover {
-  background-color: #65519c;
-}
-
-.grid > button:last-of-type {
-  background-color: #8778B7; /* Botón Guardar cambios */
-  color: #000000;
-  grid-column: 3/3;
-  height: 40%;
-  margin-top: auto;
-  margin-bottom: auto;
-}
-
-.grid > button:last-of-type:hover {
-  background-color: #65519c;
-}
-
-.error-message{
-  color: red;
+.btn-custom-secondary:hover {
+  transition: 250ms;
+  background-color: #413467 !important;
+  border-color: #413467 !important;
+  color: #F5F5DC !important;
 }

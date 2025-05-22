@@ -1,7 +1,8 @@
 import './index.css'
 import { useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { ToastContainer } from 'react-bootstrap'
+import { ToastContainer } from 'react-toastify'; // Importa ToastContainer
+import 'react-toastify/dist/ReactToastify.css'; // Importa los estilos CSS
 import MainLayout from './components/mainLayout/MainLayout'
 import BookList from './components/bookList/BookList'
 import books from './components/data/Books'
@@ -16,6 +17,7 @@ import Users from './components/data/Users'
 import Register from './components/register/Register'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AuthorDetails from './components/authorDetails/AuthorDetails'
+
 
 function App() {
   // const [bookList, setBookList] = useState(books);
