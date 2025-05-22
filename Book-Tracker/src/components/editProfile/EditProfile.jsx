@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form, Image } from 'react-bootstrap';
 import './editProfile.css';
+import { errorToast } from '../notifications/notifications';
 
 const EditProfile = ({ user, onClose, onUserUpdated }) => {
   const [username, setUsername] = useState(user.username);
