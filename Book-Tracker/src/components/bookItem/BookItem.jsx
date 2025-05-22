@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { Card, ListGroupItem, Row, Col, CardImg, Button, FormGroup, FormControl, FormSelect } from 'react-bootstrap'
+import { ListGroupItem, Row, Col, CardImg, Button, FormGroup, FormControl, FormSelect } from 'react-bootstrap'
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Trash3, CheckLg, XLg, PencilSquare, StarFill } from 'react-bootstrap-icons'
-import { updateLecture, deleteLecture } from '../bookList/booklist.services.js'
+import { updateLecture, deleteLecture } from './bookitem.services.js'
 
 const BookItem = ({ lecture, onUpdate, onDelete }) => {
 
@@ -47,6 +47,8 @@ const BookItem = ({ lecture, onUpdate, onDelete }) => {
         rating: editRating,
         pageCount: editPageCount
       });
+      console.log(updated);
+      // onUpdate es para actualizar el .map
       onUpdate(updated);
       setIsEditing(false);
     } catch (error) {

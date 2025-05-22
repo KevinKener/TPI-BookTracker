@@ -299,14 +299,3 @@ input[type='number']::-webkit-inner-spin-button {
 /* ITEM LIBROS DETALLES */
 
 /* NEW BOOK / NUEVO LIBRO */
-.new-book-page{
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-}
-.new-book-form{
-  border: 2px #555555 solid;
-  border-radius: 2em;
-  padding: 2%;
-}
