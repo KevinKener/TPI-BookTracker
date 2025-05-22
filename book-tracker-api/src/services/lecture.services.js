@@ -78,19 +78,15 @@ export const createLecture = async (req,res) => {
 }
 
 export const updateLecture = async (req,res) => {
+    const { id } = req.params;
     // DATOS LIBRO
-    const { bookId, status, rating, pageCount, dateStarted, dateFinished } = req.body;
+    const { status, rating, pageCount, dateStarted, dateFinished } = req.body;
 
     // USER ID
     const userId = req.user.id;
 
     // BUSCA SI EXISTE LA LECTURA
-    const lecture = await Lecture.findOne({
-        where: {
-            userId,
-            bookId
-        }
-    });
+    const lecture = await Lecture.findByPk(id);
 
     // ERROR SI NO ENCUENTRA 
     if(!lecture){
@@ -107,11 +103,7 @@ export const updateLecture = async (req,res) => {
     })
 
     // GUARDAMOS LA LECTURA CON NOMBRE DE AUTOR AGREGADO
-    const updatedLecture = await Lecture.findOne({
-        where: {
-            userId,
-            bookId
-        },
+    const updatedLecture = await Lecture.findByPk(id, {
         include: [
             {
                 model: Book,
@@ -129,19 +121,13 @@ export const updateLecture = async (req,res) => {
 }
 
 export const deleteLecture = async (req, res) => {
-    // LIBRO ID
-    const { bookId } = req.body;
+    const { id } = req.params;
 
     // USER ID
     const userId = req.user.id;
 
     // BUSCA SI EXISTE LA LECTURA
-    const lecture = await Lecture.findOne({
-        where: {
-            userId,
-            bookId
-        }
-    });
+    const lecture = await Lecture.findByPk(id);
 
     // ERROR SI NO ENCUENTRA 
     if(!lecture){
@@ -151,5 +137,5 @@ export const deleteLecture = async (req, res) => {
     // LO BORRA
     await lecture.destroy();
 
-    res.send(`La lectura con libro-id: ${bookId}, del usuario-id: ${userId}, ha sido destruido`);
+    res.send(`La lectura con id: ${id}, ha sido destruido`);
 }

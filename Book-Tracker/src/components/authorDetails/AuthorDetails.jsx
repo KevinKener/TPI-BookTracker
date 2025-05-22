@@ -1,6 +1,7 @@
 import { useEffect, useState, } from 'react'
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from 'react-bootstrap';
+import './authorDetails.css'
 
 const AuthorDetails = () => {
 
@@ -40,7 +41,7 @@ const [error, setError] = useState(false);
 
 
     const handleExit = () => {
-        navigate("/my-books");
+        navigate("/");
     };
 
 
@@ -59,11 +60,9 @@ const [error, setError] = useState(false);
             <div className='author-body-container'>
                 <div className='author-body'>
                     <span className='author-name'>{authorName}</span>
-                    <span className='author-birth-place'>Nacionalidad: {birthplace}</span>
+                    <span className='author-birthplace'>{birthplace}</span>
                     <span className='author-summary'>{summary}</span>
                 </div>
-            </div>
-            <div>
                 <Button className="me-2" onClick={handleExit}>
                     Volver a la página principal
                 </Button>

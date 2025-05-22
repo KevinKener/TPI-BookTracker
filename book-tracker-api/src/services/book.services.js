@@ -93,6 +93,10 @@ export const createBook = async (req, res) => {
 }
 
 export const updateBook = async (req, res) => {
+    // PARA MODIFICACIONES CON POSTMAN
+    // const { id } = req.params;
+    // const { title, authorId, pages, genres, summary, imageUrl } = req.body;
+
     const { id, title, authorId, pages, genres, summary, imageUrl } = req.body;
 
     const book = await Book.findByPk(id);

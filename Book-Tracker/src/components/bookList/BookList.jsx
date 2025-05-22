@@ -3,7 +3,7 @@ import { Card, CardHeader, ListGroup, ListGroupItem, Row, Col } from 'react-boot
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import BookItem from '../bookItem/BookItem'
 import { StarFill } from 'react-bootstrap-icons'
-import { fetchLectures } from './booklist.services.js'
+import fetchLectures from './booklist.services.js'
 
 const BookList = () => {
 
@@ -91,7 +91,7 @@ const BookList = () => {
                       lecture={lecture} 
                       onUpdate={handleUpdateLecture}
                       onDelete={handleDeleteLecture}
-                    />
+                      />
                   ))
                 }
               </ListGroup>
