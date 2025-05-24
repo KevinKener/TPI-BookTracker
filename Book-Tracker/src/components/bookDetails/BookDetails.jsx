@@ -36,7 +36,7 @@ const BookDetails = () => {
     try {
       const res = await addLecture(token, bookId);
       console.log("Lectura agregada: ", res);
-      successToast("Se ha añadido correctamente a la lista")
+      successToast("Se ha añadido a la lista")
     } catch (error) {
       alert(error.message);
       console.error("Error al agregar la lectura:", error);

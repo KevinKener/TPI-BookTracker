@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
-import Input from '../input/Input';
-import './Register.css';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
+import { errorToast, successToast } from '../notifications/notifications.js';
+import Input from '../input/Input';
+import fetchRegister from './register.services.js';
+import { useTranslate } from '../hooks/translation/UseTranslate'
+import './Register.css';
 
 function Register() {
   const navigate = useNavigate();
+  const translate = useTranslate();
 
   const [formData, setFormData] = useState({
     nombreUsuario: '',
@@ -25,10 +29,29 @@ function Register() {
     navigate('/login');
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('Datos del formulario:', formData);
-    // Enviar datos a la DB
+    
+    if (formData.contrasena !== formData.confirmarContrasena) {
+      errorToast('Las contraseñas no coinciden.');
+      return;
+    }
+    
+    try {
+      const res = await fetchRegister(
+        formData.nombreUsuario,
+        formData.email,
+        formData.contrasena
+      )
+      
+      console.log('Datos del formulario:', formData);
+      successToast("Cuenta registrada exitosamente.")
+      navigate('/login');
+      
+    } catch (error) {
+      console.error("Error al registrar :", error),
+      errorToast("Ha ocurrido un error en al registrar el usuario.")
+    }
   };
 
   return (
@@ -36,12 +59,12 @@ function Register() {
       <div className="register-inputs">
         <div>
           <div className="register-text">
-            <h2>Regístrate ahora</h2>
-            <p>Crea tu cuenta</p>
+            <h2>{translate("register_now")}</h2>
+            <p>{translate("create_your_account")}</p>
           </div>
           <form onSubmit={handleSubmit} className="register-form">
             <Input
-              placeholder="Nombre de usuario"
+              placeholder={translate("username")}
               type="text"
               id="nombreUsuario"
               name="nombreUsuario"
@@ -49,7 +72,7 @@ function Register() {
               onChange={handleChange}
             />
             <Input
-              placeholder="Email"
+              placeholder={translate("email")}
               type="email"
               id="email"
               name="email"
@@ -57,7 +80,7 @@ function Register() {
               onChange={handleChange}
             />
             <Input
-              placeholder="Contraseña"
+              placeholder={translate("password")}
               type="password"
               id="contrasena"
               name="contrasena"
@@ -65,19 +88,19 @@ function Register() {
               onChange={handleChange}
             />
             <Input
-              placeholder="Confirmar contraseña"
+              placeholder={translate("confirm_password")}
               type="password"
               id="confirmarContrasena"
               name="confirmarContrasena"
               value={formData.confirmarContrasena}
               onChange={handleChange}
             />
-            <button type="submit" className="register-button">Registrarse</button>
+            <button type="submit" className="register-button">{translate("register")}</button>
           </form>
           <div className="login-text">
-            <p>¿Ya tienes una cuenta?</p>
+            <p>{translate("already_registered")}</p>
             <a href="" onClick={handlelogin}>
-              Inicia sesión
+              {translate("login")}
             </a>
           </div>
         </div>

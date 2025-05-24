@@ -19,7 +19,7 @@ export const User = sequelize.define("user", {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    userPicUrl: {
+    profilePictureUrl: {
         type: DataTypes.STRING,
     },
     description: {

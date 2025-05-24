@@ -135,46 +135,37 @@ export const registerUser = async (req, res) => {
 
 
 export const loginUser = async (req, res) => {
-    
-    // Validaciones de input
-    const result = validateUserLogin(req);
-
-    if(result.error){
-        return res.status(400).send({ message: result.message });
-    }
-    
-    const { email, password } = req.body;
-
-    // Busca algún usuario registrado con ese email
-    const user = await User.findOne({
-        where: {
-            email
+    try {
+        const result = validateUserLogin(req);
+        if(result.error){
+            return res.status(400).send({ message: result.message });
         }
-    })
 
-    if(!user){
-        return res.status(400).send({ message: "El correo no se encuentra registrado" });
+        const { email, password } = req.body;
+
+        const user = await User.findOne({ where: { email } });
+
+        if(!user){
+            return res.status(400).send({ message: "El correo no se encuentra registrado" });
+        }
+
+        const comparison = await bcrypt.compare(password, user.password);
+
+        if(!comparison){
+            return res.status(401).send({ message: "Email y/o contraseña incorrectos" });
+        }
+
+        const secretKey = "programacion3-2025";
+        const token = jwt.sign({ id: user.id, username: user.username, email }, secretKey, { expiresIn: "1h" });
+
+        return res.json({
+            token,
+            username: user.username,
+            id: user.id
+        });
+
+    } catch (error) {
+        console.error("Error interno en loginUser:", error);
+        return res.status(500).send({ message: "Error interno del servidor" });
     }
-
-
-    // Compara la contraseña
-    const comparison = await bcrypt.compare(password, user.password);
-
-    // Si no coincide, devuelve error 401
-    if(!comparison){
-        return res.status(401).send({ message: "Email y/o contraseña incorrectos" });
-    }
-
-    // Genera una clave secreta para firmar el token
-    const secretKey = "programacion3-2025";
-
-    // Devuelve un token JWT que expira en 1 hora 
-    const token = jwt.sign({ id: user.id, username: user.username, email }, secretKey, { expiresIn: "1h" });
-
-    // Devuelve el token al cliente
-    return res.json({
-        token,
-        username: user.username
-    });
-
-}
+};

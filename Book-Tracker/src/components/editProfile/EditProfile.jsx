@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form, Image } from 'react-bootstrap';
-import './editProfile.css';
 import { errorToast } from '../notifications/notifications';
+import { useContext } from 'react';
+import { AuthenticationContext } from '../services/auth.context';
+import updateUserProfile from './editprofile.services.js'
+import './editProfile.css';
 
 const EditProfile = ({ user, onClose, onUserUpdated }) => {
+  const { id, token } = useContext(AuthenticationContext);
+
   const [username, setUsername] = useState(user.username);
   const [description, setDescription] = useState(user.description);
-  const [profileImage, setProfileImage] = useState(user.userPickUrl);
+  const [profileImage, setProfileImage] = useState(user.profilePictureUrl);
   const [imageUrlInput, setImageUrlInput] = useState('');
   const [usernameError, setUsernameError] = useState('');
   const [showUrlInput, setShowUrlInput] = useState(false);
@@ -23,7 +28,7 @@ const EditProfile = ({ user, onClose, onUserUpdated }) => {
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (username.trim() === '') {
@@ -34,14 +39,21 @@ const EditProfile = ({ user, onClose, onUserUpdated }) => {
     }
 
     const updatedUser = {
-      ...user,
       username: username,
       description: description,
-      userPickUrl: profileImage,
+      profilePictureUrl: profileImage
     };
 
-    onUserUpdated(updatedUser);
-    onClose(); // Cierra el modal después de la entrega
+    try {
+      const updated = await updateUserProfile(id, token, updatedUser);
+      onUserUpdated(updated);
+      onClose();
+    } catch (error) {
+      console.error(error);
+      errorToast("Error al actualizar el perfil");
+    }
+
+    onClose();
   };
 
   return (
@@ -120,7 +132,7 @@ const EditProfile = ({ user, onClose, onUserUpdated }) => {
               as="textarea"
               rows={3}
               placeholder="Descripción"
-              value={description}
+              value={description || ""}
               onChange={(e) => setDescription(e.target.value)}
             />
           </Form.Group>

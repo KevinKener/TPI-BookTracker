@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Navbar, Container, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import UserMenu from '../userMenu/UserMenu';
-import SearchBar from '../searchBar/SearchBar';
+import SearchBar from '../searchBar/searchBar';
 import logo from "../logo/logo.png"
 import logoText from "../logo/logoText.png"
 import { AuthenticationContext } from '../services/auth.context';

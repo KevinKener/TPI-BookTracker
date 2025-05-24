@@ -32,7 +32,7 @@ function Footer() {
 
         <div className="footer-copyright">
           <ul>
-            <li><a href="#" aria-label="Enlace a Reddit"><ComboLanguage /></a></li>
+            <li><ComboLanguage /></li>
           </ul>
           <br />
           <p>© 2025 BookTracker</p>

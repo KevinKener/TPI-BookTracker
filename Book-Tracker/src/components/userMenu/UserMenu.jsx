@@ -14,7 +14,7 @@ const UserMenu = () => {
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
   
-  const { token, username } = useContext(AuthenticationContext);
+  const { token, username, id } = useContext(AuthenticationContext);
 
   return (
     <div className="user-menu">
@@ -28,7 +28,7 @@ const UserMenu = () => {
             <DropdownMenu>
               { token ?
                <>
-                <DropdownItem onClick={() => navigate(`profile`)} > {/* El id depende de la sesion activa */}
+                <DropdownItem onClick={() => navigate(`profile/${id}`)} > {/* El id depende de la sesion activa */}
                   Perfil
                 </DropdownItem>
                 <DropdownItem onClick={() => navigate('profile-settings')} >

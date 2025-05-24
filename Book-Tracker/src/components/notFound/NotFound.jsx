@@ -1,10 +1,14 @@
 import React from 'react'
+import { useTranslate } from '../hooks/translation/UseTranslate'
 
 const NotFound = () => {
+
+  const translate = useTranslate();
+
   return (
     <div className="notFound-container">
-      <h2>notFound</h2>
-      <p>La página que buscas, no existe</p>
+      <h1>404</h1>
+      <h4>{translate("not_found")}</h4>
     </div>
   )
 }

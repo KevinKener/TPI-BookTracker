@@ -1,15 +1,20 @@
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useState, useEffect, useContext } from 'react';
+import { AuthenticationContext } from '../services/auth.context'
+import { errorToast } from '../notifications/notifications';
+import { useTranslate } from '../hooks/translation/UseTranslate'
 import StaticsCard from '../staticsCard/StaticsCard';
-import './Profile.css';
 import EditProfile from '../editProfile/EditProfile';
+import fetchUserProfile from './profile.services.js';
+import './Profile.css';
 
-const Profile = ({ users, setUsers }) => {
-  const { id } = useParams();
-  const userId = parseInt(id);
-  const user = users.find(user => user.id === userId);
+const Profile = () => {
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [user, setUser] = useState(null);
+
+  const translate = useTranslate();
+
+  const { id, token } = useContext(AuthenticationContext);
 
   const openEditModal = () => {
     setIsEditModalOpen(true);
@@ -20,23 +25,39 @@ const Profile = ({ users, setUsers }) => {
   };
 
   const handleUserUpdated = (updatedUser) => {
-    // Actualizo el array users
-    const updatedUsers = users.map(u => (u.id === updatedUser.id ? updatedUser : u));
-    setUsers(updatedUsers);
-    closeEditModal();
+    setUser(updatedUser);
   };
 
+  useEffect(() => {
+    const getProfile = async() => {
+      try {
+        const data = await fetchUserProfile(id, token);
+        setUser(data);
+      } catch (error) {
+        console.error("Error al cargar perfil: ", error);
+        errorToast("Error al cargar el perfil");
+      }
+    };
+
+    if (id && token) {
+      getProfile();
+    }
+
+  }, [id, token])
+
+
+  
   if (!user) {
-    return <p>Usuario no encontrado.</p>;
-  }
+      return <p>Cargando perfil...</p>;
+    }
 
   return (
     <div className="body">
       <div className="profile-main">
 
         <div className="profile">
-          {user.userPickUrl ? (
-            <img src={user.userPickUrl} alt="Foto de perfil" />
+          {user.profilePictureUrl ? (
+            <img src={user.profilePictureUrl} alt="Foto de perfil" />
           ) : (
             <img
               src="https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg"
@@ -55,9 +76,9 @@ const Profile = ({ users, setUsers }) => {
         </div>
 
         <div className="stats">
-          <StaticsCard text={'Libros leidos'} content={user.bookRead}/>
-          <StaticsCard text={'Paginas leidas'} content={user.pagesRead} extraClass="destacada" />
-          <StaticsCard text={'Calificaciones promedio'} content={user.avgRating}/>
+          <StaticsCard text={translate("books_read")} content={user.bookRead}/>
+          <StaticsCard text={translate("pages_read")} content={user.pagesRead} extraClass="destacada" />
+          <StaticsCard text={translate("avg_rating")} content={user.avgRating}/>
         </div>
       </div>
 

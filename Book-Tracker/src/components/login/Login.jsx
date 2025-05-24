@@ -5,6 +5,7 @@ import { AuthenticationContext } from '../services/auth.context'
 import { useTranslate } from '../hooks/translation/UseTranslate'
 import { successToast, errorToast } from '../notifications/notifications.js'
 import Input from '../input/Input'
+import fetchLogin from './login.services.js'
 import './Login.css'
 import '../register/Register.css'
 
@@ -31,25 +32,19 @@ const Login = () => {
         navigate('/register');
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         console.log('Datos del formulario:', formData);
 
-        fetch("http://localhost:3000/login", {
-            method: "POST",
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: formData.email, password: formData.password })
-        })
-            .then(res => res.json())
-            .then(data => {
-                handleUserLogin(data.token, data.username);
-                successToast("Inicio de sesión existoso");
-                navigate("/my-books");
-            })
-            .catch(errors => {
-                console.log("Error al iniciar sesión", errors);
-                errorToast(errors)
-            })
+        try { 
+            const data = await fetchLogin(formData.email, formData.password);
+            handleUserLogin(data.token, data.username, data.id);
+            successToast("Inicio de sesión existoso");
+            navigate("/my-books");
+        } catch (errors) {
+            console.log("Error al iniciar sesión", errors)
+            errorToast(errors || "Error desconocido al iniciar sesión")
+        }
     }
 
     return (

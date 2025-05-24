@@ -24,4 +24,15 @@ const fetchAuthors = async (token) => {
         })
 }
 
-export { fetchGenres, fetchAuthors };
+const newBook = async (token, bookData) => {
+    return fetch(`${API_URL}/books`, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(bookData),
+    });
+
+}
+export { fetchGenres, fetchAuthors, newBook };

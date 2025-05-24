@@ -1,9 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import fetchBooks from './searchbar.services.js';
 // import './searchBar.css';
 
-const SearchBar = ({ books }) => {
+const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredBooks, setFilteredBooks] = useState([]);
+  const [books, setBooks] = useState([]);
+
+    useEffect(() => {
+    const loadBooks = async () => {
+      try {
+        const data = await fetchBooks();
+        setBooks(data);
+      } catch (error) {
+        console.error('Error fetching books:', error);
+      }
+    };
+
+    loadBooks();
+  }, []);
 
   const handleSearchChange = (event) => {
     const term = event.target.value;
@@ -40,7 +55,7 @@ const SearchBar = ({ books }) => {
               />
               <div className="suggestion-text">
                 <div className="suggestion-title">{book.title}</div>
-                <div className="suggestion-author">{book.author}</div>
+                <div className="suggestion-author">{book.author.authorName}</div>
               </div>
             </li>
           ))}

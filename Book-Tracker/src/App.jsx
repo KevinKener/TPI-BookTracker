@@ -13,18 +13,14 @@ import Login from './components/login/Login'
 import Home from './components/home/Home'
 import NewBook from './components/newBook/NewBook'
 import Profile from './components/profile/Profile'
-import Users from './components/data/Users'
 import Register from './components/register/Register'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AuthorDetails from './components/authorDetails/AuthorDetails'
 
 
 function App() {
-  // const [bookList, setBookList] = useState(books);
-  const [users, setUsers] = useState(Users);
 
   return (
-    // <ToastContainer>
       <BrowserRouter>
         <div className='app-container'>
           <Routes>
@@ -65,14 +61,13 @@ function App() {
               <Route path='new-book' element={<NewBook />} />
 
               {/* PERFIL DEL USUARIO */}
-              <Route path='profile/:id' element={<Profile users={users} setUsers={setUsers}/>} />
+              <Route path='profile/:id' element={<Profile/>} />
             
             </Route>
           </Routes>
         </div>
         <ToastContainer />
       </BrowserRouter>
-    // </ToastContainer>
   )
 }
 
