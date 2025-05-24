@@ -4,6 +4,7 @@ import { errorToast } from '../notifications/notifications';
 import { useContext } from 'react';
 import { AuthenticationContext } from '../services/auth.context';
 import updateUserProfile from './editprofile.services.js'
+import profileImageDefault from '../profile/profileImageDefault.png'
 import './editProfile.css';
 
 const EditProfile = ({ user, onClose, onUserUpdated }) => {
@@ -66,7 +67,7 @@ const EditProfile = ({ user, onClose, onUserUpdated }) => {
           <div className="text-center mb-3">
             <div className="profile-image-container mb-3">
               <Image
-                src={profileImage || "https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg"}
+                src={profileImage || profileImageDefault}
                 alt="Foto de perfil"
                 roundedCircle
                 className="img-thumbnail"

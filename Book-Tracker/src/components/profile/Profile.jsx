@@ -5,6 +5,7 @@ import { useTranslate } from '../hooks/translation/UseTranslate'
 import StaticsCard from '../staticsCard/StaticsCard';
 import EditProfile from '../editProfile/EditProfile';
 import fetchUserProfile from './profile.services.js';
+import profileImageDefault from './profileImageDefault.png'
 import './Profile.css';
 
 const Profile = () => {
@@ -60,7 +61,7 @@ const Profile = () => {
             <img src={user.profilePictureUrl} alt="Foto de perfil" />
           ) : (
             <img
-              src="https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg"
+              src={profileImageDefault}
               alt="Foto de perfil"
             />
           )}
