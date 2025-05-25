@@ -1,0 +1,39 @@
+.list-page{
+  display: flex;
+  flex-direction: column;
+  margin-top: 1%;
+  width: 100%;
+
+  background-color: #f4f4f4;
+}
+
+.list-title{
+  width: 100%;
+  padding-left: 8% !important;
+  /* border: 1px dotted red; */
+}
+
+.list-sidebar{
+  width: 18%;
+}
+
+.list-body{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 1rem 0;
+  gap: 1rem;
+}
+
+.list-items{
+  width: 65%;
+}
+
+.clear-filter{
+  color: red !important;
+}
+
+.clear-filter:hover{
+  text-decoration: underline 1px red;
+}
