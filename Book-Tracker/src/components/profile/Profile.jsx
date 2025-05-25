@@ -4,7 +4,7 @@ import { errorToast } from '../notifications/notifications';
 import { useTranslate } from '../hooks/translation/UseTranslate'
 import StaticsCard from '../staticsCard/StaticsCard';
 import EditProfile from '../editProfile/EditProfile';
-import fetchUserProfile from './profile.services.js';
+import fetchUserProfile, { calculateStats, fetchStatsProfile } from './profile.services.js';
 import profileImageDefault from './profileImageDefault.png'
 import './Profile.css';
 
@@ -12,6 +12,11 @@ const Profile = () => {
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [user, setUser] = useState(null);
+  const [stats, setStats] = useState({
+    booksRead: 0,
+    pagesRead: 0,
+    avgRating: 0
+  });
 
   const translate = useTranslate();
 
@@ -34,6 +39,9 @@ const Profile = () => {
       try {
         const data = await fetchUserProfile(id, token);
         setUser(data);
+        const dataStats = await fetchStatsProfile(token);
+        console.log(dataStats);
+        calculateStats(dataStats, setStats);
       } catch (error) {
         console.error("Error al cargar perfil: ", error);
         errorToast("Error al cargar el perfil");
@@ -77,9 +85,9 @@ const Profile = () => {
         </div>
 
         <div className="stats">
-          <StaticsCard text={translate("books_read")} content={user.bookRead}/>
-          <StaticsCard text={translate("pages_read")} content={user.pagesRead} extraClass="destacada" />
-          <StaticsCard text={translate("avg_rating")} content={user.avgRating}/>
+          <StaticsCard text={translate("books_read")} content={stats.booksRead}/>
+          <StaticsCard text={translate("pages_read")} content={stats.pagesRead} extraClass="destacada" />
+          <StaticsCard text={translate("avg_rating")} content={stats.avgRating}/>
         </div>
       </div>
 
