@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Card, CardHeader, ListGroup, ListGroupItem, Row, Col } from 'react-bootstrap'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import BookItem from '../bookItem/BookItem'
 import { StarFill } from 'react-bootstrap-icons'
 import fetchLectures from './booklist.services.js'
 import { useTranslate } from '../hooks/translation/UseTranslate'
+import { AuthenticationContext } from '../services/auth.context.jsx'
 
 const BookList = () => {
   
@@ -12,6 +13,9 @@ const BookList = () => {
   const [lectures, setLectures] = useState([]);
   const translate = useTranslate();
   
+// TOKEN CONTEXT
+  const { token } = useContext(AuthenticationContext);
+
   const handleUpdateLecture = (updatedLecture) => {
     setLectures((prevLectures) => 
       prevLectures.map((lecture) => 
@@ -27,7 +31,6 @@ const BookList = () => {
   }
   
   useEffect(() => {
-    const token = localStorage.getItem('book-tracker-token')
     fetchLectures(token)
       .then(data => setLectures([...data]))      
   }, [])

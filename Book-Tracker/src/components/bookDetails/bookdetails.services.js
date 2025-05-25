@@ -28,4 +28,16 @@ const addLecture = async (token, bookId) => {
   return await res.json();
 }
 
-export { fetchBook, addLecture }
+const fetchLectures = async (token) => {
+    return fetch(`${API_URL}/my-books`, {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    })
+        .then(res => {
+            if (!res.ok) throw new Error('Error fetching books');
+            return res.json()
+        })
+}
+
+export { fetchBook, addLecture, fetchLectures }

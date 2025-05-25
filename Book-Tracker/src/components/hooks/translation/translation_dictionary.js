@@ -27,6 +27,16 @@ export const translation_dictionary = {
         { key: "pages_read", value: "Páginas leídas" },
         { key: "avg_rating", value: "Calificación promedio" },
         { key: "not_found", value: "Página no encontrada" },
+        { key: "new_book", value: "Nuevo libro" },
+        { key: "title", value: "Título" },
+        { key: "author", value: "Autor" },
+        { key: "pages", value: "Páginas" },
+        { key: "genres", value: "Género/s" },
+        { key: "selected", value: "Seleccionado/s" },
+        { key: "summary", value: "Resumen" },
+        { key: "cover", value: "Portada" },
+        { key: "url", value: "Enlace URL" },
+        { key: "add", value: "Añadir" },
     ],
     en: [
         { key:"spanish_lang", value: "Spanish" },
@@ -56,6 +66,16 @@ export const translation_dictionary = {
         { key: "pages_read", value: "Pages read" },
         { key: "avg_rating", value: "Average rating" },
         { key: "not_found", value: "Page not found" },
+        { key: "new_book", value: "New book" },
+        { key: "title", value: "Title" },
+        { key: "author", value: "Author" },
+        { key: "pages", value: "Pages" },
+        { key: "genres", value: "Genre/s" },
+        { key: "selected", value: "Selected" },
+        { key: "summary", value: "Summary" },
+        { key: "cover", value: "Cover" },
+        { key: "url", value: "URL link" },
+        { key: "add", value: "Add" },
     ]
 }
 

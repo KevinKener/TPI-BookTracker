@@ -1,15 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { ListGroupItem, Row, Col, CardImg, Button, FormGroup, FormControl, FormSelect } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
 import { Trash3, CheckLg, XLg, PencilSquare, StarFill } from 'react-bootstrap-icons'
 import { updateLecture, deleteLecture } from './bookitem.services.js'
 import { useTranslate } from '../hooks/translation/UseTranslate'
+import { AuthenticationContext } from '../services/auth.context.jsx'
 
 const BookItem = ({ lecture, onUpdate, onDelete }) => {
   
   const navigate = useNavigate();
   const translate = useTranslate();
-  const token = localStorage.getItem("book-tracker-token");
+  const { token } = useContext(AuthenticationContext);
   
   const { id, rating, status, pageCount, bookId, book } = lecture;
   const { title, pages, summary, imageUrl, author } = book;
