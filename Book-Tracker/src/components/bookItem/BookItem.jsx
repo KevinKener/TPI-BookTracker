@@ -5,6 +5,7 @@ import { Trash3, CheckLg, XLg, PencilSquare, StarFill } from 'react-bootstrap-ic
 import { updateLecture, deleteLecture } from './bookitem.services.js'
 import { useTranslate } from '../hooks/translation/UseTranslate'
 import { AuthenticationContext } from '../services/auth.context.jsx'
+import './bookItem.css'
 
 const BookItem = ({ lecture, onUpdate, onDelete }) => {
   
@@ -12,7 +13,7 @@ const BookItem = ({ lecture, onUpdate, onDelete }) => {
   const translate = useTranslate();
   const { token } = useContext(AuthenticationContext);
   
-  const { id, rating, status, pageCount, bookId, book } = lecture;
+  const { id, rating, status, pageCount, bookId, book, dateStarted, dateFinished } = lecture;
   const { title, pages, summary, imageUrl, author } = book;
   const authorName = author?.authorName;
   const authorId = book.authorId
@@ -20,6 +21,8 @@ const BookItem = ({ lecture, onUpdate, onDelete }) => {
   const [editStatus, setStatus] = useState(status);
   const [editRating, setRating] = useState(rating);
   const [editPageCount, setPageCount] = useState(pageCount);
+  const [editStarted, setEditStart] = useState(dateStarted?.slice(0, 10) || "");
+  const [editFinished, setEditFinished] = useState(dateFinished?.slice(0, 10) || "");
 
   const [isEditing, setIsEditing] = useState(false)
 
@@ -32,8 +35,34 @@ const BookItem = ({ lecture, onUpdate, onDelete }) => {
   }
 
   const handleEditStatus = (event) => {
-    setStatus(event.target.value);
+    const newStatus = event.target.value;
+    setStatus(newStatus);
+    const today = new Date().toISOString().slice(0, 10); // formato YYYY-MM-DD
+
+    if(newStatus === 'Leyendo' && !editStarted) {
+      setEditStart(today);
+    }
+    
+    if(newStatus === 'Leído'){
+      setPageCount(pages);
+      
+      if (!dateFinished || editFinished === "") {
+        setEditFinished(today);
+
+        if (!dateStarted) {
+          setEditStart(today);
+        }
   }
+    }
+  }
+
+  const handleEditStartDate = (event) => {
+    setEditStart(event.target.value);
+  }
+
+const handleEditFinishedDate = (event) => {
+  setEditFinished(event.target.value);
+}
 
   const handleEditRating = (event) => {
     setRating(event.target.value);
@@ -48,7 +77,9 @@ const BookItem = ({ lecture, onUpdate, onDelete }) => {
       const updated = await updateLecture (token, id, {
         status: editStatus,
         rating: editRating,
-        pageCount: editPageCount
+        pageCount: editPageCount,
+        dateStarted: editStarted,
+        dateFinished: editFinished
       });
       console.log(updated);
       // onUpdate es para actualizar el .map
@@ -84,17 +115,19 @@ const BookItem = ({ lecture, onUpdate, onDelete }) => {
     <>
         <ListGroupItem  >
             <Row>
-                <Col xs={1} className='list-item-body' >
-                <CardImg src={imageUrl}>
+                <Col xs={1} >
+                <CardImg src={imageUrl} className='clickable' onClick={handleClick}>
                 </CardImg>
                 </Col>
-                <Col xs={3} className='list-item-body' >
-                  <span className='clickable' onClick={handleClick}>{title}</span>
+
+                <Col xs={3} >
+                  <span className='clickable list-item-title' onClick={handleClick}>{title}</span>
+                  <br />
+                  <span className='clickable list-item-author' onClick={handleAuthorClick}>{authorName}</span>
+                  
                 </Col>
-                <Col xs={2} className='list-item-author' onClick={handleAuthorClick} >
-                  <span className='clickable' onClick={handleClick}>{authorName}</span>
-                </Col>
-                <Col xs={2} className='list-item-body' >
+
+                <Col xs={2} >
                 {isEditing ? 
                   <>
                     <FormSelect className="d-flex align-items-center"
@@ -113,6 +146,7 @@ const BookItem = ({ lecture, onUpdate, onDelete }) => {
                     </>
                 }
                 </Col>
+
                 <Col xs={1} className='list-item-rating'>
                   {isEditing ? 
                   <>
@@ -134,7 +168,8 @@ const BookItem = ({ lecture, onUpdate, onDelete }) => {
                     </>
                 }
                 </Col>
-                <Col xs={2} className='list-item-body' >
+
+                <Col xs={2} >
                   <FormGroup className="d-flex align-items-center">
                     {
                       isEditing ?
@@ -149,16 +184,57 @@ const BookItem = ({ lecture, onUpdate, onDelete }) => {
                           step="1"
                           value={editPageCount}
                           onChange={handleEditPageCount}
+                          disabled={editStatus !== 'Leyendo'}
                         />
                         <span> / {pages}</span>
                       </>
                       :
                       <>
-                        {pageCount} / {pages}
+                        { status === 'Leído' ? 
+                        <>
+                          {pages}
+                        </>
+                          :
+                        <>
+                          {pageCount} / {pages}
+                        </>
+                        }
                       </>
                     }
                   </FormGroup>
                 </Col>
+
+                <Col xs={2} className='list-item-date' >
+                  { isEditing ?
+                  <>
+                    {translate("start")}
+                    <FormControl
+                      type='date'
+                      size='sm'
+                      value={editStarted}
+                      onChange={handleEditStartDate}
+                      className=''
+                    />
+                    <br />
+                    {translate("end")}
+                    <FormControl
+                      type='date'
+                      size='sm'
+                      value={editFinished}
+                      onChange={handleEditFinishedDate}
+                    />
+                  </>
+                    :
+                  <div className='lecture-date'>
+                    {translate("start")}
+                    <div>{dateStarted ? dateStarted.slice(0, 10) : '-'}</div>
+                    <br />
+                    {translate("end")}
+                    <div>{dateFinished ? dateFinished.slice(0, 10) : '-'}</div>
+                  </div>
+                  }
+                </Col>
+
                 <Col xs={1} className='list-item-edit'>
                     {isEditing ?
                       <>

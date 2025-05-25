@@ -16,6 +16,7 @@ export const translation_dictionary = {
         { key: "home", value: "Inicio" },
         { key: "my_books", value: "Mis Libros" },
         { key: "browse", value: "Explorar" },
+        { key: "status", value: "Estado" },
         { key: "status_read", value: "Leído" },
         { key: "status_reading", value: "Leyendo" },
         { key: "status_planned", value: "Para leer" },
@@ -37,6 +38,10 @@ export const translation_dictionary = {
         { key: "cover", value: "Portada" },
         { key: "url", value: "Enlace URL" },
         { key: "add", value: "Añadir" },
+        { key: "start", value: "Inicio" },
+        { key: "end", value: "Fin" },
+        { key: "filter", value: "Filtrar" },
+        { key: "clear_filter", value: "Limpiar filtro" },
     ],
     en: [
         { key:"spanish_lang", value: "Spanish" },
@@ -55,6 +60,7 @@ export const translation_dictionary = {
         { key: "home", value: "Home" },
         { key: "my_books", value: "My Books" },
         { key: "browse", value: "Browse" },
+        { key: "status", value: "Status" },
         { key: "status_read", value: "Read" },
         { key: "status_reading", value: "Reading" },
         { key: "status_planned", value: "Planned" },
@@ -76,6 +82,10 @@ export const translation_dictionary = {
         { key: "cover", value: "Cover" },
         { key: "url", value: "URL link" },
         { key: "add", value: "Add" },
+        { key: "start", value: "Start" },
+        { key: "end", value: "End" },
+        { key: "filter", value: "Filter" },
+        { key: "clear_filter", value: "Clear filter" },
     ]
 }
 

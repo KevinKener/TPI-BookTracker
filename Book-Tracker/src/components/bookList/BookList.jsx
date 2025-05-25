@@ -6,15 +6,18 @@ import { StarFill } from 'react-bootstrap-icons'
 import fetchLectures from './booklist.services.js'
 import { useTranslate } from '../hooks/translation/UseTranslate'
 import { AuthenticationContext } from '../services/auth.context.jsx'
+import './bookList.css'
 
 const BookList = () => {
   
-  // ACA DEBERIA LLAMAR LOS METODOS PUT, DELETE PARA EDITAR Y BORRAR LIBROS DE LISTAS
-  const [lectures, setLectures] = useState([]);
   const translate = useTranslate();
   
-// TOKEN CONTEXT
+  // TOKEN CONTEXT
   const { token } = useContext(AuthenticationContext);
+  
+  // ACA DEBERIA LLAMAR LOS METODOS PUT, DELETE PARA EDITAR Y BORRAR LIBROS DE LISTAS
+  const [lectures, setLectures] = useState([]);
+  const [statusFilter, setStatusFilter] = useState(null);
 
   const handleUpdateLecture = (updatedLecture) => {
     setLectures((prevLectures) => 
@@ -29,7 +32,13 @@ const BookList = () => {
       prevLectures.filter((lecture) => lecture.id !== deletedId)
     )
   }
-  
+
+  const filteredLectures = statusFilter
+    ? lectures.filter(lecture => lecture.status === statusFilter)
+    : lectures;
+
+  const handleFilter = (status) => () => setStatusFilter(status);
+
   useEffect(() => {
     fetchLectures(token)
       .then(data => setLectures([...data]))      
@@ -45,18 +54,26 @@ const BookList = () => {
         <div className="list-body">
           <Card className='list-sidebar'>
             <ListGroup variant='flush' >
-              <ListGroupItem>
-                All
-              </ListGroupItem>
-              <ListGroupItem>
-                {translate("status_read")}
-              </ListGroupItem>
-              <ListGroupItem>
-                {translate("status_reading")}
-              </ListGroupItem>
-              <ListGroupItem>
+              <CardHeader>
+                {translate("filter")}:
+              </CardHeader>
+              <ListGroupItem className='clickable' onClick={handleFilter("Para leer")} >
                 {translate("status_planned")}
               </ListGroupItem>
+              <ListGroupItem className='clickable' onClick={handleFilter("Leyendo")} >
+                {translate("status_reading")}
+              </ListGroupItem>
+              <ListGroupItem className='clickable' onClick={handleFilter("Leído")} >
+                {translate("status_read")}
+              </ListGroupItem>
+              { statusFilter !== null &&
+              <>
+                <ListGroupItem className='clear-filter clickable' onClick={handleFilter(null)} >
+                  {translate("clear_filter")}
+                </ListGroupItem>
+              </>
+
+              }
             </ListGroup>
           </Card>
 
@@ -67,19 +84,19 @@ const BookList = () => {
                   {/* espacio del cover */}
                 </Col>
                 <Col xs={3} className='list-item-header' >
-                  Titulo
+                  {translate("title")}
                 </Col>
                 <Col xs={2} className='list-item-header' >
-                  Autor
-                </Col>
-                <Col xs={2} className='list-item-header' >
-                  Estado
+                  {translate("status")}
                 </Col>
                 <Col xs={1} className='list-item-header' >
                   <StarFill size={20} color='gold'/>
                 </Col>
                 <Col xs={2} className='list-item-header' >
-                  Págs
+                  {translate("pages")}
+                </Col>
+                <Col xs={2} className='list-item-header' >
+                  {translate("start")} / {translate("end")}
                 </Col>
                 <Col xs={1} className='list-item-header' >
                   
@@ -90,7 +107,7 @@ const BookList = () => {
 
               <ListGroup>
                 {
-                  lectures.map(lecture => (
+                  filteredLectures.map(lecture => (
                     <BookItem 
                       key={lecture.id} 
                       lecture={lecture} 
