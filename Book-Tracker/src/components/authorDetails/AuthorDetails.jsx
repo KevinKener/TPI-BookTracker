@@ -8,7 +8,7 @@ const AuthorDetails = () => {
     const navigate = useNavigate();
     const { id } = useParams();           
     const [author, setAuthor] = useState(null); 
-const [error, setError] = useState(false);
+  const [error, setError] = useState(false);
 
     
     useEffect(() => {

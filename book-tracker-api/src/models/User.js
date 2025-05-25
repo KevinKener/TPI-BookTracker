@@ -26,7 +26,9 @@ export const User = sequelize.define("user", {
         type: DataTypes.STRING,
     },
     role: {
-        type: DataTypes.ENUM('admin', 'mod', 'user'),
+        type: DataTypes.ENUM('admin', 'mod', 'reader'),
+        // POR DEFECTO, los usuarios registrados son "Lectores"
+        defaultValue: 'reader'
     }
 }, {
     timestamps: true
