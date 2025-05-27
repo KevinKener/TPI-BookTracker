@@ -60,6 +60,7 @@ const NewBook = () => {
                     navigate("/");
                 }
             })
+            // Redirige al home si el token expiró
             .catch(() => navigate("/"))
             .finally(() => setLoading(false));
     }, []);

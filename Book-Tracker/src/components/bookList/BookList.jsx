@@ -47,7 +47,7 @@ const BookList = () => {
   return (
     <div className="list-page">
       <Card className='my-list'>
-        <CardHeader className='list-title'>
+        <CardHeader className='list-header'>
           {translate("my_books")}
         </CardHeader>
 

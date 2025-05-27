@@ -7,6 +7,11 @@ const SearchBar = () => {
   const [filteredBooks, setFilteredBooks] = useState([]);
   const [books, setBooks] = useState([]);
 
+  // Normalizacion UNICODE
+  const normalizeText = (text) =>
+  text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  // 
+
     useEffect(() => {
     const loadBooks = async () => {
       try {
@@ -24,11 +29,13 @@ const SearchBar = () => {
     const term = event.target.value;
     setSearchTerm(term);
 
+    const normalizedTerm = normalizeText(term);
+
     if (term.length > 0) {
       const found = books.filter(book =>
-        book.title.toLowerCase().includes(term.toLowerCase())
+        normalizeText(book.title).includes(normalizedTerm)
       );
-      setFilteredBooks(found.slice(0, 5));
+      setFilteredBooks(found.slice(0, 6));
     } else {
       setFilteredBooks([]);
     }

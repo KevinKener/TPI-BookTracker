@@ -38,7 +38,7 @@ const Login = () => {
 
         try { 
             const data = await fetchLogin(formData.email, formData.password);
-            handleUserLogin(data.token, data.username, data.id);
+            handleUserLogin(data.token, data.username, data.id, data.role);
             successToast("Inicio de sesión existoso");
             navigate("/my-books");
         } catch (errors) {

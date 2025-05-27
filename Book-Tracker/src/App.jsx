@@ -5,7 +5,6 @@ import { ToastContainer } from 'react-toastify'; // Importa ToastContainer
 import 'react-toastify/dist/ReactToastify.css'; // Importa los estilos CSS
 import MainLayout from './components/mainLayout/MainLayout'
 import BookList from './components/bookList/BookList'
-import books from './components/data/Books'
 import BookDetails from './components/bookDetails/BookDetails'
 import NotFound from './components/notFound/NotFound'
 import Protected from './components/protected/Protected'
@@ -27,9 +26,7 @@ function App() {
             
             {/* LAYOUT COMUN DE TODAS LAS PAGINAS */}
             <Route element={
-              <MainLayout
-                books={books}
-              />
+              <MainLayout />
             }
             >
               {/* TODAS LAS RUTAS */}

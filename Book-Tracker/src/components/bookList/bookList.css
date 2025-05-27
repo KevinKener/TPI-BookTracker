@@ -1,20 +1,33 @@
 .list-page{
   display: flex;
   flex-direction: column;
-  margin-top: 1%;
+  margin: 1% 0;
   width: 100%;
-
+  
   background-color: #f4f4f4;
 }
 
-.list-title{
-  width: 100%;
-  padding-left: 8% !important;
-  /* border: 1px dotted red; */
+.my-list{
+  /* border: 1px dotted red !important; */
+  border: none !important;
+  
+}
+
+.list-header, .list-sidebar, .list-items{
+  border: 2px solid #a2a2a2 !important;
+  background-color: #c3d192 !important;
+}
+
+.list-header{
+  width: 84%;
+  /* padding-left: 10% !important; */
+  margin-left: 8% !important;
+  font-weight: 500;
 }
 
 .list-sidebar{
   width: 18%;
+  font-weight: 500;
 }
 
 .list-body{
@@ -22,7 +35,7 @@
   flex-direction: row;
   align-items: flex-start;
   justify-content: center;
-  padding: 1rem 0;
+  padding: 1ex 0;
   gap: 1rem;
 }
 
@@ -36,4 +49,8 @@
 
 .clear-filter:hover{
   text-decoration: underline 1px red;
+}
+
+.list-item-header{
+  font-weight: 500;
 }
