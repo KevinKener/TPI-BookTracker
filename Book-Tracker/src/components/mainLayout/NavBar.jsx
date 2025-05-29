@@ -8,10 +8,10 @@ import logoText from "../logo/logoText.png"
 import { AuthenticationContext } from '../services/auth.context';
 import { useTranslate } from '../hooks/translation/UseTranslate';
 
-const NavBar = ({ books }) => {
+const NavBar = () => {
 
-  const username = useContext(AuthenticationContext);
   const translate = useTranslate();
+  const { username, role } = useContext(AuthenticationContext);
 
   return (
     
@@ -37,9 +37,12 @@ const NavBar = ({ books }) => {
             <Nav.Link as={Link} to='/'>{translate("home")}</Nav.Link>
             <Nav.Link as={Link} to='my-books'>{translate("my_books")}</Nav.Link>
             <Nav.Link as={Link} to='browse'>{translate("browse")}</Nav.Link>
+            { (role === 'mod' || role === 'admin') &&
+                <Nav.Link as={Link} to='new-book'>{translate("new_book")}</Nav.Link>
+            }
           </Nav>
 
-          <SearchBar books={books} />
+          <SearchBar />
 
           <UserMenu className="user-menu"
             username={username}

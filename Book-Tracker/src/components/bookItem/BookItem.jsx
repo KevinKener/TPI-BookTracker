@@ -16,15 +16,15 @@ const BookItem = ({ lecture, onUpdate, onDelete }) => {
   const { id, rating, status, pageCount, bookId, book, dateStarted, dateFinished } = lecture;
   const { title, pages, summary, imageUrl, author } = book;
   const authorName = author?.authorName;
-  const authorId = book.authorId
+  const authorId = book.authorId;
 
   const [editStatus, setStatus] = useState(status);
   const [editRating, setRating] = useState(rating);
   const [editPageCount, setPageCount] = useState(pageCount);
-  const [editStarted, setEditStart] = useState(dateStarted?.slice(0, 10) || "");
-  const [editFinished, setEditFinished] = useState(dateFinished?.slice(0, 10) || "");
+  const [editStarted, setEditStarted] = useState(dateStarted || "");
+  const [editFinished, setEditFinished] = useState(dateFinished || "");
 
-  const [isEditing, setIsEditing] = useState(false)
+  const [isEditing, setIsEditing] = useState(false);
 
   const handleEdit = () => {
     setIsEditing(true)
@@ -37,10 +37,13 @@ const BookItem = ({ lecture, onUpdate, onDelete }) => {
   const handleEditStatus = (event) => {
     const newStatus = event.target.value;
     setStatus(newStatus);
-    const today = new Date().toISOString().slice(0, 10); // formato YYYY-MM-DD
+    
+    // Sale de la ISO 8601, estandar internacional. slice al 10 por 8 numeros y 2 guiones YYYY-MM-DD
+    const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD (10 caracteres, contando guiones)
 
+    // Setea la fecha en Hoy, cuando marca leyendo
     if(newStatus === 'Leyendo' && !editStarted) {
-      setEditStart(today);
+      setEditStarted(today);
     }
     
     if(newStatus === 'Leído'){
@@ -50,14 +53,14 @@ const BookItem = ({ lecture, onUpdate, onDelete }) => {
         setEditFinished(today);
 
         if (!dateStarted) {
-          setEditStart(today);
+          setEditStarted(today);
         }
-  }
+      }
     }
   }
 
-  const handleEditStartDate = (event) => {
-    setEditStart(event.target.value);
+  const handleEditStartedDate = (event) => {
+    setEditStarted(event.target.value);
   }
 
 const handleEditFinishedDate = (event) => {
@@ -190,7 +193,7 @@ const handleEditFinishedDate = (event) => {
                       </>
                       :
                       <>
-                        { status === 'Leído' ? 
+                        { status === 'Leído' || status === 'Para leer' ? 
                         <>
                           {pages}
                         </>
@@ -211,8 +214,8 @@ const handleEditFinishedDate = (event) => {
                     <FormControl
                       type='date'
                       size='sm'
-                      value={editStarted}
-                      onChange={handleEditStartDate}
+                      value={editStarted ? editStarted.slice(0, 10) : ''}
+                      onChange={handleEditStartedDate}
                       className=''
                     />
                     <br />
@@ -220,7 +223,7 @@ const handleEditFinishedDate = (event) => {
                     <FormControl
                       type='date'
                       size='sm'
-                      value={editFinished}
+                      value={editFinished ? editFinished.slice(0, 10) : ''}
                       onChange={handleEditFinishedDate}
                     />
                   </>

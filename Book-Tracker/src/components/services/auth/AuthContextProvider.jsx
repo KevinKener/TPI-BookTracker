@@ -21,6 +21,7 @@ export const AuthenticationContextProvider = ({ children }) => {
         setId(id);
         localStorage.setItem("book-tracker-role", role);
         setRole(role);
+        console.log(`context: `, role);
     }
 
     const handleUserLogout = () => {

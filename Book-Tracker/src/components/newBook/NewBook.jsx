@@ -4,8 +4,8 @@ import { fetchGenres, fetchAuthors, newBook } from './newbook.services.js'
 import { successToast, errorToast } from '../notifications/notifications.js'
 import { useTranslate } from '../hooks/translation/UseTranslate.jsx'
 import { useNavigate } from 'react-router'
-import fetchUserLogged from '../profile/profile.services.js'
 import { AuthenticationContext } from '../services/auth.context.jsx'
+import fetchUserLogged from '../profile/profile.services.js'
 import './newBook.css'
 
 const NewBook = () => {
@@ -53,7 +53,7 @@ const NewBook = () => {
         // COMPRUEBA DATOS DEL USUARIO LOGUEADO
         fetchUserLogged(id, token)
         .then(user => {
-                console.log(user.role);
+                console.log("User role: ", user.role);
                 if (user.role === "admin" || user.role === "mod") {
                     setAllowed(true);
                 } else {
@@ -130,6 +130,7 @@ const NewBook = () => {
                             type='text'
                             onChange={handleChangeTitle}
                             value={title}
+                            className='new-book-input'
                         />
                     </FormGroup>
                 </Row>
@@ -141,6 +142,7 @@ const NewBook = () => {
                             <FormSelect
                                 onChange={handleChangeSelectAuthor}
                                 value={selectedAuthor}
+                                className='new-book-input'
                             >
                                 <option value={null}></option>
                                 {authors.map(author => (
@@ -160,6 +162,7 @@ const NewBook = () => {
                                 onChange={handleChangePages}
                                 value={pages}
                                 min="1"
+                                className='new-book-input'
                             />
                         </FormGroup>
                     </Col>
@@ -167,11 +170,12 @@ const NewBook = () => {
 
                 <Row>
                     <FormGroup>
-                        <FormLabel>{translate("genres")}</FormLabel>
+                        <FormLabel>{translate("genres")}  (<span className='hold-ctrl'>{translate("hold_ctrl")}</span>)</FormLabel>
                         <FormSelect
                             value={selectedGenres}
                             multiple
                             onChange={handleChangeGenres}
+                            className='new-book-input'
                         >
                             {allGenres.map(genre => (
                                 <option key={genre.id} value={genre.id}>
@@ -198,6 +202,7 @@ const NewBook = () => {
                             rows={3}
                             onChange={handleChangeSummary}
                             value={summary}
+                            className='new-book-input'
                         />
                     </FormGroup>
                 </Row>
@@ -210,6 +215,7 @@ const NewBook = () => {
                             onChange={handleChangeImageUrl}
                             placeholder={translate("url")}
                             value={imageUrl}
+                            className='new-book-input'
                         />
                     </FormGroup>
                 </Row>

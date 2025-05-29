@@ -163,10 +163,13 @@ export const loginUser = async (req, res) => {
             role: user.role 
         }, secretKey, { expiresIn: "1h" });
 
+        console.log("user: ", user.role);
+
         return res.json({
             token,
             username: user.username,
-            id: user.id
+            id: user.id,
+            role: user.role
         });
 
     } catch (error) {

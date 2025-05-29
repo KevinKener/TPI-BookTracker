@@ -57,7 +57,7 @@ const BookList = () => {
               <CardHeader>
                 {translate("filter")}:
               </CardHeader>
-              <ListGroupItem className='clickable' onClick={handleFilter("Para leer")} >
+              <ListGroupItem className={`clickable ${statusFilter === "Para leer" ? "filtered" : ""}`} onClick={handleFilter("Para leer")} >
                 {translate("status_planned")}
               </ListGroupItem>
               <ListGroupItem className='clickable' onClick={handleFilter("Leyendo")} >

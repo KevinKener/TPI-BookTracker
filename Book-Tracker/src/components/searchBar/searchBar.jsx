@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import fetchBooks from './searchbar.services.js';
-// import './searchBar.css';
+import { useNavigate } from 'react-router-dom';
+import './searchBar.css';
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredBooks, setFilteredBooks] = useState([]);
   const [books, setBooks] = useState([]);
 
+  const navigate = useNavigate();
+
   // Normalizacion UNICODE
   const normalizeText = (text) =>
   text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-  // 
 
     useEffect(() => {
     const loadBooks = async () => {
@@ -32,14 +34,27 @@ const SearchBar = () => {
     const normalizedTerm = normalizeText(term);
 
     if (term.length > 0) {
-      const found = books.filter(book =>
-        normalizeText(book.title).includes(normalizedTerm)
-      );
+      const found = books.filter(book =>{
+        const byTitle = normalizeText(book.title).includes(normalizedTerm);
+        const byAuthor = normalizeText(book.author?.authorName).includes(normalizedTerm);
+        return byTitle || byAuthor;
+      });
+
       setFilteredBooks(found.slice(0, 6));
     } else {
       setFilteredBooks([]);
     }
   };
+
+  const handleClick = (id) => () => {
+    navigate(`/books/${id}`);
+
+    // Limpio la barra de búsqueda
+    setSearchTerm("");
+
+    // Escondo la lista de resultados limpiándola
+    setFilteredBooks([]);
+  }
 
   return (
     <div className="search-wrapper">
@@ -52,9 +67,9 @@ const SearchBar = () => {
         autoComplete="off"
       />
       {filteredBooks.length > 0 && (
-        <ul className="search-suggestions">
+        <ol className="search-suggestions">
           {filteredBooks.map((book) => (
-            <li key={book.id} className="suggestion-item">
+            <li key={book.id} className="suggestion-item" onClick={handleClick(book.id)}>
               <img
                 src={book.imageUrl}
                 alt={book.title}
@@ -66,7 +81,7 @@ const SearchBar = () => {
               </div>
             </li>
           ))}
-        </ul>
+        </ol>
       )}
     </div>
   );

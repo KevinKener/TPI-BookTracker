@@ -54,3 +54,7 @@
 .list-item-header{
   font-weight: 500;
 }
+
+.filtered{
+  background-color: #000;
+}

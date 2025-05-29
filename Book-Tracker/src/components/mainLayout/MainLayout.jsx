@@ -2,11 +2,10 @@ import { Outlet } from 'react-router-dom'
 import Footer from './Footer'
 import NavBar from './NavBar'
 
-const MainLayout = ({ books }) => {
+const MainLayout = () => {
   return (
     <>
         <NavBar
-        books={books}
         />
         <div className="main-layout">
             <Outlet />
