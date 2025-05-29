@@ -43,6 +43,7 @@ export const translation_dictionary = {
         { key: "filter", value: "Filtrar" },
         { key: "clear_filter", value: "Limpiar filtro" },
         { key: "hold_ctrl", value: "Para varios, mantenga 'Ctrl' al hacer click" },
+        { key: "member_since", value: "Miembro desde" },
     ],
     en: [
         { key:"spanish_lang", value: "Spanish" },
@@ -88,6 +89,7 @@ export const translation_dictionary = {
         { key: "filter", value: "Filter" },
         { key: "clear_filter", value: "Clear filter" },
         { key: "hold_ctrl", value: "For multiple, hold 'Ctrl when clicking the options" },
+        { key: "member_since", value: "Member since" },
     ]
 }
 

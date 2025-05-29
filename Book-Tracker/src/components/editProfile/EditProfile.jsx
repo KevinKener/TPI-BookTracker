@@ -8,7 +8,7 @@ import profileImageDefault from '../profile/profileImageDefault.png'
 import './editProfile.css';
 
 const EditProfile = ({ user, onClose, onUserUpdated }) => {
-  const { id, token } = useContext(AuthenticationContext);
+  const { id, token, role, updateUsername } = useContext(AuthenticationContext);
 
   const [username, setUsername] = useState(user.username);
   const [description, setDescription] = useState(user.description);
@@ -47,8 +47,14 @@ const EditProfile = ({ user, onClose, onUserUpdated }) => {
 
     try {
       const updated = await updateUserProfile(id, token, updatedUser);
+      
+      // Actualiza los valores para la NavBar
+      updateUsername(username);
+
+      // Actualiza Profile
       onUserUpdated(updated);
       onClose();
+
     } catch (error) {
       console.error(error);
       errorToast("Error al actualizar el perfil");

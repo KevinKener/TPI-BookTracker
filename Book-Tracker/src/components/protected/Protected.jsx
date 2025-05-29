@@ -7,6 +7,7 @@ const Protected = () => {
   const { token } = useContext(AuthenticationContext);
 
   if(!isTokenValid(token)){
+    // importar logout
       return <Navigate to="/login" replace />
   } else {
         return <Outlet />

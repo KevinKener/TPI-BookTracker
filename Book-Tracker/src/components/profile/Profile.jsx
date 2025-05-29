@@ -75,7 +75,7 @@ const Profile = () => {
           )}
           <div className="profile-info">
             <h1>{user.username}</h1>
-            <p>Miembro desde: {user.memberSince}</p>
+            <p>{translate("member_since")}: {user.memberSince}</p>
             <a href="#" onClick={openEditModal}>Editar perfil</a>
           </div>
         </div>

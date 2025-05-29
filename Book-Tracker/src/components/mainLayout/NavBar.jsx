@@ -13,6 +13,8 @@ const NavBar = () => {
   const translate = useTranslate();
   const { username, role } = useContext(AuthenticationContext);
 
+  // FETCH QUE REEMPLACE useContext para re-renderizar username
+
   return (
     
     <Navbar variant="light" expand="lg" className="header-container"> 
