@@ -3,12 +3,12 @@ import { Modal, Button, Form, Image } from 'react-bootstrap';
 import { errorToast } from '../notifications/notifications';
 import { useContext } from 'react';
 import { AuthenticationContext } from '../services/auth.context';
-import updateUserProfile from './editprofile.services.js'
-import profileImageDefault from '../profile/profileImageDefault.png'
+import updateUserProfile from './editprofile.services.js';
+import profileImageDefault from '../profile/profileImageDefault.png';
 import './editProfile.css';
 
 const EditProfile = ({ user, onClose, onUserUpdated }) => {
-  const { id, token, role, updateUsername } = useContext(AuthenticationContext);
+  const { id, token, role, updateUsername, updateProfilePicture } = useContext(AuthenticationContext);
 
   const [username, setUsername] = useState(user.username);
   const [description, setDescription] = useState(user.description);
@@ -50,6 +50,7 @@ const EditProfile = ({ user, onClose, onUserUpdated }) => {
       
       // Actualiza los valores para la NavBar
       updateUsername(username);
+      updateProfilePicture(profileImage);
 
       // Actualiza Profile
       onUserUpdated(updated);

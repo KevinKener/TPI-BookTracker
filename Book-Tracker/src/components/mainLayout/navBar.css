@@ -1,0 +1,40 @@
+.header-container{
+    background-color: #A8B778;
+}
+
+span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-bar a {
+    font-size: 24px;
+}
+
+.menu-bar a.active {
+    color: #F5F5DC !important;
+    font-weight: 600;
+}
+
+/* Opcional: Estilo al pasar el ratón por encima de los enlaces no activos */
+.menu-bar a:not(.active):hover {
+    color: #F1F0F7; /* Un color más claro al pasar el ratón */
+}
+
+.user-profile-image {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-placeholder-image {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #6c757d;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+}

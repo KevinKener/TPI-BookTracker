@@ -34,16 +34,13 @@ const Login = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log('Datos del formulario:', formData);
 
         try { 
             const data = await fetchLogin(formData.email, formData.password);
-            handleUserLogin(data.token, data.username, data.id, data.role);
-            console.log("username: ", data.username, "id: ", data.id, "role: ", data.role);
+            handleUserLogin(data.token, data.username, data.id, data.role, data.img);
             successToast("Inicio de sesión existoso");
             navigate("/my-books");
         } catch (errors) {
-            console.log("Error al iniciar sesión", errors)
             errorToast(errors || "Error desconocido al iniciar sesión")
         }
     }

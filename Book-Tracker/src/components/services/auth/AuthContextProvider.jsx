@@ -26,7 +26,6 @@ export const AuthenticationContextProvider = ({ children }) => {
         setId(id);
         localStorage.setItem("book-tracker-role", role);
         setRole(role);
-        console.log("context: ", role);
         localStorage.setItem("book-tracker-profile-picture", profilePictureUrl);
         setProfilePictureUrl(profilePictureUrl);
     }
@@ -49,9 +48,9 @@ export const AuthenticationContextProvider = ({ children }) => {
         setUsername(newUsername);
     };
 
-    const updateProfilePicture = (profilePictureUrl) => {
-        localStorage.setItem("book-tracker-profile-picture", profilePictureUrl);
-        setUsername(profilePictureUrl);
+    const updateProfilePicture = (newProfilePictureUrl) => {
+        localStorage.setItem("book-tracker-profile-picture", newProfilePictureUrl);
+        setProfilePictureUrl(newProfilePictureUrl);
     };
 
     const updateRole = (newRole) => {
