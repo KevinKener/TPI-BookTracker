@@ -1,12 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
 import { replace, useNavigate } from "react-router-dom";
 import { fetchBooks, fetchGenres } from "./browse.services.js";
-import { Card, CardBody } from "react-bootstrap";
 import { AuthenticationContext } from "../services/auth.context.jsx";
 import { errorToast } from "../notifications/notifications.js";
 import { useTranslate } from "../hooks/translation/UseTranslate.jsx";
 
 import "./browse.css";
+import CardBook from "../cardBook/CardBook.jsx";
 
 const Browse = () => {
   const { token } = useContext(AuthenticationContext);
@@ -59,39 +59,7 @@ const Browse = () => {
       <div className="browse-container">
         <div className="browse-grid">
           {filteredBooks.map((book) => (
-            <Card key={book.id}>
-              <CardBody className="book-item">
-                {/* IMAGEN */}
-                <img
-                  src={book.imageUrl}
-                  className="clickable"
-                  onClick={handleClick(book.id)}
-                />
-
-                {/* TITULO */}
-                <span
-                  className="book-item-title clickable"
-                  onClick={handleClick(book.id)}
-                >
-                  {book.title}
-                </span>
-                <br />
-
-                {/* AUTOR */}
-                <span
-                  className="book-item-author clickable"
-                  onClick={handleAuthor(book.authorId)}
-                >
-                  {book.author?.authorName}
-                </span>
-                <br />
-
-                {/* PAGINAS */}
-                <span className="book-item-pages">
-                  {book.pages} {translate("pages")}
-                </span>
-              </CardBody>
-            </Card>
+            <CardBook book={book} handleAuthor={handleAuthor} handleClick={handleClick} translate={translate}/>
           ))}
         </div>
 
