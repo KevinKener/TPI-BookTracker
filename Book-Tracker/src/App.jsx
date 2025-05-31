@@ -15,6 +15,7 @@ import Profile from './components/profile/Profile'
 import Register from './components/register/Register'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AuthorDetails from './components/authorDetails/AuthorDetails'
+import Browse from './components/browse/Browse';
 
 
 function App() {
@@ -59,7 +60,10 @@ function App() {
 
               {/* PERFIL DEL USUARIO */}
               <Route path='profile/:id' element={<Profile/>} />
-            
+
+              {/* EXPLORAR / BROWSE */}
+              <Route path='browse' element={<Browse />} />
+
             </Route>
           </Routes>
         </div>

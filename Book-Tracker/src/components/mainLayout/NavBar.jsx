@@ -17,7 +17,7 @@ const NavBar = () => {
     <Navbar variant="light" expand="lg" className="header-container">
       <Container fluid>
         <Navbar.Brand as={Link} to='/' className='logo'>
-          <span>
+          <span className='logo-span'>
             <img src={logo} className='logo-img' alt="Book Tracker Logo" />
             <h2>Book Tracker</h2>
           </span>

@@ -161,7 +161,7 @@ export const loginUser = async (req, res) => {
             username: user.username, 
             email: user.email, 
             role: user.role 
-        }, secretKey, { expiresIn: "30m" });
+        }, secretKey, { expiresIn: "1h" });
 
         console.log("user: ", user.role);
 

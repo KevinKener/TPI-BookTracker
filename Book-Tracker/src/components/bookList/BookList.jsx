@@ -57,13 +57,13 @@ const BookList = () => {
               <CardHeader>
                 {translate("filter")}:
               </CardHeader>
-              <ListGroupItem className={`clickable ${statusFilter === "Para leer" ? "filtered" : ""}`} onClick={handleFilter("Para leer")} >
+              <ListGroupItem className={`status-filter clickable ${statusFilter === "Para leer" ? "active" : ""}`} onClick={handleFilter("Para leer")} >
                 {translate("status_planned")}
               </ListGroupItem>
-              <ListGroupItem className='clickable' onClick={handleFilter("Leyendo")} >
+              <ListGroupItem className={`status-filter clickable ${statusFilter === "Leyendo" ? "active" : ""}`} onClick={handleFilter("Leyendo")} >
                 {translate("status_reading")}
               </ListGroupItem>
-              <ListGroupItem className='clickable' onClick={handleFilter("Leído")} >
+              <ListGroupItem className={`status-filter clickable ${statusFilter === "Leído" ? "active" : ""}`} onClick={handleFilter("Leído")} >
                 {translate("status_read")}
               </ListGroupItem>
               { statusFilter !== null &&

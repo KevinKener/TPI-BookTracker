@@ -107,20 +107,15 @@ const handleEditFinishedDate = (event) => {
   };
 
   const handleClick = () => {
-    navigate(`/books/${bookId}`, {
-      state: {
-        book: { title, author: authorName, rating, summary, pages, imageUrl }
-      }
-    });
+    navigate(`/books/${bookId}`);
   };
 
   return (
     <>
         <ListGroupItem  >
             <Row>
-                <Col xs={1} >
-                <CardImg src={imageUrl} className='clickable' onClick={handleClick}>
-                </CardImg>
+                <Col xs={1} className='list-item-cover' >
+                <CardImg src={imageUrl} className='clickable cover' onClick={handleClick} />
                 </Col>
 
                 <Col xs={3} >

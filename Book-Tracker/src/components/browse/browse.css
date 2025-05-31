@@ -1,0 +1,91 @@
+.browse-page{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 3% 8%;
+}
+
+.page-title{
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.browse-container{
+    display: flex;
+    width: 100%;
+    gap: 3%;
+}
+
+.browse-filters{
+    width: 25%;
+    padding: 1%;
+}
+
+.browse-grid{
+    display: grid;
+    grid-template-columns: repeat(5,  1fr);
+    gap: 25px;
+    width: 100%;
+    padding: 2%;
+}
+
+.book-item img{
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.book-item{
+    padding: 6% !important;
+}
+
+.book-item-title{
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.book-item-author{
+    font-size: 0.8rem;
+}
+
+.book-item-pages{
+    font-size: 0.7rem;
+}
+
+.browse-filters-grid{
+    display: grid;
+    grid-template-columns: repeat(2,  1fr);
+    width: 100%;
+    padding: 1%;
+    margin: 2% 0 0;
+    gap: 5%;
+}
+
+.filter-menu{
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.clear-browse-filter{
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 15%;
+}
+
+.genre-filter{
+    font-size: 0.8rem;
+    padding: 3%;
+    color: #6d7c3a;
+    width: max-content;
+}
+
+.genre-filter.active{
+  background-color: #c4c4c4 !important;
+  font-weight: 600 !important;
+}
+
+.genre-filter.active:hover{
+  text-decoration: none;
+  cursor: default;
+}

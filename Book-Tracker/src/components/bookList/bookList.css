@@ -16,6 +16,7 @@
 .list-header, .list-sidebar, .list-items{
   border: 2px solid #a2a2a2 !important;
   background-color: #c3d192 !important;
+  font-family: Helvetica, sans-serif;
 }
 
 .list-header{
@@ -36,7 +37,7 @@
   align-items: flex-start;
   justify-content: center;
   padding: 1ex 0;
-  gap: 1rem;
+  gap: 1%;
 }
 
 .list-items{
@@ -55,6 +56,12 @@
   font-weight: 500;
 }
 
-.filtered{
-  background-color: #000;
+.status-filter.active{
+  background-color: #36693f !important;
+  font-weight: 600 !important;
+}
+
+.status-filter.active:hover{
+  text-decoration: none;
+  cursor: default;
 }

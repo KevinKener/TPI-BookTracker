@@ -68,7 +68,7 @@ export const AuthenticationContextProvider = ({ children }) => {
     }, 5000);
 
     return () => clearInterval(interval);
-}, [token]);
+    }, [token]);
 
     return (
         <AuthenticationContext.Provider value={{ token, username, id, role, profilePictureUrl, handleUserLogin, handleUserLogout, updateUsername, updateRole, updateProfilePicture }}  >
