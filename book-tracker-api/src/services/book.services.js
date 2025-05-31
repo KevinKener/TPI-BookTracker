@@ -1,3 +1,4 @@
+import { validateAuthor, validateTitle, validatePages, validateGenre, validateSummary } from "../helpers/validations.books.js";
 import { Author, Book } from "../models/index.js";
 import { Genre } from "../models/index.js";
 
@@ -45,10 +46,25 @@ export const findBook = async (req, res) => {
 }
 
 export const createBook = async (req, res) => {
+    
+    // validaciones
+    const result = validateNewBook(req);
+
+    if(result.error){
+        return res.status(400).send({ message: result.message });
+    }
+    
     const { title, authorId, pages, genres, summary, imageUrl } = req.body;
 
-    if(!title || !authorId){
-        return res.status(400).send({message: "Los libros requieren titulo y autor"});
+    // busca por si hay algun libro con ese título 
+    const book = await Book.findOne({
+        where: {
+            title
+        }
+    });
+
+    if(book){
+        return res.status(400).send({ message: "El libro ya se encuentra registrado" }) 
     }
 
     const newBook = await Book.create({
@@ -152,4 +168,42 @@ export const deleteBook = async (req, res) => {
     await book.destroy();
 
     res.send(`El libro con id: ${id} ha sido destruido`);
+}
+
+const validateNewBook = (req) => {
+
+    const result = {
+        error: false,
+        message: ""
+    }
+
+    const { title, authorId, pages, genres, summary } = req.body;
+
+    // titulo, maximo, minimo
+    if(!title || !validateTitle(title, 50, 1)){
+        result.error = true,
+        result.message = "El título ingresado debe contener entre 1 y 50 caracteres"
+    }
+
+    // autor
+    if(!authorId || !validateAuthor(authorId)){
+        result.error = true,
+        result.message = "Debes elegir algún autor"
+    }
+    // paginas, maximo, minimo
+    if(!pages || !validatePages(pages, 1000, 1)){
+        result.error = true,
+        result.message = "Las paginas deben ser entre 1 y 1000"
+    }
+    // genero
+    if(!genres || !validateGenre(genres)){
+        result.error = true,
+        result.message = "Debes elegir algún género"
+    }
+    // sumary, maximo
+    if(!summary || !validateSummary(summary, 1000)){
+        result.error = true,
+        result.message = "La descripcion ha superado el límite de caracteres"
+    }
+
 }
