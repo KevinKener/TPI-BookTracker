@@ -11,11 +11,17 @@ router.put("/profile/:id", verifyToken, updateUser);
 
 router.delete("/profile/:id", verifyToken, deleteUser);
 
+router.put("/profile-settings/:id", verifyToken, updateUser);
+
+router.delete("/profile-settings/:id", verifyToken, deleteUser);
+
 // ADMINS / MODS
 router.get("/admin-users", verifyToken, getUsers);
 
 router.put("/admin-users/:id", verifyToken, updateUser);
 
 router.delete("/admin-users/:id", verifyToken, deleteUser);
+
+
 
 export default router;

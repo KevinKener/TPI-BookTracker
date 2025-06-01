@@ -17,6 +17,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import AuthorDetails from './components/authorDetails/AuthorDetails'
 import Browse from './components/browse/Browse';
 import AdminUsers from './components/adminUsers/AdminUsers';
+import Settings from './components/settings/Settings';
 
 
 function App() {
@@ -68,6 +69,9 @@ function App() {
               <Route element={<Protected />}>
                 <Route path='/admin-users' element={<AdminUsers />} />
               </Route>
+
+              {/* SETTINGS */}
+              <Route path='/profile-settings' element={<Settings />} />
 
             </Route>
           </Routes>

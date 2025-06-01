@@ -1,4 +1,5 @@
-import { User } from "../models/index.js";
+import { User, Lecture} from "../models/index.js";
+import bcrypt from 'bcrypt';  // Asegurate de importar bcrypt para el hash
 
 export const getUser = async (req, res) => {
     const { id } = req.params;
@@ -25,23 +26,39 @@ export const getUsers = async (req,res) => {
 }
 
 export const updateUser = async (req, res) => {
-    const { id } = req.params;
-    const { username, profilePictureUrl, description } = req.body; 
+  const { id } = req.params;
+  const { username, profilePictureUrl, description, email, password } = req.body;
 
-    const user = await User.findByPk(id);
+  const user = await User.findByPk(id);
 
-    if (!user){
-        return res.status(404).json({ message: "Usuario no encontrado" });
+  if (!user) {
+    return res.status(404).json({ message: "Usuario no encontrado" });
+  }
+
+  if (email) {
+    const existingUser = await User.findOne({ where: { email } });
+    if (existingUser && existingUser.id !== user.id) {
+      return res.status(400).json({ message: 'El email ya está en uso por otro usuario' });
     }
+  }
 
-    await user.update({
-        username,
-        profilePictureUrl,
-        description
-    });
+  
+  const updateData = {};
+  if (username !== undefined) updateData.username = username;
+  if (profilePictureUrl !== undefined) updateData.profilePictureUrl = profilePictureUrl;
+  if (description !== undefined) updateData.description = description;
+  if (email !== undefined) updateData.email = email;
 
-    res.json(user);
-}
+  if (password) {
+    const salt = await bcrypt.genSalt(10);
+    updateData.password = await bcrypt.hash(password, salt);
+  }
+
+  await user.update(updateData);
+
+  res.json({ message: 'Usuario actualizado correctamente', user });
+};
+
 
 export const deleteUser = async (req,res) => {
     const {id} = req.params;
@@ -52,7 +69,10 @@ export const deleteUser = async (req,res) => {
         return res.status(404).json({ message: "Usuario no encontrado" });
     }
 
-    user.destroy();
+    
+    await Lecture.destroy({ where: { userId: id } });
+
+    await user.destroy();
 
     res.send(`El usuario con id: ${id} ha sido eliminado`);
 }
