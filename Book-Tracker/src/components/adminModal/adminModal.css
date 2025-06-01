@@ -1,0 +1,36 @@
+.e-u-header{
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+
+.e-u-body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    /* padding: 3% 25%; */
+}
+
+.edit-title{
+    font-size: 1.1rem;
+}
+
+.actual-role{
+    font-size: 0.9rem;
+}
+
+.edit-input{
+    width: min-content;
+    font-size: 0.9rem;
+    padding: 1ex 1.5ex;
+}
+
+.edit-select, .edit-input{
+    margin: 0.5ex 0 2em;
+}
+
+.delete-btn{
+    display: flex;
+    justify-content: center;
+}

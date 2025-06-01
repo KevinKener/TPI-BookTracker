@@ -128,7 +128,6 @@ const NewBook = () => {
         }
     };
 
-    if (loading) return <div>Cargando...</div>;
     if (!allowed) return null;
 
     return (

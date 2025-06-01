@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Dropdown } from "react-bootstrap";
 import { TranslationContext } from "../../services/translation.context";
-import { useTranslate } from "./UseTranslate";
+import { useTranslate } from './UseTranslate';
 import { Globe } from 'react-bootstrap-icons'
 import "./comboLanguage.css";
 

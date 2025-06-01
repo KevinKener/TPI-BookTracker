@@ -61,7 +61,7 @@ const Profile = () => {
     }
 
   return (
-    <div className="body">
+    <div className="profile-body">
       <div className="profile-main">
 
         <div className="profile">
