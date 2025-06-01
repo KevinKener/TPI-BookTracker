@@ -4,7 +4,7 @@ import './Input.css';
 function Input({ placeholder, type, id, name, value, onChange }) {
   return (
     <div className="main-input">
-      <input
+      <input className='primary-input-large'
         placeholder={placeholder}
         type={type}
         id={id}
