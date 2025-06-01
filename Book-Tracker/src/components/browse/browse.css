@@ -29,30 +29,6 @@
     padding: 2%;
 }
 
-.book-item img{
-    height: 200px;
-    width: 100%;
-    object-fit: cover;
-    border-radius: 8px;
-}
-
-.book-item{
-    padding: 6% !important;
-}
-
-.book-item-title{
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-
-.book-item-author{
-    font-size: 0.8rem;
-}
-
-.book-item-pages{
-    font-size: 0.7rem;
-}
-
 .browse-filters-grid{
     display: grid;
     grid-template-columns: repeat(2,  1fr);

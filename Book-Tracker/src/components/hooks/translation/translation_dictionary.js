@@ -44,6 +44,11 @@ export const translation_dictionary = {
         { key: "clear_filter", value: "Limpiar filtro" },
         { key: "hold_ctrl", value: "Para varios, mantenga 'Ctrl' al hacer click" },
         { key: "member_since", value: "Miembro desde" },
+        { key: "redirect-browse", value: "¿Quieres descubrir nuevos libros?" },
+        { key: "browse-button", value: "Descubrir" },
+        { key: "populars", value: "Populares" },
+        { key: "reading", value: "Estas leyendo" },
+        { key: "loading-books", value: "Cargando libros..." },
     ],
     en: [
         { key:"spanish_lang", value: "Spanish" },
@@ -90,6 +95,11 @@ export const translation_dictionary = {
         { key: "clear_filter", value: "Clear filter" },
         { key: "hold_ctrl", value: "For multiple, hold 'Ctrl when clicking the options" },
         { key: "member_since", value: "Member since" },
+        { key: "redirect-browse", value: "Want to discover new books?" },
+        { key: "browse-button", value: "Discover" },
+        { key: "populars", value: "Populars" },
+        { key: "reading", value: "You are reading" },
+        { key: "loading-books", value: "Loading books..." },
     ]
 }
 
