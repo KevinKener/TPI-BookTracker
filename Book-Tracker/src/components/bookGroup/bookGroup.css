@@ -1,0 +1,25 @@
+.group-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+    width: 80%;
+}
+
+.group-container h2{
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.group-wrapper {
+    margin-bottom: 25px;
+    overflow: auto;
+    width: 100%;
+    padding-bottom: 20px;
+}
+
+.group-content {
+    height: 100%;
+    display: flex;
+    gap: 30px;
+}
