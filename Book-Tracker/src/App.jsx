@@ -16,6 +16,7 @@ import Register from './components/register/Register'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AuthorDetails from './components/authorDetails/AuthorDetails'
 import Browse from './components/browse/Browse';
+import AdminUsers from './components/adminUsers/AdminUsers';
 
 
 function App() {
@@ -50,19 +51,23 @@ function App() {
               <Route path='/authors/:id' element={<AuthorDetails />} />
 
               {/* ITEM LIBRO */}
-              <Route path='books/:id' element={<BookDetails />} />
+              <Route path='/books/:id' element={<BookDetails />} />
 
               {/* PAGINA NO EXISTENTE */}
               <Route path="*" element={ <NotFound /> } />
 
               {/* AÑADIR NUEVO LIBRO */}
-              <Route path='new-book' element={<NewBook />} />
+              <Route path='/new-book' element={<NewBook />} />
 
               {/* PERFIL DEL USUARIO */}
-              <Route path='profile/:id' element={<Profile/>} />
+              <Route path='/profile/:id' element={<Profile/>} />
 
               {/* EXPLORAR / BROWSE */}
-              <Route path='browse' element={<Browse />} />
+              <Route path='/browse' element={<Browse />} />
+
+              <Route element={<Protected />}>
+                <Route path='/admin-users' element={<AdminUsers />} />
+              </Route>
 
             </Route>
           </Routes>

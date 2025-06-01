@@ -18,6 +18,12 @@ export const getUser = async (req, res) => {
     res.json(formattedUser);
 }
 
+export const getUsers = async (req,res) => {
+    const users = await User.findAll();
+
+    res.json(users);
+}
+
 export const updateUser = async (req, res) => {
     const { id } = req.params;
     const { username, profilePictureUrl, description } = req.body; 

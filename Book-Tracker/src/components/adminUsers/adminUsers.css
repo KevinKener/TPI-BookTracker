@@ -1,0 +1,17 @@
+.admin-container{
+    display: flex;
+    width: 100%;
+    gap: 3%;
+}
+
+.admin-grid{
+    display: grid;
+    grid-template-columns: repeat(3,  1fr);
+    gap: 25px;
+    width: 100%;
+    padding: 2%;
+}
+
+.admin-items{
+    border: solid 1px;
+}

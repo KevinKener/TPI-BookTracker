@@ -5,7 +5,7 @@ import { successToast, errorToast } from '../notifications/notifications.js'
 import { useTranslate } from '../hooks/translation/UseTranslate.jsx'
 import { useNavigate } from 'react-router'
 import { AuthenticationContext } from '../services/auth.context.jsx'
-import fetchUserLogged from '../profile/profile.services.js'
+import fetchUserProfile from '../profile/profile.services.js'
 import './newBook.css'
 
 const NewBook = () => {
@@ -26,7 +26,6 @@ const NewBook = () => {
     const [selectedGenres, setSelectedGenres] = useState([]);
 
     // CARGA
-    const [loading, setLoading] = useState(true);
     
     // PERMISO ROL DE USUARIO
     const [allowed, setAllowed] = useState(false);
@@ -51,7 +50,7 @@ const NewBook = () => {
         }
 
         // COMPRUEBA DATOS DEL USUARIO LOGUEADO
-        fetchUserLogged(id, token)
+        fetchUserProfile(id, token)
         .then(user => {
                 console.log("User role: ", user.role);
                 if (user.role === "admin" || user.role === "mod") {
@@ -60,9 +59,6 @@ const NewBook = () => {
                     navigate("/");
                 }
             })
-            // Redirige al home si el token expiró
-            .catch(() => navigate("/"))
-            .finally(() => setLoading(false));
     }, []);
 
     const handleChangeTitle = (event) => {
@@ -115,7 +111,6 @@ const NewBook = () => {
         }
     };
 
-    if (loading) return <div>Cargando...</div>;
     if (!allowed) return null;
 
     return (

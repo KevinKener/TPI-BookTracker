@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { replace, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { fetchBooks, fetchGenres } from "./browse.services.js";
 import { Card, CardBody } from "react-bootstrap";
 import { AuthenticationContext } from "../services/auth.context.jsx";
