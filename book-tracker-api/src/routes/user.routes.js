@@ -11,6 +11,7 @@ router.put("/profile/:id", verifyToken, updateUser);
 
 router.delete("/profile/:id", verifyToken, deleteUser);
 
+// PROFILE SETTINGS
 router.put("/profile-settings/:id", verifyToken, updateUser);
 
 router.delete("/profile-settings/:id", verifyToken, deleteUser);
