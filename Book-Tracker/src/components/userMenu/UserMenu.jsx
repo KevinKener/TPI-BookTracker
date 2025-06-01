@@ -25,13 +25,13 @@ const UserMenu = () => {
           {profilePictureUrl ? (
             <img
               src={profilePictureUrl}
-              alt={username || 'Invitado'}
+              alt={username || translate("guest")}
               className="user-navbar-image"
             />
           ) : (
             <img
               src={navbarImage}
-              alt={username || 'Invitado'}
+              alt={username || translate("guest")}
               className="user-navbar-image"
             />
           )}
@@ -41,18 +41,18 @@ const UserMenu = () => {
           {token ?
             <>
               <DropdownItem onClick={() => navigate(`profile/${id}`)} > {/* El id depende de la sesion activa */}
-                Perfil
+                {translate("profile")}
               </DropdownItem>
               <DropdownItem onClick={() => navigate('profile-settings')} >
-                Configuración
+                {translate("settings")}
               </DropdownItem>
               <DropdownItem onClick={openModal} >
-                Cerrar sesión
+                {translate("logout")}
               </DropdownItem>
             </>
             :
             <DropdownItem onClick={() => navigate('login')} >
-              Iniciar sesión
+              {translate("login")}
             </DropdownItem>
           }
         </DropdownMenu>

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchBooks, fetchGenres } from "./browse.services.js";
 import { AuthenticationContext } from "../services/auth.context.jsx";
 import { errorToast } from "../notifications/notifications.js";
-import { useTranslate } from "../hooks/translation/UseTranslate.jsx";
+import { useTranslate } from '../hooks/translation/UseTranslate';
 
 import "./browse.css";
 import CardBook from "../cardBook/CardBook.jsx";

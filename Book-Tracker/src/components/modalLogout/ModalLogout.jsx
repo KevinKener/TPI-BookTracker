@@ -3,9 +3,11 @@ import { Modal, Button, ModalHeader, ModalBody, ModalFooter } from 'react-bootst
 import { useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import { AuthenticationContext } from '../services/auth.context'
+import { useTranslate } from '../hooks/translation/UseTranslate'
 
 const ModalLogout = ({ setIsLogged, handleClose, show }) => {
 
+    const translate = useTranslate();
     const navigate = useNavigate()
     const { handleUserLogout } = useContext(AuthenticationContext);
 
@@ -18,17 +20,17 @@ const ModalLogout = ({ setIsLogged, handleClose, show }) => {
   return (
     <Modal show={show} onHide={handleClose} centered >
         <ModalHeader closeButton >
-            <h3>Cerrar sesión</h3>
+            <h3>{translate("logout")}</h3>
         </ModalHeader>
         <ModalBody>
-            ¿Desea cerrar sesión?
+            {translate("wish_to_logout")}
         </ModalBody>
         <ModalFooter >
             <Button onClick={handleClose} variant='secondary' >
-                Cancelar
+                {translate("cancel")}
             </Button>
             <Button onClick={handleLogout} variant='danger' >
-                Cerrar sesión
+                {translate("logout")}
             </Button>
         </ModalFooter>
     </Modal>
