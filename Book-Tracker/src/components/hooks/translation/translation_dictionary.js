@@ -49,6 +49,7 @@ export const translation_dictionary = {
         { key: "populars", value: "Populares" },
         { key: "reading", value: "Estas leyendo" },
         { key: "loading-books", value: "Cargando libros..." },
+        { key: "none_selected", value: "Ninguno seleccionado" },
     ],
     en: [
         { key:"spanish_lang", value: "Spanish" },
@@ -100,6 +101,7 @@ export const translation_dictionary = {
         { key: "populars", value: "Populars" },
         { key: "reading", value: "You are reading" },
         { key: "loading-books", value: "Loading books..." },
+        { key: "none_selected", value: "None selected" },
     ]
 }
 

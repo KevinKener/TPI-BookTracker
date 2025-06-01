@@ -1,12 +1,14 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { Form, Row, Col, Button, FormGroup, FormLabel, FormControl, FormSelect } from 'react-bootstrap'
+import { Form, Row, Col, Button, FormGroup, FormLabel, FormControl, FormCheck } from 'react-bootstrap'
 import { fetchGenres, fetchAuthors, newBook } from './newbook.services.js'
 import { successToast, errorToast } from '../notifications/notifications.js'
 import { useTranslate } from '../hooks/translation/UseTranslate.jsx'
 import { useNavigate } from 'react-router'
 import { AuthenticationContext } from '../services/auth.context.jsx'
 import fetchUserLogged from '../profile/profile.services.js'
+import notFound from './image-not-found.jpg'
 import './newBook.css'
+import '../input/Input.css'
 
 const NewBook = () => {
     const translate = useTranslate();
@@ -27,10 +29,10 @@ const NewBook = () => {
 
     // CARGA
     const [loading, setLoading] = useState(true);
-    
+
     // PERMISO ROL DE USUARIO
     const [allowed, setAllowed] = useState(false);
-    
+
     const resetForm = () => {
         setTitle("");
         setPages("");
@@ -52,7 +54,7 @@ const NewBook = () => {
 
         // COMPRUEBA DATOS DEL USUARIO LOGUEADO
         fetchUserLogged(id, token)
-        .then(user => {
+            .then(user => {
                 console.log("User role: ", user.role);
                 if (user.role === "admin" || user.role === "mod") {
                     setAllowed(true);
@@ -63,7 +65,7 @@ const NewBook = () => {
             // Redirige al home si el token expiró
             .catch(() => navigate("/"))
             .finally(() => setLoading(false));
-    }, []);
+    }, [id, token, navigate]);
 
     const handleChangeTitle = (event) => {
         setTitle(event.target.value);
@@ -77,9 +79,20 @@ const NewBook = () => {
         setPages(event.target.value);
     }
 
+    // Lógica para manejar la selección de géneros con checkboxes
     const handleChangeGenres = (event) => {
-        const selected = Array.from(event.target.selectedOptions, option => option.value);
-        setSelectedGenres(selected);
+        const genreId = String(event.target.value);
+        const isChecked = event.target.checked;
+
+        setSelectedGenres(prevSelectedGenres => {
+            if (isChecked) {
+                // Si el checkbox está marcado, añade el ID del genero si no está ya
+                return Array.from(new Set([...prevSelectedGenres, genreId]));
+            } else {
+                // Si el checkbox está desmarcado, quita el ID del género
+                return prevSelectedGenres.filter(id => id !== genreId);
+            }
+        });
     }
 
     const handleChangeSummary = (event) => {
@@ -105,13 +118,13 @@ const NewBook = () => {
 
         try {
             await newBook(token, bookData);
-            successToast("Libro añadido correctamente");
+            successToast(translate("Libro añadido correctamente"));
             console.log(bookData);
-            
+
             resetForm();
         } catch (error) {
             console.log("Error al añadir el libro: ", error);
-            errorToast("Error al añadir libro");
+            errorToast(translate("Error al añadir libro"));
         }
     };
 
@@ -121,110 +134,117 @@ const NewBook = () => {
     return (
         <div className='new-book-page'>
             <Form className='new-book-form' onSubmit={handleAddBook}>
-                <h4 className='new-book-form-title'>{translate("new_book")}</h4>
+                <h2 className='new-book-form-title'>{translate("new_book")}</h2>
+                <p className='new-book-form-description'>Create a new book</p>
 
-                <Row>
-                    <FormGroup>
-                        <FormLabel>{translate("title")}</FormLabel>
-                        <FormControl
-                            type='text'
-                            onChange={handleChangeTitle}
-                            value={title}
-                            className='new-book-input'
-                        />
-                    </FormGroup>
+                <Row className='mb-3'>
+                    <input
+                        type="text"
+                        placeholder={translate("title")}
+                        value={title}
+                        onChange={handleChangeTitle}
+                        className='primary-input-large'
+                    />
                 </Row>
 
-                <Row>
+                <Row className='mb-3'>
+                    <input
+                        type="url"
+                        placeholder={`${translate("cover")} (URL)`}
+                        value={imageUrl}
+                        onChange={handleChangeImageUrl}
+                        className='primary-input-large'
+                    />
+                </Row>
+
+                <Row className='mb-3'>
                     <Col>
                         <FormGroup>
-                            <FormLabel>{translate("author")}</FormLabel>
-                            <FormSelect
+                            <select
+                                id="autor"
+                                name="autor"
+                                className='primary-input-short'
                                 onChange={handleChangeSelectAuthor}
                                 value={selectedAuthor}
-                                className='new-book-input'
                             >
-                                <option value={null}></option>
+                                <option value="" disabled hidden>{translate("author")}</option> {/* Opción deshabilitada y oculta por defecto */}
                                 {authors.map(author => (
-                                <option key={author.id} value={author.id}>
-                                    {author.authorName}
-                                </option>
-                            ))}
-                            </FormSelect>
+                                    <option key={author.id} value={author.id}>
+                                        {author.authorName}
+                                    </option>
+                                ))}
+                            </select>
                         </FormGroup>
                     </Col>
 
                     <Col>
                         <FormGroup>
-                            <FormLabel>{translate("pages")}</FormLabel>
-                            <FormControl
-                                type='number'
+                            <input
+                                type="number"
+                                className='primary-input-short'
+                                placeholder={translate("pages")}
                                 onChange={handleChangePages}
                                 value={pages}
                                 min="1"
-                                className='new-book-input'
                             />
                         </FormGroup>
                     </Col>
                 </Row>
 
-                <Row>
-                    <FormGroup>
-                        <FormLabel>{translate("genres")}  (<span className='hold-ctrl'>{translate("hold_ctrl")}</span>)</FormLabel>
-                        <FormSelect
-                            value={selectedGenres}
-                            multiple
-                            onChange={handleChangeGenres}
-                            className='new-book-input'
-                        >
-                            {allGenres.map(genre => (
-                                <option key={genre.id} value={genre.id}>
-                                    {genre.name}
-                                </option>
-                            ))}
-                        </FormSelect>
-                        <p>
-                            {translate("selected")}: {
-                                allGenres
-                                    .filter(genre => selectedGenres.includes(String(genre.id)))
-                                    .map(genre => genre.name)
-                                    .join(', ')
-                            }
-                        </p>
-                    </FormGroup>
+                {/* Géneros con checkboxes */}
+                <Row className="mb-3">
+                    <FormLabel className="d-block mb-2">{translate("genres")}</FormLabel>
+                    <div className="genres-checkbox-group d-flex flex-wrap gap-3 p-2">
+                        {allGenres.map(genre => (
+                            <FormCheck
+                                key={genre.id}
+                                type="checkbox"
+                                id={`genre-checkbox-${genre.id}`}
+                                label={genre.name}
+                                value={genre.id}
+                                checked={selectedGenres.includes(String(genre.id))}
+                                onChange={handleChangeGenres}
+                            />
+                        ))}
+                    </div>
+                    <Form.Text className="text-muted mt-2">
+                        {translate("selected")}: {
+                            allGenres
+                                .filter(genre => selectedGenres.includes(String(genre.id)))
+                                .map(genre => genre.name)
+                                .join(', ') || translate("none_selected") // Muestra "Ninguno seleccionado" si no hay géneros
+                        }
+                    </Form.Text>
                 </Row>
 
-                <Row>
+                <Row className='mb-2'> {/* Añadido mb-4 para espaciado */}
                     <FormGroup>
-                        <FormLabel>{translate("summary")}</FormLabel>
                         <FormControl
+                            placeholder={translate("summary")}
                             as='textarea'
-                            rows={3}
+                            rows={4}
                             onChange={handleChangeSummary}
                             value={summary}
-                            className='new-book-input'
-                        />
-                    </FormGroup>
-                </Row>
-
-                <Row>
-                    <FormGroup>
-                        <FormLabel>{translate("cover")}</FormLabel>
-                        <FormControl
-                            type='text'
-                            onChange={handleChangeImageUrl}
-                            placeholder={translate("url")}
-                            value={imageUrl}
-                            className='new-book-input'
+                            className='text-tarea-newBook'
                         />
                     </FormGroup>
                 </Row>
 
                 <br />
                 <Row>
-                    <Button type='submit'>{translate("add")}</Button>
+                    <button type='submit' className='primary-button-newBook'>{translate("add")}</button>
                 </Row>
             </Form>
+            {console.log(authors)}
+            <div className='preview-book-main'>
+                <p>Preview</p>
+                <div className='preview-book'>
+                    {imageUrl ? <img src={imageUrl} alt="ImageBook"/> : <img src={notFound} alt="Imagedefault"/>}
+                    {title ? <h3>{title}</h3> : <h3>Title</h3>}
+                    {selectedAuthor ? <h5>{authors[selectedAuthor-1].authorName}</h5> : <h5>Author</h5>}
+                    {pages ? <p>{pages}</p> : <p>pages</p>}
+                </div>
+            </div>
         </div>
     );
 };
