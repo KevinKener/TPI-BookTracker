@@ -3,7 +3,7 @@ import { Navbar, Container, Nav } from 'react-bootstrap';
 import { NavLink, Link } from 'react-router-dom';
 import UserMenu from '../userMenu/UserMenu';
 import SearchBar from '../searchBar/searchBar';
-import logo from "../logo/logo.png"
+import logo from "../logo/logo-png.png"
 import { AuthenticationContext } from '../services/auth.context';
 import { useTranslate } from '../hooks/translation/UseTranslate';
 import './navBar.css'
