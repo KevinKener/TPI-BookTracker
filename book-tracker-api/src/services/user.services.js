@@ -27,7 +27,7 @@ export const getUsers = async (req,res) => {
 
 export const updateUser = async (req, res) => {
   const { id } = req.params;
-  const { username, profilePictureUrl, description, email, password } = req.body;
+  const { username, profilePictureUrl, description, email, password, role } = req.body;
 
   const user = await User.findByPk(id);
 
@@ -48,6 +48,7 @@ export const updateUser = async (req, res) => {
   if (profilePictureUrl !== undefined) updateData.profilePictureUrl = profilePictureUrl;
   if (description !== undefined) updateData.description = description;
   if (email !== undefined) updateData.email = email;
+  if (role !== undefined) updateData.role = role;
 
   if (password) {
     const salt = await bcrypt.genSalt(10);
@@ -56,7 +57,7 @@ export const updateUser = async (req, res) => {
 
   await user.update(updateData);
 
-  res.json({ message: 'Usuario actualizado correctamente', user });
+  res.json(user);
 };
 
 

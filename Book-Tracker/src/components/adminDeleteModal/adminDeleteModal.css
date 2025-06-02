@@ -1,0 +1,13 @@
+.delete-modal-btn{
+  margin: 1em;
+  font-weight: 500;
+}
+
+.delete-text{
+    font-size: 1.1rem;
+}
+
+.delete-clarify{
+    margin-top: 2ex;
+    font-weight: 700;
+}
