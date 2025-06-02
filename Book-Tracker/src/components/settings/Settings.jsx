@@ -5,6 +5,8 @@ import { AuthenticationContext } from '../services/auth.context';
 import { successToast, errorToast } from '../notifications/notifications.js';
 import { updateUser, deleteUser } from './settings.services.js'; 
 import { useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './Settings.css'; // Asegúrate de que la ruta sea correcta
 
 
 
