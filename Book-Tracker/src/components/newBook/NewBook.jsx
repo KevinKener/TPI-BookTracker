@@ -103,6 +103,26 @@ const NewBook = () => {
         setImageUrl(event.target.value);
     }
 
+    const validateForm = ({ title, selectedAuthor, pages, selectedGenres, summary }) => {
+        if (!title || title.trim().length < 1 || title.trim().length > 50)
+            return "El título debe tener entre 1 y 50 caracteres.";
+
+        if (!selectedAuthor || isNaN(parseInt(selectedAuthor, 10)))
+            return "Debes seleccionar un autor válido.";
+
+        const numPages = parseInt(pages, 10);
+        if (!numPages || numPages < 1 || numPages > 6000)
+            return "El libro debe tener entre 1 y 6000 páginas.";
+
+        if (!selectedGenres || selectedGenres.length === 0)
+            return "Debes seleccionar al menos un género.";
+
+        if (!summary || summary.length > 1000)
+            return "El resumen es obligatorio y no debe superar los 1000 caracteres.";
+
+        return null;
+    };
+
 
     const handleAddBook = async (event) => {
         event.preventDefault();
@@ -126,9 +146,17 @@ const NewBook = () => {
             console.log("Error al añadir el libro: ", error);
             errorToast(translate("Error al añadir libro"));
         }
+
+        const errorMsg = validateForm({ title, selectedAuthor, pages, selectedGenres, summary });
+        if (errorMsg) {
+            errorToast(errorMsg);
+            return;
+        }
+
     };
 
     if (!allowed) return null;
+
 
     return (
         <div className='new-book-page'>
@@ -238,9 +266,9 @@ const NewBook = () => {
             <div className='preview-book-main'>
                 <p>Preview</p>
                 <div className='preview-book'>
-                    {imageUrl ? <img src={imageUrl} alt="ImageBook"/> : <img src={notFound} alt="Imagedefault"/>}
+                    {imageUrl ? <img src={imageUrl} alt="ImageBook" /> : <img src={notFound} alt="Imagedefault" />}
                     {title ? <h3>{title}</h3> : <h3>Title</h3>}
-                    {selectedAuthor ? <h5>{authors[selectedAuthor-1].authorName}</h5> : <h5>Author</h5>}
+                    {selectedAuthor ? <h5>{authors[selectedAuthor - 1].authorName}</h5> : <h5>Author</h5>}
                     {pages ? <p>{pages}</p> : <p>pages</p>}
                 </div>
             </div>

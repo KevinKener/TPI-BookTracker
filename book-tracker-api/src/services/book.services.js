@@ -1,6 +1,32 @@
+import { validateAuthor, validateGenre, validatePages, validateSummary, validateTitle } from "../helpers/validations.books.js";
 import { Author, Book, Lecture } from "../models/index.js"; // Asegúrate de que 'Lecture' esté correctamente importado aquí
 import { Genre } from "../models/index.js";
 import { DataTypes, Sequelize } from 'sequelize'; // Importa Sequelize para las funciones de agregación
+
+// validaciones
+const validateNewBook = (req) => {
+    const { title, authorId, pages, genres, summary } = req.body;
+
+    if (!title || typeof title !== 'string' || title.length < 1 || title.length > 50)
+        return { error: true, message: "El título debe tener entre 1 y 50 caracteres." };
+
+    if (!authorId || typeof authorId !== 'number')
+        return { error: true, message: "Debes elegir un autor válido." };
+
+    const nPages = parseInt(pages);
+    if (!nPages || nPages < 1 || nPages > 6000)
+        return { error: true, message: "El libro debe tener entre 1 y 6000 páginas." };
+
+    if (!Array.isArray(genres) || genres.length === 0)
+        return { error: true, message: "Debes seleccionar al menos un género." };
+
+    if (!summary || typeof summary !== 'string' || summary.length > 1000)
+        return { error: true, message: "El resumen debe tener hasta 1000 caracteres." };
+
+    return { error: false };
+};
+
+
 
 // Función para encontrar todos los libros
 export const findBooks = async (req, res) => {
@@ -39,8 +65,8 @@ export const findBook = async (req, res) => {
         ]
     });
 
-    if(!book){
-        return res.status(400).send({message: "No se ha encontrado el libro"});
+    if (!book) {
+        return res.status(400).send({ message: "No se ha encontrado el libro" });
     }
 
     res.json(book);
@@ -48,10 +74,25 @@ export const findBook = async (req, res) => {
 
 // Función para crear un nuevo libro
 export const createBook = async (req, res) => {
+
+    // validaciones
+    const result = validateNewBook(req);
+
+    if (result.error) {
+        return res.status(400).send({ message: result.message });
+    }
+
     const { title, authorId, pages, genres, summary, imageUrl } = req.body;
 
-    if(!title || !authorId){
-        return res.status(400).send({message: "Los libros requieren titulo y autor"});
+    // busca por si hay algun libro con ese título 
+    const book = await Book.findOne({
+        where: {
+            title
+        }
+    });
+
+    if (book) {
+        return res.status(400).send({ message: "El libro ya se encuentra registrado" })
     }
 
     const newBook = await Book.create({
@@ -64,19 +105,14 @@ export const createBook = async (req, res) => {
 
     // INICIALIZAR ARRAY DE GENEROS VACIO
     const genreInstances = [];
-
-    // BUSCAR GENEROS POR ID
-    if (Array.isArray(genres)){
-
-        for (const id of genres){
-            const genre = await Genre.findByPk(id);
-            // LOS AGREGA A LA LISTA INICIALIZADA
-            genreInstances.push(genre);
+    for (const id of genres) {
+        const genre = await Genre.findByPk(id);
+        if (!genre) {
+            return res.status(400).send({ message: `Género con ID ${id} no encontrado.` });
         }
-
-        // ASOCIA LOS GENEROS AL LIBRO
-        await newBook.addGenres(genreInstances);
+        genreInstances.push(genre);
     }
+    await newBook.addGenres(genreInstances);
 
     const createdBook = await Book.findByPk(newBook.id, {
         include: [
@@ -102,7 +138,7 @@ export const updateBook = async (req, res) => {
 
     const book = await Book.findByPk(id);
 
-    if(!book){
+    if (!book) {
         return res.status(400).send({ message: "No se ha encontrado el libro" });
     }
 
@@ -114,11 +150,11 @@ export const updateBook = async (req, res) => {
         imageUrl
     });
 
-    if (Array.isArray(genres)){
+    if (Array.isArray(genres)) {
 
         const genreInstances = [];
 
-        for (const genreId of genres){
+        for (const genreId of genres) {
             const genre = await Genre.findByPk(genreId);
 
             if (genre) {
