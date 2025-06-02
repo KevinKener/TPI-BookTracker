@@ -143,7 +143,7 @@ const BookDetails = () => {
         )}
 
         {/* Si es admin o editor, mostrar opción de eliminar el libro */}
-        {(role === "admin" || role === "editor") && (
+        {(role === "admin" || role === "mod") && (
           <>
             <hr />
             <Button
