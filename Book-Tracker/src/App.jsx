@@ -35,7 +35,9 @@ function App() {
               {/* TODAS LAS RUTAS */}
 
             {/* INICIO */}
-            <Route path='/' element={<Home />} />
+            <Route element={<Protected />}>
+              <Route path='/' element={<Home />} />
+            </Route>
 
             {/* REGISTER */}
             <Route path='/register' element={<Register/>} />
@@ -58,10 +60,14 @@ function App() {
               <Route path="*" element={ <NotFound /> } />
 
               {/* AÑADIR NUEVO LIBRO */}
-              <Route path='/new-book' element={<NewBook />} />
+              <Route element={<Protected />}>
+                <Route path='/new-book' element={<NewBook />} />
+              </Route>
 
               {/* PERFIL DEL USUARIO */}
-              <Route path='/profile/:id' element={<Profile/>} />
+              <Route element={<Protected />}>
+                <Route path='/profile/:id' element={<Profile/>} />
+              </Route>
 
               {/* EXPLORAR / BROWSE */}
               <Route path='/browse' element={<Browse />} />
@@ -71,7 +77,9 @@ function App() {
               </Route>
 
               {/* SETTINGS */}
-              <Route path='/profile-settings' element={<Settings />} />
+              <Route element={<Protected />}>
+                <Route path='/profile-settings' element={<Settings />} />
+              </Route>
 
             </Route>
           </Routes>

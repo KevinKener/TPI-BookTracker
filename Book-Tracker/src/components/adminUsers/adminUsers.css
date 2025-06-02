@@ -19,7 +19,16 @@
     height: fit-content;
     border: solid 4px;
     padding: 1ex;
-    background-color: #a3a3a3;
+    background-color: #558d5d;
+}
+
+.admin-edit-btn{
+    font-weight: 600;
+    text-shadow:
+    -1px -1px 0 #000,
+     1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000;
 }
 
 .admin-titles, .admin-items{

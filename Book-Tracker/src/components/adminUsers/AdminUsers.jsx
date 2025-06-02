@@ -142,7 +142,7 @@ const AdminUsers = () => {
 
                 {/* EDIT USER / DELETE USER */}
                 <div
-                  className="admin-items clickable"
+                  className="admin-items clickable blank-col"
                   onClick={
                     user.role === "mod" && role === "mod"
                       ? handleOpenEditModal(user)
@@ -151,7 +151,10 @@ const AdminUsers = () => {
                       : isNotMod
                   }
                 >
-                  edit
+                  <Button variant='secondary' className="admin-edit-btn">
+
+                  {translate("edit")}
+                  </Button>
                 </div>
 
                 <div className="admin-items blank-col">
