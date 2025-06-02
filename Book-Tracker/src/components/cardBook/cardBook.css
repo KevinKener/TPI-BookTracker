@@ -4,7 +4,7 @@
 }
 
 .book-item img{
-    height: 200px;
+    height: 250px;
     object-fit: cover;
     border-radius: 8px;
 }
