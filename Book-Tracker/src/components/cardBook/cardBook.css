@@ -1,6 +1,6 @@
 .book-item-main{
-    min-width: 200px !important;
-    min-height: 300px;
+    height: 200px;
+    border-radius: 8ex;
 }
 
 .book-item img{
