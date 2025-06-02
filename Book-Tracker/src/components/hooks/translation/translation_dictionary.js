@@ -63,6 +63,16 @@ export const translation_dictionary = {
         { key: "reader", value: "Lector" },
         { key: "admin", value: "Admin" },
         { key: "mod", value: "Moderador" },
+        { key: "change_email", value: "Cambiar Email" },
+        { key: "new_email", value: "Nuevo email" },
+        { key: "change_password", value: "Cambiar Contraseña" },
+        { key: "new_password", value: "Nueva contraseña" },
+        { key: "danger_zone", value: "Zona de Peligro" },
+        { key: "delete_account_warning", value: "Una vez que eliminas tu cuenta, no hay vuelta atrás. Por favor, piénsalo bien." },
+        { key: "delete_account", value: "Eliminar Cuenta" },
+        { key: "confirm_delete_account", value: "Confirmar Eliminación de la Cuenta " },
+        { key: "sure_to_delete", value: "¿Estás seguro de que quieres eliminar tu cuenta permanentemente?" },
+        { key: "action_not_reversible", value: "Esta acción no se puede deshacer." },
     ],
     en: [
         { key:"spanish_lang", value: "Spanish" },
@@ -128,6 +138,16 @@ export const translation_dictionary = {
         { key: "reader", value: "Reader" },
         { key: "admin", value: "Admin" },
         { key: "mod", value: "Mod" },
+        { key: "change_email", value: "Change Email" },
+        { key: "new_email", value: "New Email" },
+        { key: "change_password", value: "Change Password" },
+        { key: "new_password", value: "New Password" },
+        { key: "danger_zone", value: "Danger zone" },
+        { key: "delete_account_warning", value: "Once you delete your account, there is no turn back. Please think carefully." },
+        { key: "delete_account", value: "Delete account" },
+        { key: "confirm_delete_account", value: "Confirm Account Deletion" },
+        { key: "sure_to_delete", value: "Are you sure you want to delete your account permanently?" },
+        { key: "action_not_reversible", value: "This action is irreversible" },
     ]
 }
 

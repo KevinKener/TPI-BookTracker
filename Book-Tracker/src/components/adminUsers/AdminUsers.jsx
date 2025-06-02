@@ -151,7 +151,7 @@ const AdminUsers = () => {
                       : isNotMod
                   }
                 >
-                  <Button variant='secondary' className="admin-edit-btn">
+                  <Button variant='dark' className="admin-edit-btn">
 
                   {translate("edit")}
                   </Button>

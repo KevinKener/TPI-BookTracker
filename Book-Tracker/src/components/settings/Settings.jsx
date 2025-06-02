@@ -6,7 +6,8 @@ import { successToast, errorToast } from '../notifications/notifications.js';
 import { updateUser, deleteUser } from './settings.services.js'; 
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './Settings.css'; // Asegúrate de que la ruta sea correcta
+import './Settings.css';
+import { useTranslate } from '../hooks/translation/UseTranslate.jsx';
 
 
 
@@ -16,6 +17,7 @@ function Settings() {
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const { id, token, handleUserLogout } = useContext(AuthenticationContext);
   const navigate = useNavigate();
+  const translate = useTranslate();
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -47,8 +49,8 @@ function Settings() {
   try {
     await deleteUser(id, token);
     successToast('Cuenta eliminada exitosamente');
-    handleUserLogout(); // Cerramos sesión
-    navigate('/'); // Redirigimos al home
+    handleUserLogout();
+    navigate('/');
   } catch (error) {
     errorToast(error.message || 'Error al eliminar la cuenta');
   }
@@ -69,55 +71,54 @@ function Settings() {
 
       <Form>
         <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Cambiar Email</Form.Label>
+          <Form.Label>{translate("change_email")}</Form.Label>
           <Form.Control
             type="email"
-            placeholder="Nuevo email"
+            placeholder={translate("new_email")}
             value={email}
             onChange={handleEmailChange}
           />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Cambiar Contraseña</Form.Label>
+          <Form.Label>{translate("change_password")}</Form.Label>
           <Form.Control
             type="password"
-            placeholder="Nueva contraseña"
+            placeholder={translate("new_password")}
             value={password}
             onChange={handlePasswordChange}
           />
         </Form.Group>
 
         <Button variant="primary" type="button" onClick={handleSaveChanges}>
-          Guardar Cambios
+          {translate("save_changes")}
         </Button>
       </Form>
 
       <hr />
 
       <div className="mt-4">
-        <h3>Zona de Peligro</h3>
-        <p>Una vez que eliminas tu cuenta, no hay vuelta atrás. Por favor, piénsalo bien.</p>
+        <h3>{translate("danger_zone")}</h3>
+        <p>{translate("delete_account_warning")}</p>
         <Button variant="danger" onClick={openDeleteConfirmation}>
-          Eliminar Cuenta
+          {translate("delete_account")}
         </Button>
       </div>
 
-      {/* Modal de Confirmación para Eliminar Cuenta */}
       <Modal show={showDeleteConfirmation} onHide={closeDeleteConfirmation} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Confirmar Eliminación de Cuenta</Modal.Title>
+          <Modal.Title>{translate("confirm_delete_account")}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>¿Estás seguro de que quieres eliminar tu cuenta permanentemente?</p>
-          <p><strong>Esta acción no se puede deshacer.</strong></p>
+          <p>{translate("sure_to_delete")}</p>
+          <p><strong>{translate("action_not_reversible")}</strong></p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={closeDeleteConfirmation}>
-            Cancelar
+            {translate("cancel")}
           </Button>
           <Button variant="danger" onClick={handleDeleteAccount}>
-            Sí, Eliminar Cuenta
+            {translate("delete_account")}
           </Button>
         </Modal.Footer>
       </Modal>
