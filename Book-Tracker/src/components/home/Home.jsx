@@ -82,7 +82,7 @@ const Home = () => {
           <p>{translate('loading-books')}</p>
         ) : (
           popularBooks.map((book) => (
-            <CardBook book={book} handleAuthor={handleAuthor} handleClick={handleClick} translate={translate} />
+            <CardBook key={book.id} book={book} handleAuthor={handleAuthor} handleClick={handleClick} translate={translate} />
           ))
         )}
       </BookGroup>
@@ -92,7 +92,7 @@ const Home = () => {
           <p>{translate('loading-books')}</p>
         ) : (
           booksUser.map((book) => (
-            <CardBook book={book} handleAuthor={handleAuthor} handleClick={handleClick} translate={translate} />
+            <CardBook key={book.id} book={book} handleAuthor={handleAuthor} handleClick={handleClick} translate={translate} />
           ))
         )}
       </BookGroup>

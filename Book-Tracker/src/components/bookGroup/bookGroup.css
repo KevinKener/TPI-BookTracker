@@ -1,25 +1,19 @@
 .group-container {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 10px;
-    width: 80%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 3% 10%;
 }
 
-.group-container h2{
-    font-size: 1.5rem;
-    font-weight: 600;
+.group-container h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
 }
 
-.group-wrapper {
-    margin-bottom: 25px;
-    overflow: auto;
-    width: 100%;
-    padding-bottom: 20px;
-}
-
-.group-content {
-    height: 100%;
-    display: flex;
-    gap: 30px;
+.group-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 25px;
+  width: 100%;
 }
