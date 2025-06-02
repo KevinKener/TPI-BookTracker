@@ -18,7 +18,7 @@ import AuthorDetails from './components/authorDetails/AuthorDetails'
 import Browse from './components/browse/Browse';
 import AdminUsers from './components/adminUsers/AdminUsers';
 import Settings from './components/settings/Settings';
-
+import EditBook from './components/editBook/EditBook';
 
 function App() {
 
@@ -59,9 +59,10 @@ function App() {
               {/* PAGINA NO EXISTENTE */}
               <Route path="*" element={ <NotFound /> } />
 
-              {/* AÑADIR NUEVO LIBRO */}
+              {/* AÑADIR NUEVO LIBRO Y EDITAR */}
               <Route element={<Protected />}>
                 <Route path='/new-book' element={<NewBook />} />
+                <Route path='/edit-book/:id' element={<EditBook />} />
               </Route>
 
               {/* PERFIL DEL USUARIO */}

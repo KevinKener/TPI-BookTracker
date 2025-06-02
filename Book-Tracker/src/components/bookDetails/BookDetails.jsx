@@ -55,6 +55,10 @@ const BookDetails = () => {
     navigate(`/authors/${authorId}`);
   };
 
+  const handleEditClick = () => {
+    navigate(`/edit-book/${bookId}`);
+  };
+
   const handleRemoveLecture = async () => {
     try {
       if (token) {
@@ -145,6 +149,14 @@ const BookDetails = () => {
         {/* Si es admin o editor, mostrar opción de eliminar el libro */}
         {(role === "admin") && (
           <>
+            <Button
+              className="editBook-btn"
+              variant="outline-primary"
+              onClick={handleEditClick}
+            >
+              Editar libro
+            </Button>
+
             <hr />
             <Button
               className="deleteBook-btn"
