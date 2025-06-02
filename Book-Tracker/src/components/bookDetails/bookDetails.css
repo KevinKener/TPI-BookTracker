@@ -1,21 +1,23 @@
-.details-page{
+.details-page {
   display: flex;
   width: 100%;
   justify-content: center;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding: 1rem 0;
+  background-color: #f9f9f9;
+  border-radius: 12px;
 }
 
-.book-cover-container{
+.book-cover-container {
   display: flex;
   flex-direction: column;
   padding: 1rem;
-  /* border: black 1px dotted; */
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
+  background-color: white;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
 }
 
-.book-cover{
+.book-cover {
   height: 300px;
   width: auto;
   max-width: 250px;
@@ -23,53 +25,63 @@
   object-fit: cover;
 }
 
-.book-body-container{
+.book-body-container {
   width: 60%;
   padding: 1rem 3rem;
-  /* border: black 1px dotted; */
   border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px ;
+  border-bottom-right-radius: 8px;
+  background-color: white;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
 }
 
-.book-body{
+.book-body {
   display: flex;
   flex-direction: column;
 }
 
-.book-title{
+.book-title {
   font-size: 2rem;
-  font-weight: 500;
+  font-weight: 600;
 }
 
-.book-author{
+.book-author {
   font-size: 1.3rem;
   font-weight: 300;
   font-style: italic;
+  color: #555;
+  cursor: pointer;
 }
 
-.book-summary{
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+.book-summary {
+  padding: 1rem 0;
+  line-height: 1.5;
 }
 
-.book-pages{
+.book-pages {
   font-size: 0.9rem;
+  color: #666;
 }
 
-.book-genres{
+.book-genres {
   font-size: 1.1rem;
-  width: fit-content;
-  padding: 3px;
-  margin-top: 1.5ex;
+  margin-top: 1rem;
+  color: #333;
 }
 
-.book-details-status{
+.book-details-status {
   font-style: italic;
   color: #999;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  margin-top: 0.5rem;
 }
 
-.addLecture-btn{
-    display: flex;
-    height: fit-content;
+.addLecture-btn,
+.removeLecture-btn,
+.editBook-btn,
+.deleteBook-btn {
+  margin-top: 1rem;
+  width: fit-content;
+}
+
+.editBook-btn {
+  margin-right: 1rem;
 }

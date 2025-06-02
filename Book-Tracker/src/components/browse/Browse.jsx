@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchBooks, fetchGenres } from "./browse.services.js";
 import { AuthenticationContext } from "../services/auth.context.jsx";
 import { errorToast } from "../notifications/notifications.js";
-import { useTranslate } from '../hooks/translation/UseTranslate';
+import { useTranslate } from "../hooks/translation/UseTranslate";
 
 import "./browse.css";
 import CardBook from "../cardBook/CardBook.jsx";
@@ -41,7 +41,6 @@ const Browse = () => {
 
         const genresData = await fetchGenres();
         setGenres(genresData);
-
       } catch (error) {
         errorToast(error);
       }
@@ -49,7 +48,6 @@ const Browse = () => {
 
     getBrowse();
   }, []);
-
 
   return (
     <div className="browse-page">
@@ -59,7 +57,13 @@ const Browse = () => {
       <div className="browse-container">
         <div className="browse-grid">
           {filteredBooks.map((book) => (
-            <CardBook book={book} handleAuthor={handleAuthor} handleClick={handleClick} translate={translate}/>
+            <CardBook
+              key={book.id}
+              book={book}
+              handleAuthor={handleAuthor}
+              handleClick={handleClick}
+              translate={translate}
+            />
           ))}
         </div>
 
@@ -82,13 +86,13 @@ const Browse = () => {
             ))}
 
             {genreFilter != null && (
-            <div
-              className="clear-browse-filter clickable"
-              onClick={handleFilter(null)}
-            >
-              Limpiar filtro
-            </div>
-          )}
+              <div
+                className="clear-browse-filter clickable"
+                onClick={handleFilter(null)}
+              >
+                Limpiar filtro
+              </div>
+            )}
           </div>
         </div>
       </div>

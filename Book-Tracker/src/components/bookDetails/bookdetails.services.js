@@ -34,20 +34,24 @@ const fetchLectures = async (token) => {
   return res.json();
 };
 
-const removeLecture = async (token, bookId) => {
-  const res = await fetch(`${API_URL}/my-books/${bookId}`, {
-    method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+const removeLecture = async (token, lectureId) => {
+  try {
+    const res = await fetch(`${API_URL}/my-books/${lectureId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-  if (!res.ok) {
-    const errorData = await res.json();
-    throw new Error(errorData.message || "Error al eliminar la lectura");
+    if (!res.ok) {
+      throw new Error("Error eliminando la lectura");
+    }
+
+    return lectureId;
+  } catch (error) {
+    console.error("deleteLecture error:", error);
+    throw error;
   }
-
-  return await res.json();
 };
 
 const deleteBook = async (token, bookId) => {
