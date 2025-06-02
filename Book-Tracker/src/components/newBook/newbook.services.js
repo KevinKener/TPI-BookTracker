@@ -25,14 +25,26 @@ const fetchAuthors = async (token) => {
 }
 
 const newBook = async (token, bookData) => {
-    return fetch(`${API_URL}/books`, {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(bookData),
+    const response = await fetch(`${API_URL}/books`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(bookData),
     });
 
-}
+    if (!response.ok) {
+        let errorMessage = 'Error al crear libro';
+        try {
+            const data = await response.json();
+            errorMessage = data.message || JSON.stringify(data);
+        } catch {
+            errorMessage = await response.text();
+        }
+        throw new Error(errorMessage);
+    }
+
+    return response.json();
+};
 export { fetchGenres, fetchAuthors, newBook };
