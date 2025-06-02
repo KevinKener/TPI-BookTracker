@@ -1,0 +1,53 @@
+.edit-book-page {
+  display: flex;
+  gap: 160px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit-book-form {
+  width: 600px;
+  border: none;
+  padding: 2%;
+  margin: 1%;
+  background-color: none !important;
+}
+
+.edit-book-page p {
+  color: #898B87;
+}
+
+.hold-ctrl {
+  font-weight: 500;
+  font-size: small;
+}
+
+select {
+  background-color: #FFFFF9;
+}
+
+.text-tarea-editBook {
+  border: 1px solid #898B87 !important;
+  border-radius: 18px !important;
+  font-size: 1em !important;
+}
+
+.primary-button-editBook {
+  background-color: #8778B7;
+  border: none;
+  height: 75px;
+  border-radius: 20px;
+  font-size: large;
+  font-weight: 600;
+}
+
+.preview-book {
+  background-color: rgba(245, 245, 220, 0.75);
+  padding: 50px;
+}
+
+.preview-book img {
+  width: 300px;
+  margin-bottom: 30px;
+}
