@@ -226,7 +226,7 @@ const NewBook = () => {
                                 key={genre.id}
                                 type="checkbox"
                                 id={`genre-checkbox-${genre.id}`}
-                                label={genre.name}
+                                label={translate(genre.name)}
                                 value={genre.id}
                                 checked={selectedGenres.includes(String(genre.id))}
                                 onChange={handleChangeGenres}
@@ -237,7 +237,7 @@ const NewBook = () => {
                         {translate("selected")}: {
                             allGenres
                                 .filter(genre => selectedGenres.includes(String(genre.id)))
-                                .map(genre => genre.name)
+                                .map(genre => translate(genre.name))
                                 .join(', ') || translate("none_selected") // Muestra "Ninguno seleccionado" si no hay géneros
                         }
                     </Form.Text>

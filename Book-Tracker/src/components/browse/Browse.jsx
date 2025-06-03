@@ -81,7 +81,7 @@ const Browse = () => {
                 }`}
                 onClick={handleFilter(genre.name)}
               >
-                {genre.name}
+                {translate(genre.name)}
               </div>
             ))}
 

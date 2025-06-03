@@ -211,7 +211,7 @@ const EditBook = () => {
                             <FormCheck
                                 key={genre.id}
                                 type="checkbox"
-                                label={genre.name}
+                                label={translate(genre.name)}
                                 value={genre.id}
                                 checked={selectedGenres.includes(String(genre.id))}
                                 onChange={handleEditGenres}

@@ -19,7 +19,7 @@ const CardBook = ({ book, handleClick, handleAuthor, translate }) => {
                     className="book-item-title clickable"
                     onClick={handleClick(book.id)}
                 >
-                    {book.title}
+                    {translate(book.title)}
                 </span>
                 <br />
 
@@ -28,7 +28,7 @@ const CardBook = ({ book, handleClick, handleAuthor, translate }) => {
                     className="book-item-author clickable"
                     onClick={handleAuthor(book.authorId)}
                 >
-                    {book.author?.authorName}
+                    {translate(book.author?.authorName)}
                 </span>
                 <br />
 
