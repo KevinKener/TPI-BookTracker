@@ -105,20 +105,20 @@ const NewBook = () => {
 
     const validateForm = ({ title, selectedAuthor, pages, selectedGenres, summary }) => {
         if (!title || title.trim().length < 1 || title.trim().length > 50)
-            return "El título debe tener entre 1 y 50 caracteres.";
+            return translate("error_title_range");
 
         if (!selectedAuthor || isNaN(parseInt(selectedAuthor, 10)))
-            return "Debes seleccionar un autor válido.";
+            return translate("error_author_invalid");
 
         const numPages = parseInt(pages, 10);
         if (!numPages || numPages < 1 || numPages > 6000)
-            return "El libro debe tener entre 1 y 6000 páginas.";
+            return translate("error_pages_range");
 
         if (!selectedGenres || selectedGenres.length === 0)
-            return "Debes seleccionar al menos un género.";
+            return translate("error_genre_required");
 
         if (!summary || summary.length > 1000)
-            return "El resumen es obligatorio y no debe superar los 1000 caracteres.";
+            return translate("error_summary_required");
 
         return null;
     };
@@ -138,13 +138,13 @@ const NewBook = () => {
 
         try {
             await newBook(token, bookData);
-            successToast(translate("Libro añadido correctamente"));
+            successToast(translate("add_success"));
             console.log(bookData);
 
             resetForm();
         } catch (error) {
             console.log("Error al añadir el libro: ", error);
-            errorToast(translate("Error al añadir libro"));
+            errorToast(translate("add_error"));
         }
 
         const errorMsg = validateForm({ title, selectedAuthor, pages, selectedGenres, summary });
@@ -157,12 +157,11 @@ const NewBook = () => {
 
     if (!allowed) return null;
 
-
     return (
         <div className='new-book-page'>
             <Form className='new-book-form' onSubmit={handleAddBook}>
                 <h2 className='new-book-form-title'>{translate("new_book")}</h2>
-                <p className='new-book-form-description'>Create a new book</p>
+                <p className='new-book-form-description'>{translate("create_new_book")}</p>
 
                 <Row className='mb-3'>
                     <input
@@ -264,12 +263,12 @@ const NewBook = () => {
             </Form>
             {console.log(authors)}
             <div className='preview-book-main'>
-                <p>Preview</p>
+                <p>{translate("preview")}</p>
                 <div className='preview-book'>
                     {imageUrl ? <img src={imageUrl} alt="ImageBook" /> : <img src={notFound} alt="Imagedefault" />}
-                    {title ? <h3>{title}</h3> : <h3>Title</h3>}
-                    {selectedAuthor ? <h5>{authors[selectedAuthor - 1].authorName}</h5> : <h5>Author</h5>}
-                    {pages ? <p>{pages}</p> : <p>pages</p>}
+                    {title ? <h3>{title}</h3> : <h3>{translate("title")}</h3>}
+                    {selectedAuthor ? <h5>{authors.find(a => a.id === parseInt(selectedAuthor))?.authorName}</h5> : <h5>{translate("author")}</h5>}
+                    {pages ? <p>{pages}</p> : <p>{translate("pages")}</p>}
                 </div>
             </div>
         </div>

@@ -58,7 +58,7 @@ const EditBook = () => {
                 setAuthors(authorsData);
                 setAllGenres(genresData);
             } catch (error) {
-                errorToast("Error al cargar datos");
+                errorToast(translate("load_error"));
                 navigate('/');
             } finally {
                 setLoading(false);
@@ -67,22 +67,55 @@ const EditBook = () => {
         load();
     }, [bookId, token, userId, navigate]);
 
+    const handleEditTitle = (event) => {
+        setTitle(event.target.value);
+    }
+
+    const handleEditSelectAuthor = (event) => {
+        setSelectedAuthor(event.target.value);
+    }
+
+    const handleEditPages = (event) => {
+        setPages(event.target.value);
+    }
+
+    const handleEditGenres = (event) => {
+        const genreId = String(event.target.value);
+        const isChecked = event.target.checked;
+
+        setSelectedGenres(prevSelectedGenres => {
+            if (isChecked) {
+                return Array.from(new Set([...prevSelectedGenres, genreId]));
+            } else {
+                return prevSelectedGenres.filter(id => id !== genreId);
+            }
+        });
+    }
+
+    const handleEditSummary = (event) => {
+        setSummary(event.target.value);
+    }
+
+    const handleEditImageUrl = (event) => {
+        setImageUrl(event.target.value);
+    }
+
     const validateForm = ({ title, selectedAuthor, pages, selectedGenres, summary }) => {
         if (!title || title.trim().length < 1 || title.trim().length > 50)
-            return "El título debe tener entre 1 y 50 caracteres.";
+            return translate("error_title_range");
 
         if (!selectedAuthor || isNaN(parseInt(selectedAuthor, 10)))
-            return "Debes seleccionar un autor válido.";
+            return translate("error_author_invalid");
 
         const numPages = parseInt(pages, 10);
         if (!numPages || numPages < 1 || numPages > 6000)
-            return "El libro debe tener entre 1 y 6000 páginas.";
+            return translate("error_pages_range");
 
         if (!selectedGenres || selectedGenres.length === 0)
-            return "Debes seleccionar al menos un género.";
+            return translate("error_genre_required");
 
         if (!summary || summary.length > 1000)
-            return "El resumen es obligatorio y no debe superar los 1000 caracteres.";
+            return translate("error_summary_required");
 
         return null;
     };
@@ -108,7 +141,7 @@ const EditBook = () => {
 
         try {
             const updated = await updateBook(token, bookId, bookData);
-            successToast("Libro editado correctamente");
+            successToast(translate("edit_success"));
             navigate(`/books/${updated.id}`);
         } catch (error) {
             errorToast(error.message);
@@ -120,14 +153,14 @@ const EditBook = () => {
     return (
         <div className='edit-book-page'>
             <Form className='edit-book-form' onSubmit={handleSubmit}>
-                <h2 className='edit-book-form-title'>Editar Libro</h2>
+                <h2 className='edit-book-form-title'>{translate("edit_book")}</h2>
 
                 <Row className='mb-3'>
                     <input
                         type="text"
                         placeholder={translate("title")}
                         value={title}
-                        onChange={e => setTitle(e.target.value)}
+                        onChange={handleEditTitle}
                         className='primary-input-large'
                     />
                 </Row>
@@ -137,7 +170,7 @@ const EditBook = () => {
                         type="url"
                         placeholder={`${translate("cover")} (URL)`}
                         value={imageUrl}
-                        onChange={e => setImageUrl(e.target.value)}
+                        onChange={handleEditImageUrl}
                         className='primary-input-large'
                     />
                 </Row>
@@ -148,7 +181,7 @@ const EditBook = () => {
                             <select
                                 className='primary-input-short'
                                 value={selectedAuthor}
-                                onChange={e => setSelectedAuthor(e.target.value)}
+                                onChange={handleEditSelectAuthor}
                             >
                                 <option value="" disabled hidden>{translate("author")}</option>
                                 {authors.map(author => (
@@ -164,7 +197,7 @@ const EditBook = () => {
                                 className='primary-input-short'
                                 placeholder={translate("pages")}
                                 value={pages}
-                                onChange={e => setPages(e.target.value)}
+                                onChange={handleEditPages}
                                 min="1"
                             />
                         </FormGroup>
@@ -181,17 +214,18 @@ const EditBook = () => {
                                 label={genre.name}
                                 value={genre.id}
                                 checked={selectedGenres.includes(String(genre.id))}
-                                onChange={e => {
-                                    const checked = e.target.checked;
-                                    const value = String(e.target.value);
-                                    setSelectedGenres(prev => checked
-                                        ? [...prev, value]
-                                        : prev.filter(id => id !== value)
-                                    );
-                                }}
+                                onChange={handleEditGenres}
                             />
                         ))}
                     </div>
+                    <Form.Text className="text-muted mt-2">
+                        {translate("selected")}: {
+                            allGenres
+                                .filter(genre => selectedGenres.includes(String(genre.id)))
+                                .map(genre => genre.name)
+                                .join(', ') || translate("none_selected") // Muestra "Ninguno seleccionado" si no hay géneros
+                        }
+                    </Form.Text>
                 </Row>
 
                 <Row className='mb-2'>
@@ -201,7 +235,7 @@ const EditBook = () => {
                             as='textarea'
                             rows={4}
                             value={summary}
-                            onChange={e => setSummary(e.target.value)}
+                            onChange={handleEditSummary}
                             className='text-tarea-newBook'
                         />
                     </FormGroup>
@@ -209,17 +243,17 @@ const EditBook = () => {
 
                 <br />
                 <Row>
-                    <button type='submit' className='primary-button-newBook'>Guardar cambios</button>
+                    <button type='submit' className='primary-button-newBook'>{translate("save_changes")}</button>
                 </Row>
             </Form>
 
             <div className='preview-book-main'>
-                <p>Preview</p>
+                <p>{translate("preview")}</p>
                 <div className='preview-book'>
                     {imageUrl ? <img src={imageUrl} alt="ImageBook" /> : <img src={notFound} alt="Imagedefault" />}
-                    {title ? <h3>{title}</h3> : <h3>Title</h3>}
-                    {selectedAuthor ? <h5>{authors.find(a => a.id === parseInt(selectedAuthor))?.authorName}</h5> : <h5>Author</h5>}
-                    {pages ? <p>{pages}</p> : <p>pages</p>}
+                    {title ? <h3>{title}</h3> : <h3>{translate("title")}</h3>}
+                    {selectedAuthor ? <h5>{authors.find(a => a.id === parseInt(selectedAuthor))?.authorName}</h5> : <h5>{translate("author")}</h5>}
+                    {pages ? <p>{pages}</p> : <p>{translate("pages")}</p>}
                 </div>
             </div>
         </div>
