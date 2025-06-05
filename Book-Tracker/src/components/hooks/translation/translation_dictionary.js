@@ -73,6 +73,7 @@ export const translation_dictionary = {
         { key: "confirm_delete_account", value: "Confirmar Eliminación de la Cuenta " },
         { key: "sure_to_delete", value: "¿Estás seguro de que quieres eliminar tu cuenta permanentemente?" },
         { key: "action_not_reversible", value: "Esta acción no se puede deshacer." },
+        { key: "sing-up-for-more-options", value: "Inicia sesion para mas funciones" },
     ],
     en: [
         { key:"spanish_lang", value: "Spanish" },
@@ -148,6 +149,7 @@ export const translation_dictionary = {
         { key: "confirm_delete_account", value: "Confirm Account Deletion" },
         { key: "sure_to_delete", value: "Are you sure you want to delete your account permanently?" },
         { key: "action_not_reversible", value: "This action is irreversible" },
+        { key: "sing-up-for-more-options", value: "Sign up for more features." },
     ]
 }
 

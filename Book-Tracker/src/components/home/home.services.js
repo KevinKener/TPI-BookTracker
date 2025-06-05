@@ -7,7 +7,7 @@ export const fetchLectures = async (token) => {
         }
     })
         .then(res => {
-            if (!res.ok) throw new Error('Error fetching books');
+            if (!res.ok) throw new Error('Error fetching books fetchlectures');
             return res.json()
         })
 }
@@ -20,16 +20,15 @@ export const getBooks = async (token) => {
         method: 'GET'
     })
         .then(res => {
-            if (!res.ok) throw new Error('Error fetching books');
+            if (!res.ok) throw new Error('Error fetching books getbooks');
             return res.json()
         })
 }
 
-export const getPopularBooks = async (token) => {
+export const getPopularBooks = async () => {
   const response = await fetch(`${API_URL}/popularbooks`, {
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
     },
     method: 'GET'
   });
