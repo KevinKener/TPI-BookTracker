@@ -35,9 +35,7 @@ function App() {
               {/* TODAS LAS RUTAS */}
 
             {/* INICIO */}
-            <Route element={<Protected />}>
-              <Route path='/' element={<Home />} />
-            </Route>
+            <Route path='/' element={<Home />} />
 
             {/* REGISTER */}
             <Route path='/register' element={<Register/>} />

@@ -100,6 +100,7 @@ export const translation_dictionary = {
         { key: "cancel", value: "Cancelar"},
         { key: "account_settings", value: "Configuración de la Cuenta" },
         { key: "search_placeholder", value: "Buscar..." },
+        { key: "sing-up-for-more-options", value: "Inicia sesion para mas funciones" },
     ],
     en: [
         { key: "spanish_lang", value: "Spanish" },
@@ -234,6 +235,7 @@ export const translation_dictionary = {
         { key: "El Hobbit: La Comunidad del Anillo", value: "The Fellowship of the Ring" },
         { key: "El Hobbit: Las Dos Torres", value: "The Two Towers" },
         { key: "Eso", value: "It" },
+        { key: "sing-up-for-more-options", value: "Sign up for more features." },
     ]
 }
 

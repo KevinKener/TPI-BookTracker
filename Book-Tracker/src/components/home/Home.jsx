@@ -34,27 +34,29 @@ const Home = () => {
     navigate(`/browse/`, { replace: true });
   }
 
+  const handleSingUp = () => {
+    navigate(`/login/`, { replace: true });
+  } 
+
   useEffect(() => {
     const loadData = async () => {
-      try {
+      if (token) {
         const lecturesData = await fetchLectures(token);
         setLectures(lecturesData);
 
         const booksData = await getBooks(token);
         setBooks(booksData);
 
-        // NUEVA LLAMADA PARA LIBROS POPULARES
-        const popularBooksData = await getPopularBooks(token);
+        const popularBooksData = await getPopularBooks();
         setPopularBooks(popularBooksData);
-
-      } catch (error) {
-        console.error("Error loading data:", error);
+      } else {
+        const popularBooksData = await getPopularBooks();
+        setPopularBooks(popularBooksData);
       }
+
     };
 
-    if (token) {
-      loadData();
-    }
+    loadData();
   }, [token]);
 
   // Procesar los datos una vez que esten cargados
@@ -87,7 +89,7 @@ const Home = () => {
         )}
       </BookGroup>
 
-      <BookGroup title={translate('reading')}>
+      {token && <BookGroup title={translate('reading')}>
         {booksUser.length === 0 ? (
           <p>{translate('loading-books')}</p>
         ) : (
@@ -95,12 +97,19 @@ const Home = () => {
             <CardBook key={book.id} book={book} handleAuthor={handleAuthor} handleClick={handleClick} translate={translate} />
           ))
         )}
-      </BookGroup>
+      </BookGroup>}
 
-      <div className='go-browse'>
-        <h3>{translate('redirect-browse')}</h3>
-        <button onClick={handleBrowse}>{translate('browse-button')}</button>
-      </div>
+      {token ? (
+        <div className='go-browse'>
+          <h3>{translate('redirect-browse')}</h3>
+          <button onClick={handleBrowse}>{translate('browse-button')}</button>
+        </div>
+      ) : (
+        <div className='go-browse'>
+          <h3>{translate('sing-up-for-more-options')}</h3>
+          <button onClick={handleSingUp}>{translate('login')}</button>
+        </div>
+      )}
     </div>
   );
 };
