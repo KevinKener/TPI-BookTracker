@@ -8,6 +8,7 @@ import Input from '../input/Input'
 import fetchLogin from './login.services.js'
 import './Login.css'
 import '../register/Register.css'
+import { validateEmail, validatePassword } from '../auth/auth.services.js'
 
 const Login = () => {
     const navigate = useNavigate();
@@ -34,6 +35,12 @@ const Login = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        const { email, password } = formData;
+
+        if (!validateEmail(email) || !validatePassword(password, 6, 12, true, true)){
+            errorToast("Correo y/o contraseña incorrecto/s");
+        }
 
         try { 
             const data = await fetchLogin(formData.email, formData.password);

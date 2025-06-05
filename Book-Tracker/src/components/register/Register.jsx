@@ -4,6 +4,7 @@ import { errorToast, successToast } from '../notifications/notifications.js';
 import Input from '../input/Input';
 import fetchRegister from './register.services.js';
 import { useTranslate } from '../hooks/translation/UseTranslate'
+import { validateEmail, validatePassword, validateString } from '../auth/auth.services.js';
 import './Register.css';
 
 function Register() {
@@ -31,17 +32,31 @@ function Register() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    const { nombreUsuario, email, contrasena, confirmarContrasena } = formData;
     
-    if (formData.contrasena !== formData.confirmarContrasena) {
+    if (contrasena !== confirmarContrasena) {
       errorToast('Las contraseñas no coinciden.');
       return;
     }
+  
+      if (!validateString(nombreUsuario, 3, 12)) {
+        errorToast("El nombre de usuario debe tener entre 3 y 12 caracteres");
+      }
     
+    if (!validateEmail(email)){
+      errorToast("El mail ingresado es inválido");
+    }
+
+    if (!validatePassword(contrasena, 6, 12, true, true)) {
+      errorToast("La contraseña debe tener entre 6 y 12 caracteres. Al menos 1 mayúscula y 1 número");
+    }
+
     try {
       const res = await fetchRegister(
-        formData.nombreUsuario,
-        formData.email,
-        formData.contrasena
+        nombreUsuario,
+        email,
+        contrasena
       )
       
       console.log('Datos del formulario:', formData);
@@ -49,8 +64,8 @@ function Register() {
       navigate('/login');
       
     } catch (error) {
-      console.error("Error al registrar :", error),
-      errorToast("Ha ocurrido un error en al registrar el usuario.")
+      console.error("Error al registrar :", error);
+      // errorToast("Ha ocurrido un error en al registrar el usuario.");  
     }
   };
 
