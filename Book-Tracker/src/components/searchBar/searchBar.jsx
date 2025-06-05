@@ -5,7 +5,7 @@ import { useTranslate } from '../hooks/translation/UseTranslate.jsx';
 import './searchBar.css';
 
 const SearchBar = () => {
-  const [searchTerm, setSearchTerm] = useState();
+  const [searchTerm, setSearchTerm] = useState("");
   const [filteredBooks, setFilteredBooks] = useState([]);
   const [books, setBooks] = useState([]);
 
@@ -33,8 +33,7 @@ const SearchBar = () => {
     const term = event.target.value;
     setSearchTerm(term);
 
-    const translatedTerm = translate(term);
-    const normalizedTerm = normalizeText(translatedTerm);
+    const normalizedTerm = normalizeText(term);
 
     if (term.length > 0) {
       const found = books.filter(book =>{
