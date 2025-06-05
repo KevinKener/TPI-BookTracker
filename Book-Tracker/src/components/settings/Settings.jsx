@@ -66,7 +66,7 @@ function Settings() {
 
   return (
     <div className="container mt-5">
-      <h2>Configuración de la Cuenta</h2>
+      <h2>{translate("account_settings")}</h2>
       <hr />
 
       <Form>

@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import fetchBooks from './searchbar.services.js';
 import { useNavigate } from 'react-router-dom';
+import { useTranslate } from '../hooks/translation/UseTranslate.jsx';
 import './searchBar.css';
 
 const SearchBar = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState();
   const [filteredBooks, setFilteredBooks] = useState([]);
   const [books, setBooks] = useState([]);
 
   const navigate = useNavigate();
+  const translate = useTranslate();
 
   // Normalizacion UNICODE
   const normalizeText = (text) =>
@@ -31,7 +33,8 @@ const SearchBar = () => {
     const term = event.target.value;
     setSearchTerm(term);
 
-    const normalizedTerm = normalizeText(term);
+    const translatedTerm = translate(term);
+    const normalizedTerm = normalizeText(translatedTerm);
 
     if (term.length > 0) {
       const found = books.filter(book =>{
@@ -61,7 +64,7 @@ const SearchBar = () => {
       <input
         type="text"
         className="search-bar"
-        placeholder="Buscar libro..."
+        placeholder={translate("search_placeholder")}
         value={searchTerm}
         onChange={handleSearchChange}
         autoComplete="off"
@@ -76,7 +79,7 @@ const SearchBar = () => {
                 className="suggestion-cover"
               />
               <div className="suggestion-text">
-                <div className="suggestion-title">{book.title}</div>
+                <div className="suggestion-title">{translate(book.title)}</div>
                 <div className="suggestion-author">{book.author.authorName}</div>
               </div>
             </li>

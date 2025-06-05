@@ -15,11 +15,13 @@ import {
 } from "../notifications/notifications.js";
 import { AuthenticationContext } from "../services/auth.context.jsx";
 import "./bookDetails.css";
+import { useTranslate } from "../hooks/translation/UseTranslate.jsx";
 
 const BookDetails = () => {
   const [book, setBook] = useState(null);
   const [lectures, setLectures] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const translate = useTranslate();
   const navigate = useNavigate();
   const { id } = useParams();
   const { token, role } = useContext(AuthenticationContext);
@@ -121,14 +123,14 @@ const BookDetails = () => {
 
       <div className="book-body-container">
         <div className="book-body">
-          <span className="book-title">{title}</span>
+          <span className="book-title">{translate(title)}</span>
           <span className="book-author clickable" onClick={handleAuthorClick}>
-            {author?.authorName}
+            {translate(author?.authorName)}
           </span>
           <span className="book-summary">{summary}</span>
           <span className="book-pages">{pages} páginas</span>
           <span className="book-genres">
-            {genres?.map((g) => g.name).join(", ")}
+            {genres?.map((g) => translate(g.name)).join(", ")}
           </span>
         </div>
 
@@ -142,7 +144,7 @@ const BookDetails = () => {
               variant="danger"
               onClick={handleRemoveLecture}
             >
-              Eliminar de la lista
+              {translate("remove_from_list")}
             </Button>
           </>
         ) : (
@@ -150,7 +152,7 @@ const BookDetails = () => {
             className="addLecture-btn btn-dark"
             onClick={handleAddLecture}
           >
-            Añadir a la lista
+            {translate("add_to_list")}
           </Button>
         )}
 
@@ -162,7 +164,7 @@ const BookDetails = () => {
               variant="dark"
               onClick={handleEditClick}
             >
-              Editar libro
+              {translate("edit_book")}
             </Button>
 
             <Button
@@ -170,7 +172,7 @@ const BookDetails = () => {
               variant="outline-danger"
               onClick={() => setShowModal(true)}
             >
-              Eliminar este libro
+              {translate("delete_book")}
             </Button>
 
             <Modal show={showModal} onHide={() => setShowModal(false)} centered>

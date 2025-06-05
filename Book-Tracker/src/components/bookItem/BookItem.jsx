@@ -119,9 +119,9 @@ const handleEditFinishedDate = (event) => {
                 </Col>
 
                 <Col xs={3} >
-                  <span className='clickable list-item-title' onClick={handleClick}>{title}</span>
+                  <span className='clickable list-item-title' onClick={handleClick}>{translate(title)}</span>
                   <br />
-                  <span className='clickable list-item-author' onClick={handleAuthorClick}>{authorName}</span>
+                  <span className='clickable list-item-author' onClick={handleAuthorClick}>{translate(authorName)}</span>
                   
                 </Col>
 
@@ -133,14 +133,14 @@ const handleEditFinishedDate = (event) => {
                       onChange={handleEditStatus} 
                     >
                     <option value=""></option>
-                    <option value="Para leer">{translate("status_planned")}</option>
-                    <option value="Leyendo">{translate("status_reading")}</option>
-                    <option value="Leído">{translate("status_read")}</option>
+                    <option value="Para leer">{translate("Para leer")}</option>
+                    <option value="Leyendo">{translate("Leyendo")}</option>
+                    <option value="Leído">{translate("Leído")}</option>
                     </FormSelect>
                   </>
                     :
                     <>
-                    {status}
+                    {translate(status)}
                     </>
                 }
                 </Col>
