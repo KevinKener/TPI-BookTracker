@@ -6,12 +6,11 @@ import { isTokenValid } from "../services/auth/auth.helpers.js"
 const Protected = () => {
   const { token } = useContext(AuthenticationContext);
 
-  if(!isTokenValid(token)){
-    // importar logout
-      return <Navigate to="/login" replace />
+  if (!isTokenValid(token)) {
+    return <Navigate to="/login" replace />
   } else {
-        return <Outlet />
-    }
+    return <Outlet />
+  }
 }
 
 export default Protected

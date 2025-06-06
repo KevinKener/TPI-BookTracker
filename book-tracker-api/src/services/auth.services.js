@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt"
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { User } from "../models/index.js";
 import { validateEmail, validatePassword, validateString } from "../helpers/validations.js";
@@ -13,21 +13,21 @@ const validateUserRegister = (req) => {
     const { username, email, password } = req.body;
 
     // nombre de usuario, minimo, maximo
-    if(!username || !validateString(username, 3, 12)){
+    if (!username || !validateString(username, 3, 12)) {
         result.error = true,
-        result.message = "El nombre ingresado no es válido."
+            result.message = "El nombre ingresado no es válido."
     }
 
     // email regex
-    if(!email || !validateEmail(email)){
+    if (!email || !validateEmail(email)) {
         result.error = true,
-        result.message = "El email ingresado no es válido."
+            result.message = "El email ingresado no es válido."
     }
 
     // contraseña, minimo, maximo, ¿mayuscula?, ¿numero?
-    if(!password || !validatePassword(password, 6, 12, true, true)){
+    if (!password || !validatePassword(password, 6, 12, true, true)) {
         result.error = true,
-        result.message = "La contraseña ingresada no es válido."
+            result.message = "La contraseña ingresada no es válido."
     }
 
     return result;
@@ -44,15 +44,15 @@ const validateUserLogin = (req) => {
     const { email, password } = req.body;
 
     // email regex
-    if(!email || !validateEmail(email)){
+    if (!email || !validateEmail(email)) {
         result.error = true,
-        result.message = "El email ingresado no es válido."
+            result.message = "El email ingresado no es válido."
     }
 
     // contraseña, minimo, maximo, ¿mayuscula?, ¿numero?
-    if(!password || !validatePassword(password, 6, 12, true, true)){
+    if (!password || !validatePassword(password, 6, 12, true, true)) {
         result.error = true,
-        result.message = "La contraseña ingresada no es válido."
+            result.message = "La contraseña ingresada no es válido."
     }
 
     return result;
@@ -94,8 +94,8 @@ export const registerUser = async (req, res) => {
 
     // Validaciones
     const result = validateUserRegister(req);
-    
-    if(result.error){
+
+    if (result.error) {
         return res.status(400).send({ message: result.message });
     }
 
@@ -108,7 +108,7 @@ export const registerUser = async (req, res) => {
         }
     });
 
-    if(user){
+    if (user) {
         return res.status(400).send({ message: "El correo ya se encuentra registrado" })
     }
 
@@ -137,7 +137,7 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
     try {
         const result = validateUserLogin(req);
-        if(result.error){
+        if (result.error) {
             return res.status(400).send({ message: result.message });
         }
 
@@ -145,22 +145,22 @@ export const loginUser = async (req, res) => {
 
         const user = await User.findOne({ where: { email } });
 
-        if(!user){
+        if (!user) {
             return res.status(400).send({ message: "El correo no se encuentra registrado" });
         }
 
         const comparison = await bcrypt.compare(password, user.password);
 
-        if(!comparison){
+        if (!comparison) {
             return res.status(401).send({ message: "Email y/o contraseña incorrectos" });
         }
 
         const secretKey = "programacion3-2025";
-        const token = jwt.sign({ 
-            id: user.id, 
-            username: user.username, 
-            email: user.email, 
-            role: user.role 
+        const token = jwt.sign({
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            role: user.role
         }, secretKey, { expiresIn: "1h" });
 
         console.log("user: ", user.role);

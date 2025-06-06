@@ -1,18 +1,8 @@
 import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import {
-  fetchBook,
-  addLecture,
-  fetchLectures,
-  removeLecture,
-  deleteBook,
-} from "./bookdetails.services.js";
+import { fetchBook, addLecture, fetchLectures, removeLecture, deleteBook } from "./bookdetails.services.js";
 import { Button, Modal } from "react-bootstrap";
-import {
-  errorToast,
-  infoToast,
-  successToast,
-} from "../notifications/notifications.js";
+import { errorToast, infoToast, successToast } from "../notifications/notifications.js";
 import { AuthenticationContext } from "../services/auth.context.jsx";
 import "./bookDetails.css";
 import { useTranslate } from "../hooks/translation/UseTranslate.jsx";
@@ -111,6 +101,14 @@ const BookDetails = () => {
     }
   };
 
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
   return (
     <div className="details-page">
       <div className="book-cover-container">
@@ -170,12 +168,12 @@ const BookDetails = () => {
             <Button
               className="deleteBook-btn"
               variant="outline-danger"
-              onClick={() => setShowModal(true)}
+              onClick={handleOpenModal}
             >
               {translate("delete_book")}
             </Button>
 
-            <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+            <Modal show={showModal} onHide={handleCloseModal} centered>
               <Modal.Header closeButton>
                 <Modal.Title>¿Eliminar libro?</Modal.Title>
               </Modal.Header>
@@ -184,7 +182,7 @@ const BookDetails = () => {
                 se puede deshacer.
               </Modal.Body>
               <Modal.Footer>
-                <Button variant="secondary" onClick={() => setShowModal(false)}>
+                <Button variant="secondary" onClick={handleCloseModal}>
                   Cancelar
                 </Button>
                 <Button variant="danger" onClick={handleDeleteBook}>

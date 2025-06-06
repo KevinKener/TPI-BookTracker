@@ -1,19 +1,18 @@
-import { useContext } from 'react'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { AuthenticationContext } from '../services/auth.context'
-import { useTranslate } from '../hooks/translation/UseTranslate'
-import { successToast, errorToast } from '../notifications/notifications.js'
-import Input from '../input/Input'
-import fetchLogin from './login.services.js'
-import './Login.css'
-import '../register/Register.css'
-import { validateEmail, validatePassword } from '../auth/auth.services.js'
+import { useContext } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AuthenticationContext } from '../services/auth.context';
+import { useTranslate } from '../hooks/translation/UseTranslate';
+import { successToast, errorToast } from '../notifications/notifications.js';
+import Input from '../input/Input';
+import fetchLogin from './login.services.js';
+import './Login.css';
+import '../register/Register.css';
+import { validateEmail, validatePassword } from '../auth/auth.services.js';
 
 const Login = () => {
     const navigate = useNavigate();
     const translate = useTranslate();
-    const [errors, setErrors] = useState({ email: false, password: false });
     const { handleUserLogin } = useContext(AuthenticationContext);
 
     const [formData, setFormData] = useState({
@@ -38,11 +37,11 @@ const Login = () => {
 
         const { email, password } = formData;
 
-        if (!validateEmail(email) || !validatePassword(password, 6, 12, true, true)){
+        if (!validateEmail(email) || !validatePassword(password, 6, 12, true, true)) {
             errorToast("Correo y/o contraseña incorrecto/s");
         }
 
-        try { 
+        try {
             const data = await fetchLogin(formData.email, formData.password);
             handleUserLogin(data.token, data.username, data.id, data.role, data.img);
             successToast("Inicio de sesión existoso");

@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react';
 import { Modal, Button, ModalHeader, ModalBody, ModalFooter, FormSelect } from 'react-bootstrap';
 import { useTranslate } from '../hooks/translation/UseTranslate';
 import { AuthenticationContext } from '../services/auth.context';
-import './adminModal.css'
+import './adminModal.css';
 
 const AdminModal = ({ user, showEditModal, closeModal, updateUser, newUsername, newEmail, newRole, setNewUsername, setNewEmail, setNewRole }) => {
 
@@ -31,10 +31,10 @@ const AdminModal = ({ user, showEditModal, closeModal, updateUser, newUsername, 
   return (
 
     // e-u- prefijo para clases del componente
-        <Modal show={showEditModal} onHide={closeModal} centered size='md' >
-        <ModalHeader closeButton className='admin-modal-header'>{translate("edit_user")}</ModalHeader>
-        <ModalBody className='admin-modal-body'>
-          <div className="modal-body">
+    <Modal show={showEditModal} onHide={closeModal} centered size='md' >
+      <ModalHeader closeButton className='admin-modal-header'>{translate("edit_user")}</ModalHeader>
+      <ModalBody className='admin-modal-body'>
+        <div className="modal-body">
 
           <div className="edit-title">
             {translate("username")}
@@ -43,7 +43,7 @@ const AdminModal = ({ user, showEditModal, closeModal, updateUser, newUsername, 
             placeholder={user.username}
             value={newUsername}
             onChange={handleNewUsername}
-            />
+          />
           <br />
           <div className="edit-title">
             {translate("email")}
@@ -52,7 +52,7 @@ const AdminModal = ({ user, showEditModal, closeModal, updateUser, newUsername, 
             placeholder={user.email}
             value={newEmail}
             onChange={handleNewEmail}
-            />
+          />
           <br />
           <div className="edit-title">
             {translate("role")} <span className='actual-role'>(actual: {user.role})</span>
@@ -61,21 +61,21 @@ const AdminModal = ({ user, showEditModal, closeModal, updateUser, newUsername, 
             <option></option>
             <option value="reader">{translate("reader")}</option>
             <option value="admin">{translate("admin")}</option>
-            { role === "mod" &&
+            {role === "mod" &&
               <option value="mod">{translate("mod")}</option>
             }
           </FormSelect>
 
-            </div>
-        </ModalBody>
-        <ModalFooter>
-            <Button variant='secondary' onClick={closeModal} >
-                {translate("cancel")}
-            </Button>
-            <Button variant='success' onClick={handleUpdateUser} >
-                {translate("save_changes")}
-            </Button>
-        </ModalFooter>
+        </div>
+      </ModalBody>
+      <ModalFooter>
+        <Button variant='secondary' onClick={closeModal} >
+          {translate("cancel")}
+        </Button>
+        <Button variant='success' onClick={handleUpdateUser} >
+          {translate("save_changes")}
+        </Button>
+      </ModalFooter>
     </Modal>
   )
 }

@@ -47,4 +47,6 @@ const newBook = async (token, bookData) => {
 
     return response.json();
 };
+
+
 export { fetchGenres, fetchAuthors, newBook };

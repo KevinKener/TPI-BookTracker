@@ -1,6 +1,6 @@
 import { Author, Book, Lecture } from "../models/index.js";
 
-export const findLectures = async (req,res) => {
+export const findLectures = async (req, res) => {
     const userId = req.user.id;
 
     const lectures = await Lecture.findAll({
@@ -23,14 +23,14 @@ export const findLectures = async (req,res) => {
     res.json(lectures);
 }
 
-export const createLecture = async (req,res) => {
+export const createLecture = async (req, res) => {
     try {
         // USER ID
         const userId = req.user.id;
-        
+
         // ID LIBRO
         const { bookId } = req.body;
-        
+
         // LECTURA AGREGADA "PARA LEER" DEFAULT
         const status = "Para leer";
 
@@ -42,9 +42,9 @@ export const createLecture = async (req,res) => {
                 bookId
             }
         });
-        
+
         // ERROR SI EXISTE
-        if(existingLecture){
+        if (existingLecture) {
             return res.status(400).send({ message: "Ya existe una lectura con ese libro" })
         }
 
@@ -74,10 +74,10 @@ export const createLecture = async (req,res) => {
     } catch (err) {
         console.error("Error en createLecture:", err);
         res.status(500).json({ message: "Error interno al crear la lectura" });
-  }
+    }
 }
 
-export const updateLecture = async (req,res) => {
+export const updateLecture = async (req, res) => {
     const { id } = req.params;
     // DATOS LIBRO
     const { status, rating, pageCount, dateStarted, dateFinished } = req.body;
@@ -89,7 +89,7 @@ export const updateLecture = async (req,res) => {
     const lecture = await Lecture.findByPk(id);
 
     // ERROR SI NO ENCUENTRA 
-    if(!lecture){
+    if (!lecture) {
         return res.status(404).send({ message: "No existe la correspondiente lectura" })
     }
 
@@ -123,14 +123,11 @@ export const updateLecture = async (req,res) => {
 export const deleteLecture = async (req, res) => {
     const { id } = req.params;
 
-    // USER ID
-    const userId = req.user.id;
-
     // BUSCA SI EXISTE LA LECTURA
     const lecture = await Lecture.findByPk(id);
 
     // ERROR SI NO ENCUENTRA 
-    if(!lecture){
+    if (!lecture) {
         return res.status(404).send({ message: "No existe la correspondiente lectura" })
     }
 

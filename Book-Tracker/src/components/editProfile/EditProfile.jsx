@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Modal, Button, Form, Image } from 'react-bootstrap';
 import { errorToast } from '../notifications/notifications';
 import { useContext } from 'react';
@@ -47,7 +47,7 @@ const EditProfile = ({ user, onClose, onUserUpdated }) => {
 
     try {
       const updated = await updateUserProfile(id, token, updatedUser);
-      
+
       // Actualiza los valores para la NavBar
       updateUsername(username);
       updateProfilePicture(profileImage);
@@ -62,6 +62,22 @@ const EditProfile = ({ user, onClose, onUserUpdated }) => {
     }
 
     onClose();
+  };
+
+  const handleShowUrl = () => {
+    setShowUrlInput(true);
+  };
+
+  const handleCloseUrl = () => {
+    setShowUrlInput(false);
+  };
+
+  const handleSetUsername = (e) => {
+    setUsername(e.target.value);
+  };
+
+  const handleSetDescription = (e) => {
+    setDescription(e.target.value);
   };
 
   return (
@@ -86,7 +102,7 @@ const EditProfile = ({ user, onClose, onUserUpdated }) => {
               <Button
                 variant="info"
                 className="btn-custom-image-url"
-                onClick={() => setShowUrlInput(true)}
+                onClick={handleShowUrl}
               >
                 Cambiar foto (URL)
               </Button>
@@ -103,7 +119,7 @@ const EditProfile = ({ user, onClose, onUserUpdated }) => {
                     variant="secondary me-2"
                     className='btn-custom-secondary'
                     size="sm"
-                    onClick={() => setShowUrlInput(false)}
+                    onClick={handleCloseUrl}
                   >
                     Cancelar
                   </Button>
@@ -126,7 +142,7 @@ const EditProfile = ({ user, onClose, onUserUpdated }) => {
               type="text"
               placeholder="Nombre de usuario"
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={handleSetUsername}
               isInvalid={!!usernameError}
             />
             <Form.Control.Feedback type="invalid">
@@ -141,7 +157,7 @@ const EditProfile = ({ user, onClose, onUserUpdated }) => {
               rows={3}
               placeholder="Descripción"
               value={description || ""}
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={handleSetDescription}
             />
           </Form.Group>
         </Form>

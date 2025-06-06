@@ -1,10 +1,9 @@
-import React from 'react'
-import ModalLogout from '../modalLogout/ModalLogout'
+import ModalLogout from '../modalLogout/ModalLogout';
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useState, useContext } from 'react';
 import { AuthenticationContext } from '../services/auth.context';
-import { useTranslate } from '../hooks/translation/UseTranslate'
+import { useTranslate } from '../hooks/translation/UseTranslate';
 import './userMenu.css';
 import navbarImage from './avatarNavbar.png';
 
@@ -17,6 +16,18 @@ const UserMenu = () => {
   const closeModal = () => setShowModal(false);
 
   const { token, username, id, profilePictureUrl } = useContext(AuthenticationContext);
+
+  const handleClickProfile = () => {
+    navigate(`/profile/${id}`)
+  }
+
+  const hanldeClickSettings = () => {
+    navigate('/profile-settings')
+  }
+
+  const handleClickLogin = () => {
+    navigate('/login')
+  }
 
   return (
     <div className="user-menu">
@@ -40,10 +51,10 @@ const UserMenu = () => {
         <DropdownMenu>
           {token ?
             <>
-              <DropdownItem onClick={() => navigate(`profile/${id}`)} > {/* El id depende de la sesion activa */}
+              <DropdownItem onClick={handleClickProfile} >
                 {translate("profile")}
               </DropdownItem>
-              <DropdownItem onClick={() => navigate('profile-settings')} >
+              <DropdownItem onClick={hanldeClickSettings} >
                 {translate("settings")}
               </DropdownItem>
               <DropdownItem onClick={openModal} >
@@ -51,7 +62,7 @@ const UserMenu = () => {
               </DropdownItem>
             </>
             :
-            <DropdownItem onClick={() => navigate('login')} >
+            <DropdownItem onClick={handleClickLogin} >
               {translate("login")}
             </DropdownItem>
           }

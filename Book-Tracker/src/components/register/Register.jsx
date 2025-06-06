@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { errorToast, successToast } from '../notifications/notifications.js';
 import Input from '../input/Input';
 import fetchRegister from './register.services.js';
-import { useTranslate } from '../hooks/translation/UseTranslate'
+import { useTranslate } from '../hooks/translation/UseTranslate';
 import { validateEmail, validatePassword, validateString } from '../auth/auth.services.js';
 import './Register.css';
 
@@ -34,17 +34,17 @@ function Register() {
     event.preventDefault();
 
     const { nombreUsuario, email, contrasena, confirmarContrasena } = formData;
-    
+
     if (contrasena !== confirmarContrasena) {
       errorToast('Las contraseñas no coinciden.');
       return;
     }
-  
-      if (!validateString(nombreUsuario, 3, 12)) {
-        errorToast("El nombre de usuario debe tener entre 3 y 12 caracteres");
-      }
-    
-    if (!validateEmail(email)){
+
+    if (!validateString(nombreUsuario, 3, 12)) {
+      errorToast("El nombre de usuario debe tener entre 3 y 12 caracteres");
+    }
+
+    if (!validateEmail(email)) {
       errorToast("El mail ingresado es inválido");
     }
 
@@ -58,11 +58,11 @@ function Register() {
         email,
         contrasena
       )
-      
+
       console.log('Datos del formulario:', formData);
       successToast("Cuenta registrada exitosamente.")
       navigate('/login');
-      
+
     } catch (error) {
       console.error("Error al registrar :", error);
       // errorToast("Ha ocurrido un error en al registrar el usuario.");  

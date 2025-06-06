@@ -1,9 +1,9 @@
-import React, { useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { AuthenticationContext } from '../services/auth.context';
 import { successToast, errorToast } from '../notifications/notifications.js';
-import { updateUser, deleteUser } from './settings.services.js'; 
+import { updateUser, deleteUser } from './settings.services.js';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Settings.css';
@@ -46,15 +46,15 @@ function Settings() {
   };
 
   const handleDeleteAccount = async () => {
-  try {
-    await deleteUser(id, token);
-    successToast('Cuenta eliminada exitosamente');
-    handleUserLogout();
-    navigate('/');
-  } catch (error) {
-    errorToast(error.message || 'Error al eliminar la cuenta');
-  }
-};
+    try {
+      await deleteUser(id, token);
+      successToast('Cuenta eliminada exitosamente');
+      handleUserLogout();
+      navigate('/');
+    } catch (error) {
+      errorToast(error.message || 'Error al eliminar la cuenta');
+    }
+  };
 
   const openDeleteConfirmation = () => {
     setShowDeleteConfirmation(true);

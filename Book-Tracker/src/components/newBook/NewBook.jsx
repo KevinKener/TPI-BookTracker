@@ -1,14 +1,14 @@
-import React, { useEffect, useState, useContext } from 'react'
-import { Form, Row, Col, Button, FormGroup, FormLabel, FormControl, FormCheck } from 'react-bootstrap'
-import { fetchGenres, fetchAuthors, newBook } from './newbook.services.js'
-import { successToast, errorToast } from '../notifications/notifications.js'
-import { useTranslate } from '../hooks/translation/UseTranslate.jsx'
-import { useNavigate } from 'react-router'
-import { AuthenticationContext } from '../services/auth.context.jsx'
-import fetchUserLogged from '../profile/profile.services.js'
-import notFound from './image-not-found.jpg'
-import './newBook.css'
-import '../input/Input.css'
+import { useEffect, useState, useContext } from 'react';
+import { Form, Row, Col, FormGroup, FormLabel, FormControl, FormCheck } from 'react-bootstrap';
+import { fetchGenres, fetchAuthors, newBook } from './newbook.services.js';
+import { successToast, errorToast } from '../notifications/notifications.js';
+import { useTranslate } from '../hooks/translation/UseTranslate.jsx';
+import { useNavigate } from 'react-router';
+import { AuthenticationContext } from '../services/auth.context.jsx';
+import fetchUserLogged from '../profile/profile.services.js';
+import notFound from './image-not-found.jpg';
+import './newBook.css';
+import '../input/Input.css';
 
 const NewBook = () => {
     const translate = useTranslate();
@@ -103,6 +103,38 @@ const NewBook = () => {
         setImageUrl(event.target.value);
     }
 
+    const handleAddBook = async (event) => {
+        event.preventDefault();
+
+        const bookData = {
+            title,
+            authorId: parseInt(selectedAuthor),
+            pages: parseInt(pages, 10),
+            genres: selectedGenres,
+            summary,
+            imageUrl
+        };
+
+        const errorMsg = validateForm({ title, selectedAuthor, pages, selectedGenres, summary });
+
+        try {
+            await newBook(token, bookData);
+            successToast(translate("add_success"));
+            console.log(bookData);
+
+            resetForm();
+        } catch (error) {
+            if (errorMsg) {
+                errorToast(errorMsg);
+                return;
+            }
+            console.log("Error al añadir el libro: ", error);
+            errorToast(translate("add_error"));
+        }
+
+
+    };
+
     const validateForm = ({ title, selectedAuthor, pages, selectedGenres, summary }) => {
         if (!title || title.trim().length < 1 || title.trim().length > 50)
             return translate("error_title_range");
@@ -121,38 +153,6 @@ const NewBook = () => {
             return translate("error_summary_required");
 
         return null;
-    };
-
-
-    const handleAddBook = async (event) => {
-        event.preventDefault();
-
-        const bookData = {
-            title,
-            authorId: parseInt(selectedAuthor),
-            pages: parseInt(pages, 10),
-            genres: selectedGenres,
-            summary,
-            imageUrl
-        };
-
-        try {
-            await newBook(token, bookData);
-            successToast(translate("add_success"));
-            console.log(bookData);
-
-            resetForm();
-        } catch (error) {
-            console.log("Error al añadir el libro: ", error);
-            errorToast(translate("add_error"));
-        }
-
-        const errorMsg = validateForm({ title, selectedAuthor, pages, selectedGenres, summary });
-        if (errorMsg) {
-            errorToast(errorMsg);
-            return;
-        }
-
     };
 
     if (!allowed) return null;

@@ -1,20 +1,20 @@
-import React, { useState, useContext } from 'react'
-import { ListGroupItem, Row, Col, CardImg, Button, FormGroup, FormControl, FormSelect } from 'react-bootstrap'
+import { useState, useContext } from 'react';
+import { ListGroupItem, Row, Col, CardImg, Button, FormGroup, FormControl, FormSelect } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { Trash3, CheckLg, XLg, PencilSquare, StarFill } from 'react-bootstrap-icons'
-import { updateLecture, deleteLecture } from './bookitem.services.js'
-import { useTranslate } from '../hooks/translation/UseTranslate'
-import { AuthenticationContext } from '../services/auth.context.jsx'
-import './bookItem.css'
+import { Trash3, CheckLg, XLg, PencilSquare } from 'react-bootstrap-icons';
+import { updateLecture, deleteLecture } from './bookitem.services.js';
+import { useTranslate } from '../hooks/translation/UseTranslate';
+import { AuthenticationContext } from '../services/auth.context.jsx';
+import './bookItem.css';
 
 const BookItem = ({ lecture, onUpdate, onDelete }) => {
-  
+
   const navigate = useNavigate();
   const translate = useTranslate();
   const { token } = useContext(AuthenticationContext);
-  
+
   const { id, rating, status, pageCount, bookId, book, dateStarted, dateFinished } = lecture;
-  const { title, pages, summary, imageUrl, author } = book;
+  const { title, pages, imageUrl, author } = book;
   const authorName = author?.authorName;
   const authorId = book.authorId;
 
@@ -37,18 +37,18 @@ const BookItem = ({ lecture, onUpdate, onDelete }) => {
   const handleEditStatus = (event) => {
     const newStatus = event.target.value;
     setStatus(newStatus);
-    
-    // Sale de la ISO 8601, estandar internacional. slice al 10 por 8 numeros y 2 guiones YYYY-MM-DD
+
+    // Sale de ISO. slice al 10 por 8 numeros y 2 guiones YYYY-MM-DD
     const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD (10 caracteres, contando guiones)
 
     // Setea la fecha en Hoy, cuando marca leyendo
-    if(newStatus === 'Leyendo' && !editStarted) {
+    if (newStatus === 'Leyendo' && !editStarted) {
       setEditStarted(today);
     }
-    
-    if(newStatus === 'Leído'){
+
+    if (newStatus === 'Leído') {
       setPageCount(pages);
-      
+
       if (!dateFinished || editFinished === "") {
         setEditFinished(today);
 
@@ -63,9 +63,9 @@ const BookItem = ({ lecture, onUpdate, onDelete }) => {
     setEditStarted(event.target.value);
   }
 
-const handleEditFinishedDate = (event) => {
-  setEditFinished(event.target.value);
-}
+  const handleEditFinishedDate = (event) => {
+    setEditFinished(event.target.value);
+  }
 
   const handleEditRating = (event) => {
     setRating(event.target.value);
@@ -77,7 +77,7 @@ const handleEditFinishedDate = (event) => {
 
   const handleSaveEdit = async () => {
     try {
-      const updated = await updateLecture (token, id, {
+      const updated = await updateLecture(token, id, {
         status: editStatus,
         rating: editRating,
         pageCount: editPageCount,
@@ -98,7 +98,7 @@ const handleEditFinishedDate = (event) => {
       await deleteLecture(token, id);
       onDelete(id);
     } catch (error) {
-      console.error("Error al eliminar", error);      
+      console.error("Error al eliminar", error);
     }
   }
 
@@ -112,151 +112,151 @@ const handleEditFinishedDate = (event) => {
 
   return (
     <>
-        <ListGroupItem  >
-            <Row>
-                <Col xs={1} className='list-item-cover' >
-                <CardImg src={imageUrl} className='clickable cover' onClick={handleClick} />
-                </Col>
+      <ListGroupItem  >
+        <Row>
+          <Col xs={1} className='list-item-cover' >
+            <CardImg src={imageUrl} className='clickable cover' onClick={handleClick} />
+          </Col>
 
-                <Col xs={3} >
-                  <span className='clickable list-item-title' onClick={handleClick}>{translate(title)}</span>
-                  <br />
-                  <span className='clickable list-item-author' onClick={handleAuthorClick}>{translate(authorName)}</span>
-                  
-                </Col>
+          <Col xs={3} >
+            <span className='clickable list-item-title' onClick={handleClick}>{translate(title)}</span>
+            <br />
+            <span className='clickable list-item-author' onClick={handleAuthorClick}>{translate(authorName)}</span>
 
-                <Col xs={2} >
-                {isEditing ? 
+          </Col>
+
+          <Col xs={2} >
+            {isEditing ?
+              <>
+                <FormSelect className="d-flex align-items-center"
+                  value={editStatus}
+                  onChange={handleEditStatus}
+                >
+                  <option value=""></option>
+                  <option value="Para leer">{translate("Para leer")}</option>
+                  <option value="Leyendo">{translate("Leyendo")}</option>
+                  <option value="Leído">{translate("Leído")}</option>
+                </FormSelect>
+              </>
+              :
+              <>
+                {translate(status)}
+              </>
+            }
+          </Col>
+
+          <Col xs={1} className='list-item-rating'>
+            {isEditing ?
+              <>
+                <FormSelect className="d-flex align-items-center"
+                  value={editRating}
+                  onChange={handleEditRating}
+                >
+                  <option value=""></option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </FormSelect>
+              </>
+              :
+              <>
+                {rating}
+              </>
+            }
+          </Col>
+
+          <Col xs={2} >
+            <FormGroup className="d-flex align-items-center">
+              {
+                isEditing ?
                   <>
-                    <FormSelect className="d-flex align-items-center"
-                      value={editStatus}
-                      onChange={handleEditStatus} 
-                    >
-                    <option value=""></option>
-                    <option value="Para leer">{translate("Para leer")}</option>
-                    <option value="Leyendo">{translate("Leyendo")}</option>
-                    <option value="Leído">{translate("Leído")}</option>
-                    </FormSelect>
+                    <FormControl
+                      type="number"
+                      size="sm"
+                      min="0"
+                      max={pages}
+                      className="me-1"
+                      style={{ width: '50px' }}
+                      step="1"
+                      value={editPageCount}
+                      onChange={handleEditPageCount}
+                      disabled={editStatus !== 'Leyendo'}
+                    />
+                    <span> / {pages}</span>
                   </>
-                    :
-                    <>
-                    {translate(status)}
-                    </>
-                }
-                </Col>
-
-                <Col xs={1} className='list-item-rating'>
-                  {isEditing ? 
+                  :
                   <>
-                    <FormSelect className="d-flex align-items-center" 
-                      value={editRating}
-                      onChange={handleEditRating}
-                    >
-                      <option value=""></option>
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
-                    </FormSelect>
-                  </>
-                    :
-                    <>
-                    {rating}
-                    </>
-                }
-                </Col>
-
-                <Col xs={2} >
-                  <FormGroup className="d-flex align-items-center">
-                    {
-                      isEditing ?
+                    {status === 'Leído' || status === 'Para leer' ?
                       <>
-                        <FormControl
-                          type="number"
-                          size="sm"
-                          min="0"
-                          max={pages}
-                          className="me-1"
-                          style={{ width: '50px' }}
-                          step="1"
-                          value={editPageCount}
-                          onChange={handleEditPageCount}
-                          disabled={editStatus !== 'Leyendo'}
-                        />
-                        <span> / {pages}</span>
+                        {pages}
                       </>
                       :
                       <>
-                        { status === 'Leído' || status === 'Para leer' ? 
-                        <>
-                          {pages}
-                        </>
-                          :
-                        <>
-                          {pageCount} / {pages}
-                        </>
-                        }
+                        {pageCount} / {pages}
                       </>
                     }
-                  </FormGroup>
-                </Col>
-
-                <Col xs={2} className='list-item-date' >
-                  { isEditing ?
-                  <>
-                    {translate("start")}
-                    <FormControl
-                      type='date'
-                      size='sm'
-                      value={editStarted ? editStarted.slice(0, 10) : ''}
-                      onChange={handleEditStartedDate}
-                      className=''
-                    />
-                    <br />
-                    {translate("end")}
-                    <FormControl
-                      type='date'
-                      size='sm'
-                      value={editFinished ? editFinished.slice(0, 10) : ''}
-                      onChange={handleEditFinishedDate}
-                    />
                   </>
-                    :
-                  <div className='lecture-date'>
-                    {translate("start")}
-                    <div>{dateStarted ? dateStarted.slice(0, 10) : '-'}</div>
-                    <br />
-                    {translate("end")}
-                    <div>{dateFinished ? dateFinished.slice(0, 10) : '-'}</div>
-                  </div>
-                  }
-                </Col>
+              }
+            </FormGroup>
+          </Col>
 
-                <Col xs={1} className='list-item-edit'>
-                    {isEditing ?
-                      <>
-                        <Button variant='secondary' className='edit-boton' onClick={handleCloseEdit} >
-                          <XLg size={20} />
-                        </Button>
-                        <Button variant='success' className='edit-boton' onClick={handleSaveEdit} >
-                          < CheckLg size={20} />
-                        </Button>
-                        <Button variant='danger' className='edit-boton' onClick={handleDelete} >
-                          <Trash3 size={20} />
-                        </Button>
-                      </>
-                    :
-                      <Button variant='secondary' className='edit-boton' onClick={handleEdit} >
-                        <PencilSquare size={20} />
-                      </Button>
-                        
+          <Col xs={2} className='list-item-date' >
+            {isEditing ?
+              <>
+                {translate("start")}
+                <FormControl
+                  type='date'
+                  size='sm'
+                  value={editStarted ? editStarted.slice(0, 10) : ''}
+                  onChange={handleEditStartedDate}
+                  className=''
+                />
+                <br />
+                {translate("end")}
+                <FormControl
+                  type='date'
+                  size='sm'
+                  value={editFinished ? editFinished.slice(0, 10) : ''}
+                  onChange={handleEditFinishedDate}
+                />
+              </>
+              :
+              <div className='lecture-date'>
+                {translate("start")}
+                <div>{dateStarted ? dateStarted.slice(0, 10) : '-'}</div>
+                <br />
+                {translate("end")}
+                <div>{dateFinished ? dateFinished.slice(0, 10) : '-'}</div>
+              </div>
+            }
+          </Col>
 
-                    }
-                </Col>
-              </Row>
-              
-        </ListGroupItem>
+          <Col xs={1} className='list-item-edit'>
+            {isEditing ?
+              <>
+                <Button variant='secondary' className='edit-boton' onClick={handleCloseEdit} >
+                  <XLg size={20} />
+                </Button>
+                <Button variant='success' className='edit-boton' onClick={handleSaveEdit} >
+                  < CheckLg size={20} />
+                </Button>
+                <Button variant='danger' className='edit-boton' onClick={handleDelete} >
+                  <Trash3 size={20} />
+                </Button>
+              </>
+              :
+              <Button variant='secondary' className='edit-boton' onClick={handleEdit} >
+                <PencilSquare size={20} />
+              </Button>
+
+
+            }
+          </Col>
+        </Row>
+
+      </ListGroupItem>
     </>
   )
 }

@@ -1,28 +1,28 @@
-import { User, Lecture} from "../models/index.js";
-import bcrypt from 'bcrypt';  // Asegurate de importar bcrypt para el hash
+import { User, Lecture } from "../models/index.js";
+import bcrypt from 'bcrypt';
 
 export const getUser = async (req, res) => {
-    const { id } = req.params;
+  const { id } = req.params;
 
-    const user = await User.findByPk(id);
+  const user = await User.findByPk(id);
 
-    if (!user){
-        return res.status(404).json({ message: "Usuario no encontrado" });
-    }
+  if (!user) {
+    return res.status(404).json({ message: "Usuario no encontrado" });
+  }
 
-    // memberSince formatea la fecha en que se registró
-    const formattedUser = {
-        ...user.toJSON(),
-        memberSince: new Date(user.createdAt).toLocaleDateString('es-ES')
-    };
+  // memberSince formatea la fecha en que se registró
+  const formattedUser = {
+    ...user.toJSON(),
+    memberSince: new Date(user.createdAt).toLocaleDateString('es-ES')
+  };
 
-    res.json(formattedUser);
+  res.json(formattedUser);
 }
 
-export const getUsers = async (req,res) => {
-    const users = await User.findAll();
+export const getUsers = async (req, res) => {
+  const users = await User.findAll();
 
-    res.json(users);
+  res.json(users);
 }
 
 export const updateUser = async (req, res) => {
@@ -42,7 +42,7 @@ export const updateUser = async (req, res) => {
     }
   }
 
-  
+
   const updateData = {};
   if (username !== undefined) updateData.username = username;
   if (profilePictureUrl !== undefined) updateData.profilePictureUrl = profilePictureUrl;
@@ -61,19 +61,19 @@ export const updateUser = async (req, res) => {
 };
 
 
-export const deleteUser = async (req,res) => {
-    const {id} = req.params;
+export const deleteUser = async (req, res) => {
+  const { id } = req.params;
 
-    const user = await User.findByPk(id);
+  const user = await User.findByPk(id);
 
-    if (!user){
-        return res.status(404).json({ message: "Usuario no encontrado" });
-    }
+  if (!user) {
+    return res.status(404).json({ message: "Usuario no encontrado" });
+  }
 
-    
-    await Lecture.destroy({ where: { userId: id } });
 
-    await user.destroy();
+  await Lecture.destroy({ where: { userId: id } });
 
-    res.send(`El usuario con id: ${id} ha sido eliminado`);
+  await user.destroy();
+
+  res.send(`El usuario con id: ${id} ha sido eliminado`);
 }

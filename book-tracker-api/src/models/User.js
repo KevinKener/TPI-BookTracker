@@ -26,7 +26,7 @@ export const User = sequelize.define("user", {
         type: DataTypes.STRING,
     },
     role: {
-        type: DataTypes.ENUM('admin', 'mod', 'reader'), // Rol invitado?? Limitaciones de acceso a perfil || Limitaciones en settings
+        type: DataTypes.ENUM('admin', 'mod', 'reader'),
         // POR DEFECTO, los usuarios registrados son "Lectores"
         defaultValue: 'reader'
     }

@@ -1,7 +1,6 @@
-import React, { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchBooks, fetchGenres } from "./browse.services.js";
-import { AuthenticationContext } from "../services/auth.context.jsx";
 import { errorToast } from "../notifications/notifications.js";
 import { useTranslate } from "../hooks/translation/UseTranslate";
 
@@ -9,7 +8,6 @@ import "./browse.css";
 import CardBook from "../cardBook/CardBook.jsx";
 
 const Browse = () => {
-  const { token } = useContext(AuthenticationContext);
   const translate = useTranslate();
   const navigate = useNavigate();
 
@@ -21,8 +19,8 @@ const Browse = () => {
 
   const filteredBooks = genreFilter
     ? books.filter((book) =>
-        book.genres?.some((genre) => genre.name === genreFilter)
-      )
+      book.genres?.some((genre) => genre.name === genreFilter)
+    )
     : books;
 
   const handleClick = (id) => () => {
@@ -76,9 +74,8 @@ const Browse = () => {
             {genres.map((genre) => (
               <div
                 key={genre.id}
-                className={`genre-filter clickable ${
-                  genreFilter === genre.name ? "active" : ""
-                }`}
+                className={`genre-filter clickable ${genreFilter === genre.name ? "active" : ""
+                  }`}
                 onClick={handleFilter(genre.name)}
               >
                 {translate(genre.name)}

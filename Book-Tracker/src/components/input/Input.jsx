@@ -1,4 +1,3 @@
-import React from 'react';
 import './Input.css';
 
 function Input({ placeholder, type, id, name, value, onChange }) {

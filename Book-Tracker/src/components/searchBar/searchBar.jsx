@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import fetchBooks from './searchbar.services.js';
 import { useNavigate } from 'react-router-dom';
 import { useTranslate } from '../hooks/translation/UseTranslate.jsx';
@@ -14,9 +14,9 @@ const SearchBar = () => {
 
   // Normalizacion UNICODE
   const normalizeText = (text) =>
-  text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
-    useEffect(() => {
+  useEffect(() => {
     const loadBooks = async () => {
       try {
         const data = await fetchBooks();
@@ -36,7 +36,7 @@ const SearchBar = () => {
     const normalizedTerm = normalizeText(term);
 
     if (term.length > 0) {
-      const found = books.filter(book =>{
+      const found = books.filter(book => {
         const byTitle = normalizeText(book.title).includes(normalizedTerm);
         const byAuthor = normalizeText(book.author?.authorName).includes(normalizedTerm);
         return byTitle || byAuthor;

@@ -1,6 +1,4 @@
-import React from 'react'
 import { Card, CardBody } from "react-bootstrap";
-
 import './cardBook.css';
 
 const CardBook = ({ book, handleClick, handleAuthor, translate }) => {

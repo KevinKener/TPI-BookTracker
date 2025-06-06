@@ -1,26 +1,25 @@
 import { validateAuthor, validateGenre, validatePages, validateSummary, validateTitle } from "../helpers/validations.books.js";
 import { Author, Book, Lecture } from "../models/index.js"; // Asegúrate de que 'Lecture' esté correctamente importado aquí
 import { Genre } from "../models/index.js";
-import { DataTypes, Sequelize } from 'sequelize'; // Importa Sequelize para las funciones de agregación
+import { Sequelize } from 'sequelize'; // Importa Sequelize para las funciones de agregación
 
 // validaciones
 const validateNewBook = (req) => {
     const { title, authorId, pages, genres, summary } = req.body;
 
-    if (!title || typeof title !== 'string' || title.length < 1 || title.length > 50)
+    if (!title || !validateTitle(title, 50, 1))
         return { error: true, message: "El título debe tener entre 1 y 50 caracteres." };
 
-    if (!authorId || typeof authorId !== 'number')
+    if (!authorId || !validateAuthor(authorId))
         return { error: true, message: "Debes elegir un autor válido." };
 
-    const nPages = parseInt(pages);
-    if (!nPages || nPages < 1 || nPages > 6000)
+    if (!pages || !validatePages(pages, 6000, 1))
         return { error: true, message: "El libro debe tener entre 1 y 6000 páginas." };
 
-    if (!Array.isArray(genres) || genres.length === 0)
+    if (!validateGenre(genres))
         return { error: true, message: "Debes seleccionar al menos un género." };
 
-    if (!summary || typeof summary !== 'string' || summary.length > 1000)
+    if (!summary || validateSummary(summary, 1000))
         return { error: true, message: "El resumen debe tener hasta 1000 caracteres." };
 
     return { error: false };

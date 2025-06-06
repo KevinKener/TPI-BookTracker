@@ -1,5 +1,4 @@
-import React from 'react'
-import { useTranslate } from '../hooks/translation/UseTranslate'
+import { useTranslate } from '../hooks/translation/UseTranslate';
 
 const NotFound = () => {
 

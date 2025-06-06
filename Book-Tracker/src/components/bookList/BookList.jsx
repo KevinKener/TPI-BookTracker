@@ -1,34 +1,33 @@
-import React, { useState, useEffect, useContext } from 'react'
-import { Card, CardHeader, ListGroup, ListGroupItem, Row, Col } from 'react-bootstrap'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import BookItem from '../bookItem/BookItem'
-import { StarFill } from 'react-bootstrap-icons'
-import fetchLectures from './booklist.services.js'
-import { useTranslate } from '../hooks/translation/UseTranslate'
-import { AuthenticationContext } from '../services/auth.context.jsx'
-import './bookList.css'
+import React, { useState, useEffect, useContext } from 'react';
+import { Card, CardHeader, ListGroup, ListGroupItem, Row, Col } from 'react-bootstrap';
+import BookItem from '../bookItem/BookItem';
+import { StarFill } from 'react-bootstrap-icons';
+import fetchLectures from './booklist.services.js';
+import { useTranslate } from '../hooks/translation/UseTranslate';
+import { AuthenticationContext } from '../services/auth.context.jsx';
+import './bookList.css';
 
 const BookList = () => {
-  
+
   const translate = useTranslate();
-  
+
   // TOKEN CONTEXT
   const { token } = useContext(AuthenticationContext);
-  
+
   // ACA DEBERIA LLAMAR LOS METODOS PUT, DELETE PARA EDITAR Y BORRAR LIBROS DE LISTAS
   const [lectures, setLectures] = useState([]);
   const [statusFilter, setStatusFilter] = useState(null);
 
   const handleUpdateLecture = (updatedLecture) => {
-    setLectures((prevLectures) => 
-      prevLectures.map((lecture) => 
+    setLectures((prevLectures) =>
+      prevLectures.map((lecture) =>
         lecture.id === updatedLecture.id ? updatedLecture : lecture
       )
     );
   };
 
   const handleDeleteLecture = (deletedId) => {
-    setLectures((prevLectures) => 
+    setLectures((prevLectures) =>
       prevLectures.filter((lecture) => lecture.id !== deletedId)
     )
   }
@@ -41,7 +40,7 @@ const BookList = () => {
 
   useEffect(() => {
     fetchLectures(token)
-      .then(data => setLectures([...data]))      
+      .then(data => setLectures([...data]))
   }, [])
 
   return (
@@ -66,12 +65,12 @@ const BookList = () => {
               <ListGroupItem className={`status-filter clickable ${statusFilter === "Leído" ? "active" : ""}`} onClick={handleFilter("Leído")} >
                 {translate("Leído")}
               </ListGroupItem>
-              { statusFilter !== null &&
-              <>
-                <ListGroupItem className='clear-filter clickable' onClick={handleFilter(null)} >
-                  {translate("clear_filter")}
-                </ListGroupItem>
-              </>
+              {statusFilter !== null &&
+                <>
+                  <ListGroupItem className='clear-filter clickable' onClick={handleFilter(null)} >
+                    {translate("clear_filter")}
+                  </ListGroupItem>
+                </>
 
               }
             </ListGroup>
@@ -90,7 +89,7 @@ const BookList = () => {
                   {translate("status")}
                 </Col>
                 <Col xs={1} className='list-item-header' >
-                  <StarFill size={20} color='gold'/>
+                  <StarFill size={20} color='gold' />
                 </Col>
                 <Col xs={2} className='list-item-header' >
                   {translate("pages")}
@@ -99,24 +98,24 @@ const BookList = () => {
                   {translate("start")} / {translate("end")}
                 </Col>
                 <Col xs={1} className='list-item-header' >
-                  
+
                 </Col>
               </Row>
-              </CardHeader>
+            </CardHeader>
 
 
-              <ListGroup>
-                {
-                  filteredLectures.map(lecture => (
-                    <BookItem 
-                      key={lecture.id} 
-                      lecture={lecture} 
-                      onUpdate={handleUpdateLecture}
-                      onDelete={handleDeleteLecture}
-                      />
-                  ))
-                }
-              </ListGroup>
+            <ListGroup>
+              {
+                filteredLectures.map(lecture => (
+                  <BookItem
+                    key={lecture.id}
+                    lecture={lecture}
+                    onUpdate={handleUpdateLecture}
+                    onDelete={handleDeleteLecture}
+                  />
+                ))
+              }
+            </ListGroup>
           </Card>
         </div>
 

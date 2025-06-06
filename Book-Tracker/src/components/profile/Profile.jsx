@@ -35,7 +35,7 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    const getProfile = async() => {
+    const getProfile = async () => {
       try {
         const data = await fetchUserProfile(id, token);
         setUser(data);
@@ -55,10 +55,10 @@ const Profile = () => {
   }, [id, token])
 
 
-  
+
   if (!user) {
-      return <p>Cargando perfil...</p>;
-    }
+    return <p>Cargando perfil...</p>;
+  }
 
   return (
     <div className="profile-body">
@@ -85,9 +85,9 @@ const Profile = () => {
         </div>
 
         <div className="stats">
-          <StaticsCard text={translate("books_read")} content={stats.booksRead}/>
+          <StaticsCard text={translate("books_read")} content={stats.booksRead} />
           <StaticsCard text={translate("pages_read")} content={stats.pagesRead} extraClass="destacada" />
-          <StaticsCard text={translate("avg_rating")} content={stats.avgRating}/>
+          <StaticsCard text={translate("avg_rating")} content={stats.avgRating} />
         </div>
       </div>
 

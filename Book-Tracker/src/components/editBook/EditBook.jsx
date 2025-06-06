@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Form, Row, Col, FormGroup, FormLabel, FormControl, FormCheck } from 'react-bootstrap';
 import { fetchGenres, fetchAuthors } from '../newBook/newbook.services.js';
-import { updateBook, fetchBook } from './edit.services.js';
+import { updateBook, fetchBook, validateForm } from './edit.services.js';
 import { successToast, errorToast } from '../notifications/notifications.js';
 import { useTranslate } from '../hooks/translation/UseTranslate.jsx';
 import { AuthenticationContext } from '../services/auth.context.jsx';
@@ -10,7 +10,6 @@ import fetchUserLogged from '../profile/profile.services.js';
 import notFound from '../newBook/image-not-found.jpg';
 import './editBook.css';
 import '../input/Input.css';
-
 
 const EditBook = () => {
     const { id: bookId } = useParams();
@@ -100,27 +99,6 @@ const EditBook = () => {
         setImageUrl(event.target.value);
     }
 
-    const validateForm = ({ title, selectedAuthor, pages, selectedGenres, summary }) => {
-        if (!title || title.trim().length < 1 || title.trim().length > 50)
-            return translate("error_title_range");
-
-        if (!selectedAuthor || isNaN(parseInt(selectedAuthor, 10)))
-            return translate("error_author_invalid");
-
-        const numPages = parseInt(pages, 10);
-        if (!numPages || numPages < 1 || numPages > 6000)
-            return translate("error_pages_range");
-
-        if (!selectedGenres || selectedGenres.length === 0)
-            return translate("error_genre_required");
-
-        if (!summary || summary.length > 1000)
-            return translate("error_summary_required");
-
-        return null;
-    };
-
-
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -146,6 +124,27 @@ const EditBook = () => {
         } catch (error) {
             errorToast(error.message);
         }
+    };
+
+
+    const validateForm = ({ title, selectedAuthor, pages, selectedGenres, summary }) => {
+        if (!title || title.trim().length < 1 || title.trim().length > 50)
+            return translate("error_title_range");
+
+        if (!selectedAuthor || isNaN(parseInt(selectedAuthor, 10)))
+            return translate("error_author_invalid");
+
+        const numPages = parseInt(pages, 10);
+        if (!numPages || numPages < 1 || numPages > 6000)
+            return translate("error_pages_range");
+
+        if (!selectedGenres || selectedGenres.length === 0)
+            return translate("error_genre_required");
+
+        if (!summary || summary.length > 1000)
+            return translate("error_summary_required");
+
+        return null;
     };
 
     if (!allowed || loading || !book) return null;

@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import BookGroup from '../bookGroup/BookGroup';
 import CardBook from '../cardBook/CardBook';
 import { fetchLectures, getBooks, getPopularBooks } from './home.services';
 import { AuthenticationContext } from '../services/auth.context';
 import { useTranslate } from "../hooks/translation/UseTranslate.jsx";
-import { replace, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import './home.css';
 const Home = () => {
@@ -36,7 +36,7 @@ const Home = () => {
 
   const handleSingUp = () => {
     navigate(`/login/`, { replace: true });
-  } 
+  }
 
   useEffect(() => {
     const loadData = async () => {

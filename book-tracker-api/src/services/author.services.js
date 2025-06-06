@@ -1,35 +1,35 @@
-import { Author } from '../models/index.js'
+import { Author } from '../models/index.js';
 
-export const findAuthors = async (req,res) => {
+export const findAuthors = async (req, res) => {
     const authors = await Author.findAll();
 
     res.json(authors);
 }
 
 export const findAuthor = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const author = await Author.findByPk(id);
-    if (!author) {
-      return res.status(404).json({ message: "Autor no encontrado" });
+    try {
+        const { id } = req.params;
+        const author = await Author.findByPk(id);
+        if (!author) {
+            return res.status(404).json({ message: "Autor no encontrado" });
+        }
+        res.json(author);
+    } catch (error) {
+        console.error("Error en findAuthor:", error);
+        res.status(500).json({ message: "Error interno del servidor" });
     }
-    res.json(author);
-  } catch (error) {
-    console.error("Error en findAuthor:", error);
-    res.status(500).json({ message: "Error interno del servidor" });
-  }
 };
 
-export const createAuthor = async (req,res) => {
+export const createAuthor = async (req, res) => {
     const { authorName, birthplace, imageUrl, summary } = req.body;
 
-    if(!authorName){
+    if (!authorName) {
         return res.status(400).send({ message: "El autor requiere de nombre" });
     }
 
     const newAuthor = await Author.create({
-        authorName, 
-        birthplace, 
+        authorName,
+        birthplace,
         imageUrl,
         summary
     });
@@ -37,20 +37,20 @@ export const createAuthor = async (req,res) => {
     res.json(newAuthor);
 }
 
-export const updateAuthor = async (req,res) => {
+export const updateAuthor = async (req, res) => {
     const { id } = req.params;
     const { authorName, birthplace, imageUrl, summary } = req.body;
 
     const author = await Author.findByPk(id);
 
-    if(!author){
-        return res.status(400).send({message:"No se ha encontrado el autor"});
+    if (!author) {
+        return res.status(400).send({ message: "No se ha encontrado el autor" });
     }
 
     await author.update({
-        authorName, 
-        birthplace, 
-        imageUrl, 
+        authorName,
+        birthplace,
+        imageUrl,
         summary
     }, {
         where: {
@@ -61,12 +61,12 @@ export const updateAuthor = async (req,res) => {
     res.json(author);
 }
 
-export const deleteAuthor = async (req,res) => {
+export const deleteAuthor = async (req, res) => {
     const { id } = req.params;
     const author = await Author.findByPk(id);
 
-    if(!author){
-        return res.status(400).send({message:"No se ha encontrado el autor"});
+    if (!author) {
+        return res.status(400).send({ message: "No se ha encontrado el autor" });
     }
 
     author.destroy();

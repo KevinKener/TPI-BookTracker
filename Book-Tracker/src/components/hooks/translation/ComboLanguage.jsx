@@ -6,7 +6,7 @@ import { Globe } from 'react-bootstrap-icons'
 import "./comboLanguage.css";
 
 const ComboLanguage = () => {
-    const { language, changeLanguageHandler } = useContext(TranslationContext);
+    const { changeLanguageHandler } = useContext(TranslationContext);
     const translate = useTranslate();
 
     const handleLanguageChange = (lang) => () => changeLanguageHandler(lang);
@@ -21,13 +21,13 @@ const ComboLanguage = () => {
 
                 <Dropdown.Menu>
                     <Dropdown.Item
-                    onClick={handleLanguageChange("en")}
+                        onClick={handleLanguageChange("en")}
                     >
-                    {translate("english_lang")}
+                        {translate("english_lang")}
                     </Dropdown.Item>
                     <Dropdown.Item
                         onClick={handleLanguageChange("es")}
-                        >
+                    >
                         {translate("spanish_lang")}
                     </Dropdown.Item>
                 </Dropdown.Menu>
