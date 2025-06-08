@@ -154,7 +154,7 @@ const BookDetails = () => {
           </Button>
         )}
 
-        {role === "admin" && (
+        {(role === "admin" || role === "mod") && (
           <>
             <hr />
             <Button

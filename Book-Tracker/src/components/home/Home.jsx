@@ -106,7 +106,7 @@ const Home = () => {
         </div>
       ) : (
         <div className='go-browse'>
-          <h3>{translate('sing-up-for-more-options')}</h3>
+          <h3>{translate('sign-up-for-more-options')}</h3>
           <button onClick={handleSingUp}>{translate('login')}</button>
         </div>
       )}

@@ -3,13 +3,13 @@
   flex-direction: column;
   margin: 1% 0;
   width: 100%;
-  
   background-color: #f4f4f4;
 }
 
 .my-list{
   /* border: 1px dotted red !important; */
   border: none !important;
+  background-color: #f4f4f4 !important;
   
 }
 

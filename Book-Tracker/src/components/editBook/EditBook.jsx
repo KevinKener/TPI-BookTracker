@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Form, Row, Col, FormGroup, FormLabel, FormControl, FormCheck } from 'react-bootstrap';
 import { fetchGenres, fetchAuthors } from '../newBook/newbook.services.js';
-import { updateBook, fetchBook, validateForm } from './edit.services.js';
+import { updateBook, fetchBook } from './edit.services.js';
 import { successToast, errorToast } from '../notifications/notifications.js';
 import { useTranslate } from '../hooks/translation/UseTranslate.jsx';
 import { AuthenticationContext } from '../services/auth.context.jsx';

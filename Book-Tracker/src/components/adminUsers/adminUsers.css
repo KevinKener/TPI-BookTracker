@@ -14,12 +14,20 @@
 .admin-grid{
     display: grid;
     grid-template-columns: 0.25fr 1.75fr 2fr 1fr 0.5fr 0.25fr;
-    gap: 5px;
+    gap: 0.5ex;
     width: 80%;
     height: fit-content;
-    border: solid 4px;
+    border: solid 0.75ex;
     padding: 1ex;
-    background-color: #558d5d;
+    background-color: #A8B778;
+    border-radius: 1em;
+}
+
+.admin-items, .admin-titles, .id-col{
+    border-radius: 0.75em !important;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
 }
 
 .admin-edit-btn{
@@ -28,7 +36,7 @@
 }
 
 .admin-titles, .admin-items{
-    padding: 0 2%;
+    padding: 0.75ex 2%;
     border: solid 1px;
     display: flex;
     width: 100%;
@@ -40,19 +48,25 @@
     font-size: 1.25rem;
     font-weight: 700;
     margin-bottom: 1.5rem;
+    padding: 1ex 0;
 }
 
 .blank-col{
     background-color: transparent;
     border: none !important;
+    gap: 6%;
 }
 
 .admin-items{
     border: solid 1px;
 }
 
-.x-btn{
+.delete-user-btn{
     font-weight: 600;
+}
+
+.admin-btn{
+    border: solid 1px black !important;
 }
 
 .admin-modal-header{
@@ -64,4 +78,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.edit-select{
+    text-align: center;
+    justify-content: center;
+}
+
+.save-btn{
+    background-color: #27be13;
 }

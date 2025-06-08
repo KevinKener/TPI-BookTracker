@@ -4,6 +4,11 @@ import { useTranslate } from '../hooks/translation/UseTranslate';
 import { AuthenticationContext } from '../services/auth.context';
 import './adminModal.css';
 
+
+// COMPONENTE FUERA DE SERVICIO
+// SE DECIDIÓ QUE NO TENIA UTILIDAD LUEGO DE SIMPLIFICAR FUNCIONALIDADES
+
+
 const AdminModal = ({ user, showEditModal, closeModal, updateUser, newUsername, newEmail, newRole, setNewUsername, setNewEmail, setNewRole }) => {
 
   const translate = useTranslate();

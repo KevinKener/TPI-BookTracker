@@ -19,7 +19,7 @@ const validateNewBook = (req) => {
     if (!validateGenre(genres))
         return { error: true, message: "Debes seleccionar al menos un género." };
 
-    if (!summary || validateSummary(summary, 1000))
+    if (!summary || !validateSummary(summary, 1000))
         return { error: true, message: "El resumen debe tener hasta 1000 caracteres." };
 
     return { error: false };

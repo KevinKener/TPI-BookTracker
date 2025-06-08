@@ -19,7 +19,6 @@ const CardBook = ({ book, handleClick, handleAuthor, translate }) => {
                 >
                     {translate(book.title)}
                 </span>
-                <br />
 
                 {/* AUTOR */}
                 <span
@@ -28,7 +27,6 @@ const CardBook = ({ book, handleClick, handleAuthor, translate }) => {
                 >
                     {translate(book.author?.authorName)}
                 </span>
-                <br />
 
                 {/* PAGINAS */}
                 <span className="book-item-pages">

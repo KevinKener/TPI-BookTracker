@@ -18,12 +18,13 @@
 .book-item-title{
     font-size: 0.9rem;
     font-weight: 500;
-    margin-top: auto;
+    margin-top: 1ex;
 }
 
 .book-item-author{
     font-size: 0.8rem;
-    margin-top: auto;
+    margin-top: 1ex;
+    margin-bottom: 1em;
 }
 
 .book-item-pages{

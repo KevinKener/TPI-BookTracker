@@ -38,7 +38,7 @@ const BookItem = ({ lecture, onUpdate, onDelete }) => {
     const newStatus = event.target.value;
     setStatus(newStatus);
 
-    // Sale de ISO. slice al 10 por 8 numeros y 2 guiones YYYY-MM-DD
+    // Es un estandar. slice al 10 por los 8 numeros y 2 guiones YYYY-MM-DD
     const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD (10 caracteres, contando guiones)
 
     // Setea la fecha en Hoy, cuando marca leyendo

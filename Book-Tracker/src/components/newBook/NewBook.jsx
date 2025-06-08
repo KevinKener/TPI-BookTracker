@@ -106,6 +106,12 @@ const NewBook = () => {
     const handleAddBook = async (event) => {
         event.preventDefault();
 
+        const errorMsg = validateForm({ title, selectedAuthor, pages, selectedGenres, summary });
+        if (errorMsg) {
+            errorToast(errorMsg);
+            return;
+        }
+
         const bookData = {
             title,
             authorId: parseInt(selectedAuthor),
@@ -115,25 +121,17 @@ const NewBook = () => {
             imageUrl
         };
 
-        const errorMsg = validateForm({ title, selectedAuthor, pages, selectedGenres, summary });
-
         try {
             await newBook(token, bookData);
             successToast(translate("add_success"));
             console.log(bookData);
-
             resetForm();
         } catch (error) {
-            if (errorMsg) {
-                errorToast(errorMsg);
-                return;
-            }
             console.log("Error al añadir el libro: ", error);
-            errorToast(translate("add_error"));
+            errorToast(error.message);
         }
-
-
     };
+
 
     const validateForm = ({ title, selectedAuthor, pages, selectedGenres, summary }) => {
         if (!title || title.trim().length < 1 || title.trim().length > 50)
@@ -149,7 +147,7 @@ const NewBook = () => {
         if (!selectedGenres || selectedGenres.length === 0)
             return translate("error_genre_required");
 
-        if (!summary || summary.length > 1000)
+        if (!summary.trim() || summary.trim().length > 1000)
             return translate("error_summary_required");
 
         return null;

@@ -55,9 +55,11 @@ const Login = () => {
         <div className='main-register'>
             <div className="login-image">
                 <div className="login-image-text">
-                    <h3>Tus libros a un click</h3>
+                    <h3>{translate("login_img_title")}</h3>
                     <p>
-                        Accede a tu biblioteca y gestiona tus<br />lecturas
+                        {translate("login_img_text1")}
+                        <br />
+                        {translate("login_img_text2")}
                     </p>
                 </div>
             </div>
@@ -87,9 +89,9 @@ const Login = () => {
                         <button type="submit" className="register-button">{translate("login")}</button>
                     </form>
                     <div className="login-text">
-                        <p>¿No tienes una cuenta?</p>
-                        <a href="" onClick={handleRegister}>
-                            Registrate
+                        <p>{translate("not_registered_yet")}</p>
+                        <a className='clickable' onClick={handleRegister}>
+                            {translate("create_your_account")}
                         </a>
                     </div>
                 </div>

@@ -122,10 +122,10 @@ function Register() {
       </div>
       <div className="register-image">
         <div className="register-image-text">
-          <h3>Organiza tus lecturas</h3>
+          <h3>{translate("register_img_title")}</h3>
           <p>
-            Manten un registro de tus lecturas y ayuda a tu <br /> memoria con
-            BookTracker
+            {translate("register_img_text1")}<br />
+            {translate("register_img_text2")}
           </p>
         </div>
       </div>

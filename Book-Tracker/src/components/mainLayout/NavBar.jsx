@@ -32,7 +32,9 @@ const NavBar = () => {
             {(role === 'mod' || role === 'admin') &&
               <>
                 <Nav.Link as={NavLink} to='/new-book'>{translate("new_book")}</Nav.Link>
-                <Nav.Link as={NavLink} to='/admin-users'>Admin</Nav.Link>
+                {(role === "mod") &&
+                  <Nav.Link as={NavLink} to='/admin-users'>Admin</Nav.Link>
+                }
               </>
             }
           </Nav>
