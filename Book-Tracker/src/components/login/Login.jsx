@@ -46,9 +46,16 @@ const Login = () => {
             handleUserLogin(data.token, data.username, data.id, data.role, data.img);
             successToast("Inicio de sesión existoso");
             navigate("/my-books");
-        } catch (errors) {
-            errorToast(errors || "Error desconocido al iniciar sesión")
+        } catch (error) {
+            console.log("Error: ", error);
+
+            if (error.status === 401 || error.status === 404) {
+                errorToast("Correo y/o contraseña incorrecto/s");
+            } else {
+                errorToast("Error desconocido al iniciar sesión");
+            }
         }
+
     }
 
     return (

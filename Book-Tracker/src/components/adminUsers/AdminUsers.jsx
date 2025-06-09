@@ -108,15 +108,11 @@ const AdminUsers = () => {
   };
 
   const handleClickEditUser = (user) => () => (
-    role === "mod"
-      ? handleEdit(user)
-      : isNotMod()
+    handleEdit(user)
   );
 
   const handleClickDeleteUser = (user) => () => (
-    role === "mod"
-      ? isNotMod()
-      : handleOpenDeleteModal(user)
+    handleOpenDeleteModal(user)
   );
 
   useEffect(() => {

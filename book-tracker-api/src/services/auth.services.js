@@ -146,7 +146,7 @@ export const loginUser = async (req, res) => {
         const user = await User.findOne({ where: { email } });
 
         if (!user) {
-            return res.status(400).send({ message: "El correo no se encuentra registrado" });
+            return res.status(404).send({ message: "El correo no se encuentra registrado" });
         }
 
         const comparison = await bcrypt.compare(password, user.password);
